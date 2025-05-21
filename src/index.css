@@ -1,0 +1,6 @@
+.display > * {
+  display: block;
+  flex-direction: column;
+  width: auto;
+  margin: 10px;
+}
