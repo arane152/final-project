@@ -11,9 +11,17 @@ import ToggleBtn from './components/ToggleBtn.jsx'
 import CategoryBtn from './components/CategoryBtn.jsx'
 import StoreName from './components/StoreName.jsx'
 import Gnb from './layouts/Gnb.jsx'
+import Alert from './components/Alert.jsx'
+import Header from './layouts/Header.jsx'
+
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
+      {/* <Alert></Alert> 
+      Alert 페이지 주석 확인바람*/}
+      <Header type="main"></Header>
+      <Header type="search"></Header>
+      <Header></Header>
       <MainBtn text="모집글 올리기"></MainBtn>
       <MainBtn type="disable" text="모집글 올리기"></MainBtn>
 
@@ -31,5 +39,7 @@ createRoot(document.getElementById('root')).render(
       <StoreName category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
 
       <Gnb></Gnb>
+
+
     </div>
 )
