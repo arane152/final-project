@@ -13,6 +13,9 @@ import StoreName from './components/StoreName.jsx'
 import Gnb from './layouts/Gnb.jsx'
 import Alert from './components/Alert.jsx'
 import Header from './layouts/Header.jsx'
+import TextInput from './components/TextInput.jsx'
+import InfoBox from './components/InfoBox.jsx'
+import StateBadge from './components/StateBadge.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -22,15 +25,28 @@ createRoot(document.getElementById('root')).render(
       <Header type="main"></Header>
       <Header type="search"></Header>
       <Header></Header>
+
+      <InfoBox title="두줄일때의제목"><TextInput></TextInput></InfoBox>
+      <InfoBox><TextInput height={"108px"}></TextInput></InfoBox>
+      <InfoBox title="아웃풋" content="내용"></InfoBox>
+      <InfoBox title={<>선입금<br />필수여부</>} content="농협 000000000000" badge="필수"></InfoBox>
+      <InfoBox title="토글">
+        <ToggleBtn text="허용"></ToggleBtn>
+        <ToggleBtn type="none-toggle" text="금지"></ToggleBtn>
+      </InfoBox>
+
+
+      <StateBadge type="Captain">모집자</StateBadge>
+      <StateBadge type="TotalAcount">100%</StateBadge>
+      <StateBadge>카테고리</StateBadge>
+      
       <MainBtn text="모집글 올리기"></MainBtn>
       <MainBtn type="disable" text="모집글 올리기"></MainBtn>
-
       <SubBtn text="메뉴추가"></SubBtn>
       <SubBtn type="stroke" text="메뉴추가"></SubBtn>
       <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
 
-      <ToggleBtn text="허용"></ToggleBtn>
-      <ToggleBtn type="none-toggle" text="금지"></ToggleBtn>
+
 
       <CategoryBtn type="toggle" text="전체"></CategoryBtn>
       <CategoryBtn text="치킨"></CategoryBtn>
