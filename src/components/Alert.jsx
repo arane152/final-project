@@ -48,7 +48,7 @@ font-size: 17px;
 flex : 1 1 auto;
 border-bottom: none;
 border: 1px, solid, rgba(128, 128, 128, 55%);
-font-weigt: 400;};
+font-weight: 400;};
 
 & > button > b{
 color: #FF6232;
