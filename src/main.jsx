@@ -18,6 +18,7 @@ import InfoBox from './components/InfoBox.jsx'
 import StateBadge from './components/StateBadge.jsx'
 import TotalAmount from './components/TotalAmount.jsx'
 import QuantityBtn from './components/QuantityBtn.jsx'
+import Profile from './components/Profile.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -50,6 +51,7 @@ createRoot(document.getElementById('root')).render(
       <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
       <SubBtn type="next" text="서브버튼"></SubBtn>
       <QuantityBtn quantity="0"></QuantityBtn>
+      <Profile name="홍길동" location="여기" date=" 00일"></Profile>
       
 
       <TotalAmount title="메뉴총액"></TotalAmount>
