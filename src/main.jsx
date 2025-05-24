@@ -20,6 +20,7 @@ import TotalAmount from './components/TotalAmount.jsx'
 import QuantityBtn from './components/QuantityBtn.jsx'
 import Profile from './components/Profile.jsx'
 import MenuOutPutItem from './components/MenuOutputitem.jsx'
+// import LikeBtn from './components/LikeBtn.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -80,7 +81,8 @@ createRoot(document.getElementById('root')).render(
       <MenuOutPutItem type="bold" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
       <MenuOutPutItem type="side" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
       <MenuOutPutItem type="delete" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
-
+        
+      {/* <LikeBtn likeNumber="0"></LikeBtn> */}
 
     </div>
 )

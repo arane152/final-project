@@ -21,13 +21,13 @@ const LikeNumber = styled.p`
     color: #666666;
 `
 
-function Like(props) {
+function LikeBtn(props) {
     return (
         <LikeWrapper>
             <LikeIcon></LikeIcon>
-            <LikeNumber>{props.like-number}</LikeNumber>
+            <LikeNumber>{props.likeNumber}</LikeNumber>
         </LikeWrapper>
     )
 }
 
-export default Like
+export default LikeBtn
