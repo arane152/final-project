@@ -67,7 +67,13 @@ createRoot(document.getElementById('root')).render(
       <StoreName category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
       <StoreName type="black" category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
 
-      <Gnb></Gnb>
+      <Gnb type="gnb"></Gnb>
+      <Gnb type="btn">
+        <MainBtn type="default" mainText="메인버튼"></MainBtn>
+      </Gnb>
+      <Gnb type="btn">
+        <MainBtn type="dubble" mainText="메인버튼" subText="서브버튼"></MainBtn>
+      </Gnb>
 
 
     </div>
