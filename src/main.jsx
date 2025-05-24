@@ -28,12 +28,16 @@ import OderMenuArea from './modules/OrderMenuArea.jsx'
 
 import PostPartyContainer from './components/PostPartyContainer.jsx'
 
+import PostConatiner from './modules/PostContainer.jsx'
+
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
 
       <InfoArea></InfoArea>
       <OderMenuArea></OderMenuArea>
+
+      <PostConatiner postTitle="같이 드실 분 있나요?" postContent="이거 같이 먹고 싶은데 먹을 사람 찾습니다."></PostConatiner>
     
       {/* <Alert></Alert> 
       Alert 페이지 주석 확인바람*/}
