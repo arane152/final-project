@@ -80,8 +80,6 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   );
 };
 
-export default PostPartyContainer;
-
 // 스타일 정의
 const Wrapper = styled.div`
   width: 393px;
@@ -238,3 +236,5 @@ const Percent = styled.div`
   font-weight: 600;
   color: #ff6232;
 `;
+
+export default PostPartyContainer;

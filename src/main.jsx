@@ -26,12 +26,35 @@ import StatusBar from './components/StatusBar.jsx'
 import InfoArea from './modules/InfoArea.jsx'
 import OderMenuArea from './modules/OrderMenuArea.jsx'
 
+import PostPartyContainer from './components/PostPartyContainer.jsx'
+
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
 
       <InfoArea></InfoArea>
       <OderMenuArea></OderMenuArea>
+      <PostPartyContainer
+  recruiter={{
+    storeName: "BBQ 시흥 정왕점",
+    menus: [
+      { name: "후라이드", price: 15000, count: 1 },
+      { name: "양념치킨", price: 16000, count: 2 }
+    ],
+    onDeleteMenu: () => console.log("메뉴 삭제")
+  }}
+  participants={[
+    {
+      name: "김철수",
+      menus: [{ name: "콜라", price: 2000, count: 1 }]
+    },
+    {
+      name: "이영희",
+      menus: [{ name: "치즈볼", price: 3000, count: 2 }]
+    }
+  ]}
+  goalAmount={30000}
+/>
       {/* <Alert></Alert> 
       Alert 페이지 주석 확인바람*/}
       <Header type="main"></Header>
