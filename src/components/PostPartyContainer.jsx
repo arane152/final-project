@@ -1,7 +1,6 @@
-
-import React from "react";
 import styled from "styled-components";
 import Profile from "./Profile";
+import MenuOutputitem from "./MenuOutputitem";
 
 const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   const recruiterTotal = recruiter.menus.reduce((sum, m) => sum + m.price * m.count, 0);
@@ -33,10 +32,12 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
             </DeleteButton>
           </TopRow>
           {recruiter.menus.map((menu, idx) => (
-            <MenuItem key={idx}>
-              <MenuName>{menu.name} × {menu.count}개</MenuName>
-              <MenuPrice>개당 {menu.price.toLocaleString()}원</MenuPrice>
-            </MenuItem>
+            <MenuOutputitem
+              key={idx}
+              name={menu.name}
+              count={menu.count}
+              price={menu.price}
+            />
           ))}
         </RecruiterBlock>
         <Divider />
@@ -53,10 +54,12 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
                 </KickButton>
               </TopRow>
               {p.menus.map((menu, mIdx) => (
-                <MenuItem key={mIdx}>
-                  <MenuName>{menu.name} × {menu.count}개</MenuName>
-                  <MenuPrice>개당 {menu.price.toLocaleString()}원</MenuPrice>
-                </MenuItem>
+                <MenuOutputitem
+                  key={idx}
+                  name={menu.name}
+                  count={menu.count}
+                  price={menu.price}
+                  />
               ))}
             </ParticipantCard>
             <Divider />
@@ -82,7 +85,6 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
 
 export default PostPartyContainer;
 
-// 스타일 정의
 const Wrapper = styled.div`
   width: 393px;
   padding: 12px 0 20px 20px;

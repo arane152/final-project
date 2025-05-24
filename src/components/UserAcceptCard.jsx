@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 import Profile from "./Profile";
+import MenuOutputitem from "./MenuOutputitem";
 
 const UserAcceptCard = ({ name, date, menus, onAccept }) => {
   const totalPrice = menus.reduce(
@@ -14,14 +14,12 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
 
       <MenuList>
         {menus.map((menu, idx) => (
-          <MenuRow key={idx}>
-            <MenuName>
-              {menu.name} × {menu.count || 1}개
-            </MenuName>
-            <PricePerItem>
-              개당 {menu.price.toLocaleString()}원
-            </PricePerItem>
-          </MenuRow>
+          <MenuOutputitem
+            key={idx}
+            name={menu.name}
+            count={menu.count}
+            price={menu.price}
+          />
         ))}
       </MenuList>
 
@@ -35,7 +33,6 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
 
 export default UserAcceptCard;
 
-// 스타일 정의
 const CardContainer = styled.div`
   width: 329px;
   padding: 12px;
