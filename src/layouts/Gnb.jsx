@@ -17,6 +17,12 @@ const GnbLayout = styled.div`
     margin-top: 9px;
 `
 
+const GnbBtn = styled(GnbLayout)`
+    width: 353px;
+    justify-content: center;
+    margin-top: 16px;
+`
+
 const GnbHomeIcon = styled.div`
     display: flex;
     width: 36px;
@@ -39,15 +45,29 @@ const GnbAddIcon = styled.div`
 `
 
 function Gnb(props) {
-    return (
-    <GnbWrapper>
-        <GnbLayout>
-            <GnbHomeIcon></GnbHomeIcon>
-            <GnbAddIcon></GnbAddIcon>
-            <GnbProfileIcon></GnbProfileIcon>
-        </GnbLayout>
-    </GnbWrapper>
-    )
+    // props.type : gnb 타입 (gnb : "gnb" / 버튼 : "btn")
+    // props.children : gnb 타입중 btn 타입일때, 안에 들어가는 버튼
+    if (props.type == "gnb") {
+        return (
+            <GnbWrapper>
+                <GnbLayout>
+                    <GnbHomeIcon></GnbHomeIcon>
+                    <GnbAddIcon></GnbAddIcon>
+                    <GnbProfileIcon></GnbProfileIcon>
+                </GnbLayout>
+            </GnbWrapper>
+        )
+    }
+    else if (props.type == "btn") {
+        return (
+            <GnbWrapper>
+                <GnbBtn>
+                    {props.children}
+                </GnbBtn>
+            </GnbWrapper>
+        )
+    }
+
 }
 
 export default Gnb
