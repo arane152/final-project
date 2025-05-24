@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ItemContainer = styled.div`
-  width: 329px;
+  width: ${props => props.width}px;
   display: flex;
   justify-content: space-between;
   font-size: 14px;
@@ -54,15 +54,15 @@ const MenuDelete = styled.div`
 `
 
 
-const MenuOutPutItem = ({ name, price, count = 1, type }) => {
+const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
   // type : 표시 타입 (기본 : "default" / 메뉴 bold : "bold" / side 텍스트 : "side" / 삭제 : "delete")
   // name : 메뉴 이름
   // count : 단일 메뉴 갯수
   // price : 메뉴 가격
   
-  if (type == "default") {
+  if (type === "default") {
     return (
-      <ItemContainer>
+      <ItemContainer width={width}>
         <MenuText>
           {name} × {count}개
         </MenuText>
@@ -70,9 +70,9 @@ const MenuOutPutItem = ({ name, price, count = 1, type }) => {
       </ItemContainer>
     );
   }
-  else if (type == "bold") {
+  else if (type === "bold") {
     return (
-      <ItemContainer>
+      <ItemContainer width={width}>
         <MenuTextBold>
           {name} × {count}개
         </MenuTextBold>
@@ -80,9 +80,9 @@ const MenuOutPutItem = ({ name, price, count = 1, type }) => {
       </ItemContainer>
     );
   }
-  else if (type == "side") {
+  else if (type === "side") {
     return (
-      <ItemContainerSide>
+      <ItemContainerSide width={width}>
         <MenuTextSide>
           {name} × {count}개&nbsp;
         </MenuTextSide>
@@ -90,9 +90,9 @@ const MenuOutPutItem = ({ name, price, count = 1, type }) => {
       </ItemContainerSide>
     )
   }
-  else if (type == "delete") {
+  else if (type === "delete") {
     return (
-      <ItemContainer>
+      <ItemContainer width={width}>
         <MenuText>
           {name} × {count}개
         </MenuText>
