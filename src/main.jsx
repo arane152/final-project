@@ -21,6 +21,7 @@ import QuantityBtn from './components/QuantityBtn.jsx'
 import Profile from './components/Profile.jsx'
 import MenuOutPutItem from './components/MenuOutputitem.jsx'
 import LikeBtn from './components/LikeBtn.jsx'
+import StatusBar from './components/StatusBar.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -84,6 +85,9 @@ createRoot(document.getElementById('root')).render(
         
       <LikeBtn type="default" likeNumber="0"></LikeBtn>
       <LikeBtn type="like" likeNumber="1"></LikeBtn>
+
+      <StatusBar totalPercent="0" nowPrice="0" postMinPrice="0"></StatusBar>
+      <StatusBar type="simple" totalPercent="0"></StatusBar>
 
     </div>
 )
