@@ -19,7 +19,7 @@ import StateBadge from './components/StateBadge.jsx'
 import TotalAmount from './components/TotalAmount.jsx'
 import QuantityBtn from './components/QuantityBtn.jsx'
 import Profile from './components/Profile.jsx'
-import MenuOutPutItem from './components/Temp.jsx'
+import MenuOutPutItem from './components/MenuOutputitem.jsx'
 
 
 createRoot(document.getElementById('root')).render(
