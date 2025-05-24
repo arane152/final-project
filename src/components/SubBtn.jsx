@@ -28,7 +28,7 @@ const BtnTextStroke = styled(BtnText)`
 `
 
 function SubBtn(props) {
-    // props.type : 버튼 타입 (default : "" / stroke : "storke" / stroke-plus : "stroke-plus")
+    // props.type : 버튼 타입 (default : "" / stroke : "storke" / stroke-plus : "stroke-plus" / next : "next")
     // props.text : 버튼 내용
     if (props.type == "stroke") {
         return (
@@ -42,6 +42,13 @@ function SubBtn(props) {
             <BtnWrapperStroke>
                 <BtnTextStroke>{props.text} &nbsp;+</BtnTextStroke>
             </BtnWrapperStroke>
+        )
+    }
+    else if (props.type == "next") {
+        return (
+            <BtnWrapperDefault>
+                <BtnText>{props.text} &nbsp;→</BtnText>
+            </BtnWrapperDefault>
         )
     }
     else {

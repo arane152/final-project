@@ -16,6 +16,7 @@ import Header from './layouts/Header.jsx'
 import TextInput from './components/TextInput.jsx'
 import InfoBox from './components/InfoBox.jsx'
 import StateBadge from './components/StateBadge.jsx'
+import TotalAmount from './components/TotalAmount.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -40,11 +41,17 @@ createRoot(document.getElementById('root')).render(
       <StateBadge type="TotalAcount">100%</StateBadge>
       <StateBadge>카테고리</StateBadge>
       
-      <MainBtn text="모집글 올리기"></MainBtn>
-      <MainBtn type="disable" text="모집글 올리기"></MainBtn>
+      <MainBtn type="default" mainText="메인버튼"></MainBtn>
+      <MainBtn type="disable" mainText="메인버튼"></MainBtn>
+      <MainBtn type="dubble" mainText="메인버튼" subText="서브버튼"></MainBtn>
       <SubBtn text="메뉴추가"></SubBtn>
       <SubBtn type="stroke" text="메뉴추가"></SubBtn>
       <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
+      <SubBtn type="next" text="서브버튼"></SubBtn>
+
+      <TotalAmount title="메뉴총액"></TotalAmount>
+      <TotalAmount title="총액" color="orange" type="stroke"></TotalAmount>
+      <TotalAmount title="총액" type="none"></TotalAmount>
 
 
 
