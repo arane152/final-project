@@ -42,12 +42,12 @@ const TransparentStyleWrapper = styled(StyleWrapper)`
     background-color: transparent;
 `
 
-// #222222 #FF6232
+// #202020 #FF6232
 function TotalAmount(props) {
     const {title} = props;
 
-    const color = props.color || '#222222'
-    const colorHex = (color == "orange")? '#FF6232' : '#222222'   // title 컬러 변경(총액/메뉴총액)
+    const color = props.color || '#202020'
+    const colorHex = (color == "orange")? '#FF6232' : '#202020'   // title 컬러 변경(총액/메뉴총액)
     const type = props.type || "default";                         // 기본 / 스트로크 / none
 
     if(type == "default"){     //기본
