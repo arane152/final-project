@@ -10,13 +10,11 @@ const DeviceWrapper = styled.div`
     position: relative;
     width: 393px;
     height: 852px;
-    /* flex-direction: column; */
-    /* justify-content: flex-start; */
+    flex-direction: column;
+    justify-content: flex-start;
     margin: 0;
-    /* align-items: center; */
-    /* overflow-y: auto; */
-    /* box-sizing: border-box; */
-    /* flex-shrink: 0; */
+    align-items: center;
+    overflow-y: auto;
 `
 
 const ContentWrapper = styled.div`
