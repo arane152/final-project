@@ -44,6 +44,13 @@ function SubBtn(props) {
             </BtnWrapperStroke>
         )
     }
+    else if (props.type == "next") {
+        return (
+            <BtnWrapperDefault>
+                <BtnText>{props.text} &nbsp;→</BtnText>
+            </BtnWrapperDefault>
+        )
+    }
     else {
         return (
             <BtnWrapperDefault>

@@ -47,6 +47,7 @@ createRoot(document.getElementById('root')).render(
       <SubBtn text="메뉴추가"></SubBtn>
       <SubBtn type="stroke" text="메뉴추가"></SubBtn>
       <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
+      <SubBtn type="next" text="서브버튼"></SubBtn>
 
       <TotalAmount title="메뉴총액"></TotalAmount>
       <TotalAmount title="총액" color="orange" type="stroke"></TotalAmount>
