@@ -1,7 +1,6 @@
-
-import React from "react";
 import styled from "styled-components";
 import Profile from "./Profile";
+import MenuOutputitem from "./MenuOutputitem";
 
 const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   const recruiterTotal = recruiter.menus.reduce((sum, m) => sum + m.price * m.count, 0);
@@ -33,10 +32,12 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
             </DeleteButton>
           </TopRow>
           {recruiter.menus.map((menu, idx) => (
-            <MenuItem key={idx}>
-              <MenuName>{menu.name} × {menu.count}개</MenuName>
-              <MenuPrice>개당 {menu.price.toLocaleString()}원</MenuPrice>
-            </MenuItem>
+            <MenuOutputitem
+              key={idx}
+              name={menu.name}
+              count={menu.count}
+              price={menu.price}
+            />
           ))}
         </RecruiterBlock>
         <Divider />
@@ -53,10 +54,12 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
                 </KickButton>
               </TopRow>
               {p.menus.map((menu, mIdx) => (
-                <MenuItem key={mIdx}>
-                  <MenuName>{menu.name} × {menu.count}개</MenuName>
-                  <MenuPrice>개당 {menu.price.toLocaleString()}원</MenuPrice>
-                </MenuItem>
+                <MenuOutputitem
+                  key={idx}
+                  name={menu.name}
+                  count={menu.count}
+                  price={menu.price}
+                  />
               ))}
             </ParticipantCard>
             <Divider />
@@ -80,7 +83,12 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   );
 };
 
+// <<<<<<< HEAD
 // 스타일 정의
+// =======
+export default PostPartyContainer;
+
+// >>>>>>> 86d67e34078de65ac02c6848efc2fa33bf6420dc
 const Wrapper = styled.div`
   width: 393px;
   padding: 12px 0 20px 20px;
@@ -236,5 +244,3 @@ const Percent = styled.div`
   font-weight: 600;
   color: #ff6232;
 `;
-
-export default PostPartyContainer;
