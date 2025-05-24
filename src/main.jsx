@@ -41,7 +41,7 @@ createRoot(document.getElementById('root')).render(
       <StateBadge type="TotalAcount">100%</StateBadge>
       <StateBadge>카테고리</StateBadge>
       
-      <MainBtn mainText="메인버튼"></MainBtn>
+      <MainBtn type="default" mainText="메인버튼"></MainBtn>
       <MainBtn type="disable" mainText="메인버튼"></MainBtn>
       <MainBtn type="dubble" mainText="메인버튼" subText="서브버튼"></MainBtn>
       <SubBtn text="메뉴추가"></SubBtn>

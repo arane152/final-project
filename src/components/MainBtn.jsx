@@ -6,6 +6,7 @@ const Wrapper = styled.div`
     height: 48px;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
 `
 
 const BtnWrapperDefault = styled.div`
@@ -40,9 +41,19 @@ const BtnMainSub = styled.div`
     align-items: center;
 `
 
+const BtnWrapperDubble = styled(BtnWrapperDefault)`
+    width: 241px;
+`
+
+const BtnTextSub = styled(BtnText)`
+    color: #FF6232;
+    font-weight: 600;
+`
+
 function MainBtn(props) {
-    // props.type : 버튼 타입  (default : "" / disable : "disable")
-    // props.text : 버튼 내용
+    // props.type : 버튼 타입  (default : "default" / disable : "disable" / dubble : "dubble")
+    // props.mainText : 메인 버튼 내용
+    // props.subText : 서브 버튼 내용
     if (props.type == "disable") {
         return (
         <Wrapper>
@@ -53,16 +64,18 @@ function MainBtn(props) {
         )
     }
     else if (props.type == "dubble") {
+        return (
         <Wrapper>
-            <BtnWrapperDefault>
+            <BtnWrapperDubble>
                 <BtnText>{props.mainText}</BtnText>
-            </BtnWrapperDefault>
+            </BtnWrapperDubble>
             <BtnMainSub>
-                <BtnText>{props.subText}</BtnText>
+                <BtnTextSub>{props.subText}</BtnTextSub>
             </BtnMainSub>
         </Wrapper>
+        )
     }
-    else {
+    else if (props.type == "default"){
         return (
         <Wrapper>
             <BtnWrapperDefault>
