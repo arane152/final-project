@@ -45,6 +45,8 @@ const GnbAddIcon = styled.div`
 `
 
 function Gnb(props) {
+    // props.type : gnb 타입 (gnb : "gnb" / 버튼 : "btn")
+    // props.children : gnb 타입중 btn 타입일때, 안에 들어가는 버튼
     if (props.type == "gnb") {
         return (
             <GnbWrapper>
