@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import Profile from "./Profile";
 
-const UserAcceptCard = ({ name, menus, date}) => {
+const UserAcceptCard = ({ name, date, menus, onAccept }) => {
   const totalPrice = menus.reduce(
     (sum, menu) => sum + menu.price * (menu.count || 1),
     0
@@ -9,28 +10,24 @@ const UserAcceptCard = ({ name, menus, date}) => {
 
   return (
     <CardContainer>
-      <ProfileRow>
-        <ProfileInfo>
-          <Avatar />
-          <Name>{name}</Name>
-        </ProfileInfo>
-        <DateText>{date}</DateText>
-      </ProfileRow>
+      <Profile name={name} date={date} />
 
       <MenuList>
         {menus.map((menu, idx) => (
           <MenuRow key={idx}>
             <MenuName>
-              {menu.name} × {menu.count|| 1}개
+              {menu.name} × {menu.count || 1}개
             </MenuName>
-            <PricePerItem>개당 {menu.price.toLocaleString()}원</PricePerItem>
+            <PricePerItem>
+              개당 {menu.price.toLocaleString()}원
+            </PricePerItem>
           </MenuRow>
         ))}
       </MenuList>
 
       <BottomRow>
         <TotalPrice>총 {totalPrice.toLocaleString()}원</TotalPrice>
-        <AcceptButton>신청수락</AcceptButton>
+        <AcceptButton onClick={onAccept}>신청수락</AcceptButton>
       </BottomRow>
     </CardContainer>
   );
@@ -38,6 +35,7 @@ const UserAcceptCard = ({ name, menus, date}) => {
 
 export default UserAcceptCard;
 
+// 스타일 정의
 const CardContainer = styled.div`
   width: 329px;
   padding: 12px;
@@ -47,36 +45,6 @@ const CardContainer = styled.div`
   flex-direction: column;
   gap: 12px;
   font-family: 'Pretendard', sans-serif;
-`;
-
-const ProfileRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ProfileInfo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const Avatar = styled.div`
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  background: #eeeeee;
-`;
-
-const Name = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  color: #222;
-`;
-
-const DateText = styled.div`
-  font-size: 12px;
-  color: #aaa;
 `;
 
 const MenuList = styled.div`
@@ -92,28 +60,21 @@ const MenuRow = styled.div`
   color: #666;
 `;
 
-const MenuName = styled.div`
-  font-weight: 400;
-`;
+const MenuName = styled.div``;
 
-const PricePerItem = styled.div`
-  font-size: 14px;
-`;
+const PricePerItem = styled.div``;
 
 const BottomRow = styled.div`
   display: flex;
-  height:32px;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #eee;
   padding-top: 8px;
-  padding-bottom: 8px;
 `;
 
 const TotalPrice = styled.div`
-  font-size: 16px;
-  color: #202020;
-  font-weight:600;
+  font-size: 14px;
+  color: #666;
 `;
 
 const AcceptButton = styled.button`
