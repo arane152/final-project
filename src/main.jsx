@@ -40,6 +40,7 @@ createRoot(document.getElementById('root')).render(
 
       <PostConatiner postTitle="같이 드실 분 있나요?" postContent="이거 같이 먹고 싶은데 먹을 사람 찾습니다."></PostConatiner>
       <PostMenuConatiner></PostMenuConatiner>
+      <PostMenuConatiner userType="writer"></PostMenuConatiner>
     
       {/* <Alert></Alert> 
       Alert 페이지 주석 확인바람*/}
