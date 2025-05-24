@@ -56,6 +56,10 @@ const MenuDelete = styled.div`
 
 const MenuOutPutItem = ({ name, price, count = 1, type }) => {
   // type : 표시 타입 (기본 : "default" / 메뉴 bold : "bold" / side 텍스트 : "side" / 삭제 : "delete")
+  // name : 메뉴 이름
+  // count : 단일 메뉴 갯수
+  // price : 메뉴 가격
+  
   if (type == "default") {
     return (
       <ItemContainer>
