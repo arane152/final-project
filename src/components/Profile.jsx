@@ -1,24 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const Profile = ({ name, location, date, badge }) => {
-  return (
-    <ProfileContainer>
-      <Left>
-        <Avatar />
-        <NameBlock>
-          <Name>{name}</Name>
-          {location && <Location>{location}</Location>}
-        </NameBlock>
-        {badge && <Badge>{badge}</Badge>}
-      </Left>
-      {date && <DateText>{date}</DateText>}
-    </ProfileContainer>
-  );
-};
-
-export default Profile;
-
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -69,3 +51,21 @@ const DateText = styled.div`
   font-size: 12px;
   color: #aaa;
 `;
+
+const Profile = ({ name, location, date, badge }) => {
+  return (
+    <ProfileContainer>
+      <Left>
+        <Avatar />
+        <NameBlock>
+          <Name>{name}</Name>
+          {location && <Location>{location}</Location>}
+        </NameBlock>
+        {badge && <Badge>{badge}</Badge>}
+      </Left>
+      {date && <DateText>{date}</DateText>}
+    </ProfileContainer>
+  );
+};
+
+export default Profile;
