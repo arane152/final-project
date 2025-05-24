@@ -9,7 +9,7 @@ import MainBtn from './components/MainBtn.jsx'
 import SubBtn from './components/SubBtn.jsx'
 import ToggleBtn from './components/ToggleBtn.jsx'
 import CategoryBtn from './components/CategoryBtn.jsx'
-import StoreName from './components/StoreName.jsx'
+import StoreName from './modules/StoreName.jsx'
 import Gnb from './layouts/Gnb.jsx'
 import Alert from './components/Alert.jsx'
 import Header from './layouts/Header.jsx'
@@ -65,6 +65,7 @@ createRoot(document.getElementById('root')).render(
       <CategoryBtn text="찜/탕"></CategoryBtn>
 
       <StoreName category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
+      <StoreName type="black" category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
 
       <Gnb></Gnb>
 
