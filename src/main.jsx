@@ -30,6 +30,7 @@ import PostPartyContainer from './components/PostPartyContainer.jsx'
 
 import PostConatiner from './modules/PostContainer.jsx'
 import PostMenuConatiner from './modules/PostMenuContainer.jsx'
+import PostImage from './components/PostImage.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -41,6 +42,8 @@ createRoot(document.getElementById('root')).render(
       <PostConatiner postTitle="같이 드실 분 있나요?" postContent="이거 같이 먹고 싶은데 먹을 사람 찾습니다."></PostConatiner>
       <PostMenuConatiner></PostMenuConatiner>
       <PostMenuConatiner userType="writer"></PostMenuConatiner>
+      <PostImage></PostImage>
+      <PostImage postRecruitment="closed"></PostImage>
     
       {/* <Alert></Alert> 
       Alert 페이지 주석 확인바람*/}
