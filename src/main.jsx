@@ -19,6 +19,7 @@ import StateBadge from './components/StateBadge.jsx'
 import TotalAmount from './components/TotalAmount.jsx'
 import QuantityBtn from './components/QuantityBtn.jsx'
 import Profile from './components/Profile.jsx'
+import MenuOutputitem from './components/MenuOutputitem.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -74,6 +75,11 @@ createRoot(document.getElementById('root')).render(
       <Gnb type="btn">
         <MainBtn type="dubble" mainText="메인버튼" subText="서브버튼"></MainBtn>
       </Gnb>
+
+      <MenuOutputitem type="default" name="후라이드 치킨" count="1" price="15,000"></MenuOutputitem>
+      <MenuOutputitem type="bold" name="후라이드 치킨" count="1" price="15,000"></MenuOutputitem>
+      <MenuOutputitem type="side" name="후라이드 치킨" count="1" price="15,000"></MenuOutputitem>
+      <MenuOutputitem type="delete" name="후라이드 치킨" count="1" price="15,000"></MenuOutputitem>
 
 
     </div>
