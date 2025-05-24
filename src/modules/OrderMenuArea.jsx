@@ -6,6 +6,8 @@ import TextInput from "../components/TextInput";
 import ToggleBtn from "../components/ToggleBtn";
 import TotalAmount from "../components/TotalAmount";
 import SubBtn from "../components/SubBtn";
+import MenuOutPutItem from "../components/MenuOutputitem";
+import QuantityBtn from "../components/QuantityBtn";
 
 // #202020
 
@@ -14,6 +16,8 @@ const StyledWrapper = styled.div`
     height: 712px;
     background-color: #F8F8F8;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
 `
 
@@ -24,6 +28,16 @@ const Subtitle = styled.h2`
     line-height: 140%;
     margin: 0; 
 `
+
+const Maintitle = styled.h2`
+    color: #202020;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+`
+
 const Container = styled.div`
     width: 313px;
     background-color: #ffffff;
@@ -45,6 +59,8 @@ const ContainerWrapper = styled.div`
 function OderMenuArea(props) {
     return(
     <StyledWrapper>
+        <Maintitle>주문메뉴</Maintitle>
+
         <Container>
             <Subtitle>음식점 설정</Subtitle>
             <InfoBox title="음식점명"><TextInput></TextInput></InfoBox>
@@ -53,6 +69,14 @@ function OderMenuArea(props) {
                 <ToggleBtn text="허용"></ToggleBtn>
                 <ToggleBtn type="none-toggle" text="금지"></ToggleBtn>
             </InfoBox>
+        </Container>
+
+        <Container>
+            <MenuOutPutItem type="bold" name="후라이드 치킨" count="1" price="15,000" width="313"></MenuOutPutItem>
+            <ContainerWrapper>
+                <p>현재수량: 0</p>
+                <QuantityBtn></QuantityBtn>
+            </ContainerWrapper>
         </Container>
 
         <Container>
