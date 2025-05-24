@@ -18,9 +18,15 @@ import InfoBox from './components/InfoBox.jsx'
 import StateBadge from './components/StateBadge.jsx'
 import TotalAmount from './components/TotalAmount.jsx'
 
+import InfoArea from './modules/InfoArea.jsx'
+import OderMenuArea from './modules/OrderMenuArea.jsx'
+
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
+
+      <InfoArea></InfoArea>
+      <OderMenuArea></OderMenuArea>
       {/* <Alert></Alert> 
       Alert 페이지 주석 확인바람*/}
       <Header type="main"></Header>
