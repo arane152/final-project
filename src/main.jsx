@@ -32,71 +32,76 @@ import PostConatiner from './modules/PostContainer.jsx'
 import PostMenuConatiner from './modules/PostMenuContainer.jsx'
 import PostImage from './components/PostImage.jsx'
 
+import PostViewPage from '../pages/PostViewPage.jsx'
+
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
+      <h1>postviewpage (userType="writer")</h1>
+      <PostViewPage userType="writer"></PostViewPage>
+      <h1>postviewpage (userType="")</h1>
+      <PostViewPage></PostViewPage>
 
-      <InfoArea></InfoArea>
-      <OderMenuArea></OderMenuArea>
+      {/* <InfoArea></InfoArea>
+      <OderMenuArea></OderMenuArea> */}
 
-      <PostConatiner postTitle="같이 드실 분 있나요?" postContent="이거 같이 먹고 싶은데 먹을 사람 찾습니다."></PostConatiner>
+      {/* <PostConatiner postTitle="같이 드실 분 있나요?" postContent="이거 같이 먹고 싶은데 먹을 사람 찾습니다."></PostConatiner>
       <PostMenuConatiner></PostMenuConatiner>
       <PostMenuConatiner userType="writer"></PostMenuConatiner>
       <PostImage></PostImage>
       <PostImage postRecruitment="closed"></PostImage>
+       */}
     
       {/* <Alert></Alert> 
       Alert 페이지 주석 확인바람*/}
-      <Header type="main"></Header>
+      {/* <Header type="main"></Header>
       <Header type="search"></Header>
-      <Header></Header>
+      <Header></Header> */}
 
-      <InfoBox title="두줄일때의제목"><TextInput></TextInput></InfoBox>
+      {/* <InfoBox title="두줄일때의제목"><TextInput></TextInput></InfoBox>
       <InfoBox><TextInput height={"108px"}></TextInput></InfoBox>
       <InfoBox title="아웃풋" content="내용"></InfoBox>
       <InfoBox title={<>선입금<br />필수여부</>} content="농협 000000000000" badge="필수"></InfoBox>
       <InfoBox title="토글">
         <ToggleBtn text="허용"></ToggleBtn>
         <ToggleBtn type="none-toggle" text="금지"></ToggleBtn>
-      </InfoBox>
+      </InfoBox> */}
 
 
-      <StateBadge type="Captain">모집자</StateBadge>
+      {/* <StateBadge type="Captain">모집자</StateBadge>
       <StateBadge type="TotalAcount">100%</StateBadge>
-      <StateBadge>카테고리</StateBadge>
+      <StateBadge>카테고리</StateBadge> */}
       
-      <MainBtn type="default" mainText="메인버튼"></MainBtn>
+      {/* <MainBtn type="default" mainText="메인버튼"></MainBtn>
       <MainBtn type="disable" mainText="메인버튼"></MainBtn>
       <MainBtn type="dubble" mainText="메인버튼" subText="서브버튼"></MainBtn>
       <SubBtn text="메뉴추가"></SubBtn>
       <SubBtn type="stroke" text="메뉴추가"></SubBtn>
       <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
       <SubBtn type="next" text="서브버튼"></SubBtn>
-      <QuantityBtn quantity="0"></QuantityBtn>
+      <QuantityBtn quantity="0"></QuantityBtn> */}
       
 
-      <TotalAmount title="메뉴총액"></TotalAmount>
+      {/* <TotalAmount title="메뉴총액"></TotalAmount>
       <TotalAmount title="총액" color="orange" type="stroke"></TotalAmount>
-      <TotalAmount title="총액" type="none"></TotalAmount>
+      <TotalAmount title="총액" type="none"></TotalAmount> */}
 
-
-
-      <CategoryBtn type="toggle" text="전체"></CategoryBtn>
+      {/* <CategoryBtn type="toggle" text="전체"></CategoryBtn>
       <CategoryBtn text="치킨"></CategoryBtn>
       <CategoryBtn text="찜/탕"></CategoryBtn>
 
       <StoreName category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
-      <StoreName type="black" category="치킨" storeName="BBQ 시흥 정왕점"></StoreName>
+      <StoreName type="black" category="치킨" storeName="BBQ 시흥 정왕점"></StoreName> */}
 
-      <Gnb type="gnb"></Gnb>
+      {/* <Gnb type="gnb"></Gnb>
       <Gnb type="btn">
         <MainBtn type="default" mainText="메인버튼"></MainBtn>
       </Gnb>
       <Gnb type="btn">
         <MainBtn type="dubble" mainText="메인버튼" subText="서브버튼"></MainBtn>
-      </Gnb>
+      </Gnb> */}
 
-      <MenuOutPutItem type="default" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
+      {/* <MenuOutPutItem type="default" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
       <MenuOutPutItem type="bold" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
       <MenuOutPutItem type="side" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
       <MenuOutPutItem type="delete" name="후라이드 치킨" count="1" price="15,000"></MenuOutPutItem>
@@ -105,7 +110,7 @@ createRoot(document.getElementById('root')).render(
       <LikeBtn type="like" likeNumber="1"></LikeBtn>
 
       <StatusBar totalPercent="0" nowPrice="0" postMinPrice="0"></StatusBar>
-      <StatusBar type="simple" totalPercent="0"></StatusBar>
+      <StatusBar type="simple" totalPercent="0"></StatusBar> */}
 
     </div>
 )

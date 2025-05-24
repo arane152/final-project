@@ -2,11 +2,15 @@ import styled from 'styled-components'
 
 const GnbWrapper = styled.div`
     display: flex;
+    position: absolute;
+    bottom: 0;
     width: 393px;
     height: 80px;
     background-color: #FFF;
+    justify-content: center;
     align-items: center;
     box-shadow: 0px -4px 4px rgba(128, 128, 128, 0.1);
+    margin: 0;
 `
 
 const GnbLayout = styled.div`
@@ -14,6 +18,7 @@ const GnbLayout = styled.div`
     width: 300px;
     height: 46px;
     justify-content: space-between;
+    align-items: center;
     margin-top: 9px;
 `
 

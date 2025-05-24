@@ -6,8 +6,8 @@ width: 393px;
 margin: 0;
 padding: 0;
 background-color: #ffffff;
-/* shadow: 0px 4px 4px 0px rgba(128, 128, 128, 10%); */
-// position: fixed;
+box-shadow: 0px 4px 4px 0px rgba(128, 128, 128, 10%);
+position: absolute;
 top: 0;
 left: 0;
 `
