@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const BtnWrapperDefault = styled.div`
     display: flex;
-    width: 112px;
+    width: ${props => props.width}px;
     height: 44px;
     background-color: #FFFFFF;
     border-radius: 8px;
@@ -28,16 +28,18 @@ const BtnTextNoneToggle = styled(BtnText)`
 `
 
 function ToggleBtn(props) {
+    const width = props.width || '112'
+
     if (props.type == "none-toggle") {
         return (
-            <BtnWrapperNoneToggle>
+            <BtnWrapperNoneToggle width={width}>
                 <BtnTextNoneToggle>{props.text}</BtnTextNoneToggle>
             </BtnWrapperNoneToggle>
         )
     }
     else {
         return (
-            <BtnWrapperDefault>
+            <BtnWrapperDefault width={width}>
                 <BtnText>{props.text}</BtnText>
             </BtnWrapperDefault>
         )

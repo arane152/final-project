@@ -6,8 +6,8 @@ import TextInput from "../components/TextInput";
 import ToggleBtn from "../components/ToggleBtn";
 import TotalAmount from "../components/TotalAmount";
 import SubBtn from "../components/SubBtn";
-import MenuOutPutItem from "../components/MenuOutputitem";
-import QuantityBtn from "../components/QuantityBtn";
+import MenuDefault from "../components/MenuDefault";
+import MenuAdd from "../components/MenuAdd";
 
 // #202020
 
@@ -34,6 +34,15 @@ const Maintitle = styled.h2`
     font-size: 16px;
     font-weight: 700;
     line-height: 22px;
+`
+
+const MaintitleWrapper = styled.div`
+    width: 353px;
+    height: 46px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin-top: 12px;
     margin-bottom: 12px;
 `
@@ -59,36 +68,22 @@ const ContainerWrapper = styled.div`
 function OderMenuArea(props) {
     return(
     <StyledWrapper>
-        <Maintitle>주문메뉴</Maintitle>
+        <MaintitleWrapper>
+            <Maintitle>주문메뉴</Maintitle>
+        </MaintitleWrapper>
 
         <Container>
             <Subtitle>음식점 설정</Subtitle>
-            <InfoBox title="음식점명"><TextInput></TextInput></InfoBox>
-            <InfoBox title="최소금액"><TextInput></TextInput></InfoBox>
-            <InfoBox title="신청자메뉴추가">
-                <ToggleBtn text="허용"></ToggleBtn>
-                <ToggleBtn type="none-toggle" text="금지"></ToggleBtn>
+            <InfoBox title="음식점명"><TextInput placeholder="음식점명을 입력해주세요."></TextInput></InfoBox>
+            <InfoBox title="최소금액"><TextInput placeholder="최소금액을 입력해주세요."></TextInput></InfoBox>
+            <InfoBox title={<>신청자<br />메뉴추가</>}>
+                <ToggleBtn width='122' text="허용"></ToggleBtn>
+                <ToggleBtn width='122' type="none-toggle" text="금지"></ToggleBtn>
             </InfoBox>
         </Container>
 
-        <Container>
-            <MenuOutPutItem type="bold" name="후라이드 치킨" count="1" price="15,000" width="313"></MenuOutPutItem>
-            <ContainerWrapper>
-                <p>현재수량: 0</p>
-                <QuantityBtn></QuantityBtn>
-            </ContainerWrapper>
-        </Container>
-
-        <Container>
-            <ContainerWrapper>
-                <Subtitle>메뉴추가</Subtitle>
-                <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
-            </ContainerWrapper>
-                
-            <InfoBox title="메뉴이름"><TextInput></TextInput></InfoBox>
-            <InfoBox title="메뉴가격"><TextInput></TextInput></InfoBox>
-        </Container>
-
+        <MenuDefault></MenuDefault>
+        <MenuAdd></MenuAdd>
         <TotalAmount title="메뉴총액"></TotalAmount>
     </StyledWrapper>
     )
