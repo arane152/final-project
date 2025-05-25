@@ -41,7 +41,7 @@ color: #666666;
 
 function InfoBox(props){
   const {title, content, children, badge} = props
-
+  //title : 좌측에 출력될 제목 | badge: 뱃지로 표현할 정보가 있을 경우 기입 | content: 그레이박스 양식에 들어갈 컨텐츠 | children: 그레이박스양식과 다른 컨텐츠
   return <StyledInfoBox>
     <p>{title || "제목입력"}</p>
     {content ? <StyledTextOutput>{badge && <StateBadge>{badge}</StateBadge>}{content}</StyledTextOutput> : 
