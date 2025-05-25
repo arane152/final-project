@@ -2,7 +2,7 @@ import styled from "styled-components";
 import StoreName from "./StoreName";
 import LikeBtn from "../components/LikeBtn";
 import Profile from "../components/Profile";
-
+import StateBadge from "../components/StateBadge";
 const ItemHead = styled.div`
 padding: 0 20px;
 display: flex;
@@ -41,10 +41,10 @@ scrollbar-width: none;
 }
 `
 const ImgUl = styled.ul`
+box-sizing: border-box;
 display: flex;
 gap: 10px;
 margin: 0;
-padding: 0;
 padding: 0 20px;
 
 & > img{
@@ -58,6 +58,13 @@ border-radius: 8px;
 const ItemBotton=styled.div`
 padding: 0 20px;`
 
+const StyledBadge=styled.div`
+height: 0px;
+position: relative;
+text-align: right;
+right: 30px;
+bottom: 44px;
+`
 function PostItem(props){
   const {category="카테고리", storeName="음식점", post, title, content} = props;
 
@@ -86,6 +93,7 @@ function PostItem(props){
           {ImgList}
         </ImgUl>
       </ImgUlBox>
+      <StyledBadge><StateBadge type="TotalAcount">00%</StateBadge></StyledBadge>
       <ItemBotton><Profile name="사용자" location="1기숙사" date="0000.00.00"></Profile></ItemBotton> 
     </PostItemBox>
   )

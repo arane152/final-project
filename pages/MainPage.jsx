@@ -35,12 +35,14 @@ scrollbar-width: none;
 }
 `
 const PostUl =styled.div`
-
 display: flex;
 flex-direction: column;
 padding: 12px 0;
 gap: 20px;
 
+`
+const ContentBox=styled.div`
+overflow-x: hidden;
 `
 
 function MainPage(props){
@@ -88,6 +90,7 @@ function MainPage(props){
 
   return (
     <Device headerType="main" gnbType="gnb">
+    <ContentBox>
     <CategoryBox>
       <CategoryUl>
       {CategoryList}
@@ -98,6 +101,7 @@ function MainPage(props){
         {PostList}
       </PostUl>
     </PostBox>
+    </ContentBox>
 
     </Device>
   )

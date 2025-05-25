@@ -47,7 +47,7 @@ function AlarmPage(props) {
   )
   
 
-  return  <Device content="알림" gnbType="none">
+  return  <Device content="알림" gnbType="gnb">
     <Alarm_NowPostContainer></Alarm_NowPostContainer>
     <UlBox>
     <AlarmUl>

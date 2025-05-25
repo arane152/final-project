@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import StateBadge from "./StateBadge";
 
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  width: 329px;
+  width: 100%;
 `;
 
 const Left = styled.div`
@@ -24,7 +25,9 @@ const Avatar = styled.div`
 
 const NameBlock = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  aling-item: center;
+  gap: 4px;
 `;
 
 const Name = styled.div`
@@ -60,8 +63,9 @@ const Profile = ({ name, location, date, badge }) => {
         <NameBlock>
           <Name>{name}</Name>
           {location && <Location>{location}</Location>}
+          {badge && <StateBadge type="Captain"></StateBadge>}
         </NameBlock>
-        {badge && <Badge>{badge}</Badge>}
+        {/* {badge && <Badge>{badge}</Badge>} */}
       </Left>
       {date && <DateText>{date}</DateText>}
     </ProfileContainer>
