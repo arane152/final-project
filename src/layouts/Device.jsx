@@ -15,6 +15,7 @@ const DeviceWrapper = styled.div`
     margin: 0;
     align-items: center;
     overflow-y: auto;
+    background-color: #ffffff;
 `
 
 const ContentWrapper = styled.div`
@@ -25,7 +26,7 @@ const ContentWrapper = styled.div`
     overflow-y: scroll;
     scrollbar-width: none;      
     -ms-overflow-style: none;     
-    
+
     &::-webkit-scrollbar {
         display: none;       
     }
@@ -47,11 +48,11 @@ function Device(props) {
     // porps.btnSubText : Gnb.jsx의 type이 "btn"이고, btnType이 "dubble"일 때, 표시되는 서브 버튼의 내용
     return (
         <DeviceWrapper>
-            <Header content={props.content} type={props.headerType}></Header>
+            <Header content={props.content} type={props.headerType || ""}></Header>
             <ContentWrapper>
                 {props.children}
             </ContentWrapper>
-            <Gnb type={props.gnbType}>
+            <Gnb type={props.gnbType || "none"}>
                 <MainBtn type={props.btnType} mainText={props.btnMainText} subText={props.btnSubText}></MainBtn>
             </Gnb>
         </DeviceWrapper>

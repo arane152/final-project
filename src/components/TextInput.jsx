@@ -43,6 +43,10 @@ const StyledLinesInput=styled(StyledALineInput)`
 `
 
 function TextInput(props){
+  //height: 여러줄 인풋이 요구되는 경우 기입, 없으면 44px 기본값으로 출력
+  //value: textarea value, 추후 파이어베이스 연동할 함수에 사용
+  //onChange : 추후 파이어베이스 연동할 함수에 사용
+  //placeholder : 안내문구 있다면 기입
   const {height, value, onChange, placeholder} = props
 
   return <>{!height ? 

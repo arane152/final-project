@@ -71,8 +71,11 @@ function Gnb(props) {
                 </GnbBtn>
             </GnbWrapper>
         )
-    }
-
-}
+    }    
+    else if (props.type == "none") {
+        return (
+            <></>
+        )
+}}
 
 export default Gnb

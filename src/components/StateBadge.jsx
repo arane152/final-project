@@ -36,13 +36,14 @@ const TotalAcountWrpper = styled(StateCaptainWrpper)`
 
 function StateBadge(props){
     const {type} = props
-//StateCategoryWrapper 요소는 img 베이스라인 차이때문에 하단으로 밀려서 배치되는 현상이 있는데 
-//상위컴포넌트에서 배치 잡으니까 큰 상관 없을 것 같아서 일단 올립니다
+    //type : TotalAcount = 금액달성률 % 뱃지 | Captain : 게시글 작성자 뱃지 | 기본값 : 카테고리표시뱃지지
     return <>{(type=="TotalAcount") ? 
     <TotalAcountWrpper><img src="/FireState.svg" alt="로고불꽃뱃지용이미지"></img>{props.children}</TotalAcountWrpper> : 
     <>{(type=="Captain") ?  
     <StateCaptainWrpper><img src="/FireState.svg" alt="로고불꽃뱃지용이미지"></img>{props.children}</StateCaptainWrpper> : 
     <StateCategoryWrapper>{props.children}</StateCategoryWrapper>}</>
+    //StateCategoryWrapper 요소는 img 베이스라인 차이때문에 하단으로 밀려서 배치되는 현상이 있는데 
+    //상위컴포넌트에서 배치 잡으니까 큰 상관 없을 것 같아서 일단 올립니다
     }</>
 }
 
