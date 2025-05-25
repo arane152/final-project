@@ -26,7 +26,7 @@ const Avatar = styled.div`
 const NameBlock = styled.div`
   display: flex;
   flex-direction: row;
-  aling-item: center;
+  align-items: center;
   gap: 4px;
 `;
 
