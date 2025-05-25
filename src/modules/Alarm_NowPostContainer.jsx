@@ -5,7 +5,8 @@ import SubBtn from "../components/SubBtn"
 
 const StyledContainer = styled.div`
 padding: 20px;
-dipslay: flex;
+display: flex;
+flex-direction: column;
 gap: 12px;
 background-color: #f8f8f8;
 
