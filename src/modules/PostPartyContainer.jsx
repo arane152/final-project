@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Profile from "./Profile";
-import MenuOutputitem from "./MenuOutputitem";
+import Profile from "../components/Profile";
+import MenuOutputitem from "../components/MenuOutputitem";
 
 const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   const recruiterTotal = recruiter.menus.reduce((sum, m) => sum + m.price * m.count, 0);

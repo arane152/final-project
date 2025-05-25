@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UserAcceptCard from "./UserAcceptCard";
+import UserAcceptCard from "../components/UserAcceptCard";
 
 
 const PostRequestContainer = ({ applicants }) => {
