@@ -26,8 +26,6 @@ import StatusBar from './components/StatusBar.jsx'
 import InfoArea from './modules/InfoArea.jsx'
 import OderMenuArea from './modules/OrderMenuArea.jsx'
 
-import PostPartyContainer from './components/PostPartyContainer.jsx'
-
 import PostConatiner from './modules/PostContainer.jsx'
 import PostMenuConatiner from './modules/PostMenuContainer.jsx'
 import PostImage from './components/PostImage.jsx'
