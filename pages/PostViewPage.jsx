@@ -12,10 +12,6 @@ function PostViewPage(props) {
                 <PostImage></PostImage>
                 <PostConatiner postTitle="post 제목" postContent="post 내용"></PostConatiner>
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
             </Device>
         )
     }
@@ -24,10 +20,6 @@ function PostViewPage(props) {
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기">
                 <PostImage></PostImage>
                 <PostConatiner postTitle="post 제목" postContent="post 내용"></PostConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
             </Device>
         )

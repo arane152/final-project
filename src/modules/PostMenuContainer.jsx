@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import TotalAmount from "../components/TotalAmount";
 import SubBtn from "../components/SubBtn";
+import MenuDefault from "../components/MenuDefault";
+import MenuAdd from "../components/MenuAdd";
 
 const PostMenuWrapper = styled.div`
     display: flex;
@@ -58,7 +60,9 @@ function PostMenuConatiner(props) {
         return (
             <PostMenuWrapper>
                 <PostMenuTitle>메뉴현황</PostMenuTitle>
-                <TotalAmount title="메뉴총액"></TotalAmount>
+                <MenuDefault type="info"></MenuDefault>
+                <MenuDefault type="info"></MenuDefault>
+                <TotalAmount title="총액"></TotalAmount>
             </PostMenuWrapper>
         )
     }
@@ -66,6 +70,9 @@ function PostMenuConatiner(props) {
         return (
             <PostMenuWrapper>
                 <PostMenuTitle>메뉴현황</PostMenuTitle>
+                <MenuDefault></MenuDefault>
+                <MenuDefault></MenuDefault>
+                <MenuAdd></MenuAdd>
             </PostMenuWrapper>
         )
     }
