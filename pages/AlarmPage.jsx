@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Device from "../src/layouts/Device";
-import Alarm_NowPostContainer from "../src/modules/Alarm_NowPostContainer";
+import AlarmNowPostContainer from "../src/modules/Alarm_NowPostContainer";
 import AlarmItem from "../src/modules/AlarmItem";
 
 const AlarmUl = styled.ul`
@@ -48,7 +48,7 @@ function AlarmPage(props) {
   
 
   return  <Device content="알림" gnbType="gnb">
-    <Alarm_NowPostContainer></Alarm_NowPostContainer>
+    <AlarmNowPostContainer></AlarmNowPostContainer>
     <UlBox>
     <AlarmUl>
       {AlarmList}

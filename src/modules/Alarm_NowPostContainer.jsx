@@ -62,7 +62,7 @@ width: 100%;
 }
 
 `
-function Alarm_NowPostContainer(props){
+function AlarmNowPostContainer(props){
   const {category="카테고리", storeName="음식점", post} = props;
   const { title="제목", content="내용"} = post || {};
 
@@ -79,4 +79,4 @@ function Alarm_NowPostContainer(props){
   </AlarmNowPostCard>
   </StyledContainer>)}
 
-export default Alarm_NowPostContainer
+export default AlarmNowPostContainer
