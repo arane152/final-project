@@ -35,6 +35,7 @@ import PostImage from './components/PostImage.jsx'
 import PostViewPage from '../pages/PostViewPage.jsx'
 import AlarmPage from '../pages/AlarmPage.jsx'
 import MainPage from '../pages/MainPage.jsx'
+import PostWritePage from '../pages/PostWritePage.jsx'
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
@@ -48,6 +49,9 @@ createRoot(document.getElementById('root')).render(
 
       <h1>mainpage</h1>
       <MainPage></MainPage>
+
+      <h1>postwritepage</h1>
+      <PostWritePage></PostWritePage>
       {/* <InfoArea></InfoArea>
       <OderMenuArea></OderMenuArea> */}
 

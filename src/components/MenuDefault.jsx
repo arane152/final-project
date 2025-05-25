@@ -38,7 +38,7 @@ const TotalPrice = styled(CurrentQuantity)`
 function MenuDefault(props) {
     const {onClick} = props;
 
-    const type = props.type || "default";                         // 기본 / 스트로크 / none
+    const type = props.type || "default";  // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
 
     if(type == "default"){   
         return(
