@@ -28,7 +28,7 @@ const BtnWrapper = styled.div`
 const QuantityText = styled.p`
     font-size: 12px;
     font-weight: 500;
-    color: #FF8232;
+    color: #FF6232;
 `
 
 function QuantityBtn (props) {
