@@ -16,6 +16,7 @@ import Header from './layouts/Header.jsx'
 import TextInput from './components/TextInput.jsx'
 import InfoBox from './components/InfoBox.jsx'
 import StateBadge from './components/StateBadge.jsx'
+import MenuDefault from './components/MenuDefault.jsx'
 import TotalAmount from './components/TotalAmount.jsx'
 import QuantityBtn from './components/QuantityBtn.jsx'
 import Profile from './components/Profile.jsx'
@@ -36,8 +37,17 @@ import MainPage from '../pages/MainPage.jsx'
 import PostWritePage from '../pages/PostWritePage.jsx'
 import ParticipationPage from '../pages/ParticipationPage.jsx'
 
+import Modal from './layouts/BottomModal.jsx'
+
 createRoot(document.getElementById('root')).render(
     <div className="display">
+      <h1>Modal.jsx</h1>
+      <Modal background="" modalText="모달 텍스트" btnType="default" mainText="메인버튼">
+        <MenuDefault type="info"></MenuDefault>
+        <MenuDefault type="info"></MenuDefault>
+        <TotalAmount title="총액"></TotalAmount>
+      </Modal>
+
       <h1>postviewpage (userType="writer")</h1>
       <PostViewPage userType="writer"></PostViewPage>
       <h1>postviewpage (userType="")</h1>

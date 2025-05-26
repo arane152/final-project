@@ -21,7 +21,7 @@ const DeviceWrapper = styled.div`
 const ContentWrapper = styled.div`
     display: block;
     width: 393px;
-    height: ${props => props.gnbtype == "none" ? "738px" : "658px"};
+    height: ${props => props.gnbtype == "none" ? "738px" : "638px"};
     margin: 0;
     overflow-y: scroll;
     scrollbar-width: none;      

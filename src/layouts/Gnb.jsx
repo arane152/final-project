@@ -3,14 +3,16 @@ import styled from 'styled-components'
 const GnbWrapper = styled.div`
     display: flex;
     position: absolute;
+    flex-direction: column;
     bottom: 0;
     width: 393px;
-    height: 80px;
+    height: 100px;
     background-color: #FFF;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     box-shadow: 0px -4px 4px rgba(128, 128, 128, 0.1);
     margin: 0;
+    z-index: 5;
 `
 
 const GnbLayout = styled.div`
