@@ -16,6 +16,11 @@ const BtnWrapperStroke = styled(BtnWrapperDefault)`
     border: 1px solid #FF6232;
 `
 
+const BtnWrapperGreyStroke = styled(BtnWrapperDefault)`
+    background-color: #ffffff;
+    border: 1px solid #D4D4D4;
+`
+
 const BtnText = styled.p`
     display: flex;
     font-size: 14px;
@@ -49,6 +54,13 @@ function SubBtn(props) {
             <BtnWrapperDefault>
                 <BtnText>{props.text} &nbsp;→</BtnText>
             </BtnWrapperDefault>
+        )
+    }
+    else if (props.type == "grey") {
+        return (
+            <BtnWrapperGreyStroke>
+                <BtnTextStroke>{props.text} &nbsp;→</BtnTextStroke>
+            </BtnWrapperGreyStroke>
         )
     }
     else {

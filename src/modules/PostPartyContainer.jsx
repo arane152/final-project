@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Profile from "../components/Profile";
 import MenuOutputitem from "../components/MenuOutputitem";
+import StatusBar from "../components/StatusBar";
+import StoreName from "./StoreName"
 
 const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   const recruiterTotal = recruiter.menus.reduce((sum, m) => sum + m.price * m.count, 0);
@@ -14,19 +16,12 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   return (
     <Wrapper>
       <Container>
-        <HeaderRow>
-          <Badge>카테고리</Badge>
-          <StoreName>{recruiter.storeName}</StoreName>
-          <SectionTitle>참여자현황</SectionTitle>
-        </HeaderRow>
+        <StoreName category="카테고리" storeName="가게이름">참여자현황</StoreName>
         <Divider />
 
         <RecruiterBlock>
           <TopRow>
-            <Profile
-              name="홍길동"
-              badge="모집자"
-            />
+            <Profile name="홍길동" badge="모집자"/>
             <DeleteButton onClick={recruiter.onDeleteMenu}>
               <span>메뉴삭제</span>
             </DeleteButton>
@@ -46,12 +41,8 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
           <React.Fragment key={idx}>
             <ParticipantCard>
               <TopRow>
-                <Profile
-                  name="홍길동"
-                />
-                <KickButton onClick={() => alert(`${p.name} 강퇴`)}>
-                  인원강퇴
-                </KickButton>
+                <Profile name="홍길동"/>
+                <SubBtn type="grey" text="인원강퇴"></SubBtn>
               </TopRow>
               {p.menus.map((menu, mIdx) => (
                 <MenuOutputitem
@@ -72,9 +63,7 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
             <TotalAmount>{totalAmount.toLocaleString()}원</TotalAmount>
           </TotalRow>
           <ProgressRow>
-            <ProgressBar>
-              <ProgressFill style={{ width: percent + "%" }} />
-            </ProgressBar>
+            <StatusBar type="simple"></StatusBar>
             <Percent>{percent}%</Percent>
           </ProgressRow>
         </TotalBox>

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Profile from "./Profile";
-import MenuOutputitem from "./MenuOutputitem";
+import Profile from "../components/Profile.jsx";
+import MenuOutputitem from "../components/MenuOutputitem.jsx";
+import SubBtn from "../components/SubBtn.jsx";
 
 const UserAcceptCard = ({ name, date, menus, onAccept }) => {
   const totalPrice = menus.reduce(
@@ -25,7 +26,7 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
 
       <BottomRow>
         <TotalPrice>총 {totalPrice.toLocaleString()}원</TotalPrice>
-        <AcceptButton onClick={onAccept}>신청수락</AcceptButton>
+        <SubBtn type="stroke" text="신청수락"></SubBtn>
       </BottomRow>
     </CardContainer>
   );
