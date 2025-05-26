@@ -94,7 +94,7 @@ function PostItem(props){
         </ImgUl>
       </ImgUlBox>
       <StyledBadge><StateBadge type="TotalAcount">00%</StateBadge></StyledBadge>
-      <ItemBotton><Profile name="사용자" location="1기숙사" date="0000.00.00"></Profile></ItemBotton> 
+      <ItemBotton><Profile name="사용자" location="1기숙사" date="0000.00.00" fontSize="12px"></Profile></ItemBotton> 
     </PostItemBox>
   )
 }
