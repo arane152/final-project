@@ -51,9 +51,7 @@ createRoot(document.getElementById('root')).render(
 
       <h1>postwritepage</h1>
       <PostWritePage></PostWritePage>
-
-      <h1>participationpage</h1>
-      <ParticipationPage></ParticipationPage>
+  
       {/* <InfoArea></InfoArea>
       <OderMenuArea></OderMenuArea> */}
 
