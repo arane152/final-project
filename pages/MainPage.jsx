@@ -4,7 +4,8 @@ import PostItem from "../src/modules/Postitem";
 import Device from "../src/layouts/Device";
 
 const CategoryBox = styled.div`
-width: 375px;
+width: 393px;
+box-sizing: border-box;
 overflow-x: scroll;
 background-color: #f8f8f8;
 margin: 0;
@@ -22,7 +23,13 @@ height: 32px;
 margin: 0;
 padding: 0;
 gap: 8px;
-white-space: nowrap;`
+white-space: nowrap;
+
+  &::after {
+    content: '';
+    flex: 0 0 12px;
+  }
+`
 
 const PostBox =styled.div`
 height: 588px;
@@ -91,16 +98,16 @@ function MainPage(props){
   return (
     <Device headerType="main" gnbType="gnb">
     <ContentBox>
-    <CategoryBox>
-      <CategoryUl>
-      {CategoryList}
-      </CategoryUl>
-    </CategoryBox>
-    <PostBox>
-      <PostUl>
-        {PostList}
-      </PostUl>
-    </PostBox>
+      <CategoryBox>
+        <CategoryUl>
+        {CategoryList}
+        </CategoryUl>
+      </CategoryBox>
+      <PostBox>
+        <PostUl>
+          {PostList}
+        </PostUl>
+      </PostBox>
     </ContentBox>
 
     </Device>

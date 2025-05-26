@@ -47,13 +47,18 @@ gap: 10px;
 margin: 0;
 padding: 0 20px;
 
-& > img{
-background-color: #f8f8f8;
-min-width: 353px;
-height: 200px;
-object-fit: cover;
-border-radius: 8px;
-}
+  & > img{
+  background-color: #f8f8f8;
+  min-width: 353px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  }
+
+  &::after {
+    content: '';
+    flex: 0 0 10px;
+  }
 `
 const ItemBotton=styled.div`
 padding: 0 20px;`

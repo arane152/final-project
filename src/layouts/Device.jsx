@@ -21,7 +21,7 @@ const DeviceWrapper = styled.div`
 const ContentWrapper = styled.div`
     display: block;
     width: 393px;
-    height: 658px;
+    height: ${props => props.gnbtype == "none" ? "738px" : "658px"};
     margin: 0;
     overflow-y: scroll;
     scrollbar-width: none;      
@@ -49,7 +49,7 @@ function Device(props) {
     return (
         <DeviceWrapper>
             <Header content={props.content} type={props.headerType || ""}></Header>
-            <ContentWrapper>
+            <ContentWrapper gnbtype={props.gnbType || "none"}>
                 {props.children}
             </ContentWrapper>
             <Gnb type={props.gnbType || "none"}>

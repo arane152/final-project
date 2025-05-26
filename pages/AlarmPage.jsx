@@ -12,8 +12,8 @@ const AlarmUl = styled.ul`
   margin-top: 35px;
 `
 const UlBox = styled.div` 
-  height: 360px;
-  flex: 1;
+  padding-bottom: 20px;
+  flex: 1 1 auto;
   overflow-y: scroll;
   scrollbar-width: none;      
 -ms-overflow-style: none;     
@@ -24,6 +24,8 @@ const UlBox = styled.div`
 `
 const StyledBox=styled.div`
   height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 `
 function AlarmPage(props) {
@@ -51,7 +53,7 @@ function AlarmPage(props) {
   
 
   return  (
-    <Device content="알림" gnbType="gnb">
+    <Device content="알림" gnbType="none">
       <StyledBox>
         <AlarmNowPostContainer></AlarmNowPostContainer>
         <UlBox>
