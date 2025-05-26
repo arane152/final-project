@@ -3,9 +3,12 @@ import styled from "styled-components";
 import Gnb from "./Gnb";
 import MainBtn from "../components/MainBtn";
 
+import ModalBg from "./BottomModalBg";
+
 const Wrapper = styled.div`
     display: flex;
-    position: relative;
+    position: absolute;
+    bottom: 0;
     width: 393px;
     min-height: 356px;
     height: auto;
@@ -13,6 +16,7 @@ const Wrapper = styled.div`
     border-radius: 20px 20px 0px 0px;
     background-color: #FFFFFF;
     margin: 0;
+    z-index: 7;
 `
 
 const ModalTopWrapper = styled.div`

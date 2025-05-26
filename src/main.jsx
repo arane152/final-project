@@ -41,13 +41,6 @@ import Modal from './layouts/BottomModal.jsx'
 
 createRoot(document.getElementById('root')).render(
     <div className="display">
-      <h1>Modal.jsx</h1>
-      <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
-        <MenuDefault type="info"></MenuDefault>
-        <MenuDefault type="info"></MenuDefault>
-        <TotalAmount title="총액"></TotalAmount>
-      </Modal>
-
       <h1>postviewpage (userType="writer")</h1>
       <PostViewPage userType="writer"></PostViewPage>
       <h1>postviewpage (userType="")</h1>
