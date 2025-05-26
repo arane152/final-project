@@ -59,7 +59,7 @@ function SubBtn(props) {
     else if (props.type == "grey") {
         return (
             <BtnWrapperGreyStroke>
-                <BtnTextStroke>{props.text} &nbsp;→</BtnTextStroke>
+                <BtnTextStroke>{props.text}</BtnTextStroke>
             </BtnWrapperGreyStroke>
         )
     }

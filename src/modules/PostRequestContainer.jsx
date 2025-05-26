@@ -2,11 +2,10 @@ import styled from "styled-components";
 import UserAcceptCard from "./UserAcceptCard";
 
 
-const PostRequestContainer = ({ applicants }) => {
+const PostRequestContainer = ({ applicants = [] }) => {
   return (
     <Wrapper>
       <SectionTitle>신청자현황</SectionTitle>
-
       <CardList>
         {applicants.map((applicant, idx) => (
           <UserAcceptCard

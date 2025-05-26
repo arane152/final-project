@@ -1,61 +1,67 @@
 import styled from "styled-components";
 import Profile from "../components/Profile";
-import MenuOutputitem from "../components/MenuOutputitem";
+import MenuOutputItem from "../components/MenuOutputitem";
 import StatusBar from "../components/StatusBar";
-import StoreName from "./StoreName"
+import StoreName from "./StoreName";
+import SubBtn from "../components/SubBtn";
 
-const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
-  const recruiterTotal = recruiter.menus.reduce((sum, m) => sum + m.price * m.count, 0);
-  const participantsTotal = participants.reduce(
-    (sum, p) => sum + p.menus.reduce((s, m) => s + m.price * m.count, 0),
+const PostPartyContainer = ({
+  recruiter = { onDeleteMenu: () => {} },
+  goalAmount = 20000,
+  }) => {
+    const recruiterMenus = [
+      { name: "김밥", price: 3000, count: 2 },
+      { name: "떡볶이", price: 4000, count: 1 },
+    ];
+
+    const participantMenus = [
+      { name: "라면", price: 5000, count: 1 },
+      { name: "튀김", price: 2000, count: 2 },
+    ];
+
+  const recruiterTotal = recruiterMenus.reduce(
+    (sum, m) => sum + m.price * m.count,
+    0
+  );
+  const participantsTotal = participantMenus.reduce(
+    (sum, m) => sum + m.price * m.count,
     0
   );
   const totalAmount = recruiterTotal + participantsTotal;
-  const percent = Math.min(100, Math.round((totalAmount / goalAmount) * 100));
+  const percent =
+    goalAmount > 0
+      ? Math.min(100, Math.round((totalAmount / goalAmount) * 100))
+      : 0;
 
   return (
     <Wrapper>
       <Container>
-        <StoreName category="카테고리" storeName="가게이름">참여자현황</StoreName>
+        <HeaderRow>
+          <StoreName category="카테고리" storeName="가게이름">
+            참여자현황
+          </StoreName>
+        </HeaderRow>
         <Divider />
 
         <RecruiterBlock>
           <TopRow>
-            <Profile name="홍길동" badge="모집자"/>
-            <DeleteButton onClick={recruiter.onDeleteMenu}>
-              <span>메뉴삭제</span>
-            </DeleteButton>
+            <Profile name="홍길동" badge="모집자" />
+            <DeleteButton onClick={recruiter.onDeleteMenu}>메뉴삭제</DeleteButton>
           </TopRow>
-          {recruiter.menus.map((menu, idx) => (
-            <MenuOutputitem
-              key={idx}
-              name={menu.name}
-              count={menu.count}
-              price={menu.price}
-            />
-          ))}
+          <MenuOutputItem type="default" name="김밥" count={2} price={3000} />
+          <MenuOutputItem type="default" name="떡볶이" count={1} price={4000} />
         </RecruiterBlock>
         <Divider />
 
-        {participants.map((p, idx) => (
-          <React.Fragment key={idx}>
-            <ParticipantCard>
-              <TopRow>
-                <Profile name="홍길동"/>
-                <SubBtn type="grey" text="인원강퇴"></SubBtn>
-              </TopRow>
-              {p.menus.map((menu, mIdx) => (
-                <MenuOutputitem
-                  key={idx}
-                  name={menu.name}
-                  count={menu.count}
-                  price={menu.price}
-                  />
-              ))}
-            </ParticipantCard>
-            <Divider />
-          </React.Fragment>
-        ))}
+        <ParticipantCard>
+          <TopRow>
+            <Profile name="홍길동동" />
+            <SubBtn type="grey" text="인원강퇴" />
+          </TopRow>
+          <MenuOutputItem type="default" name="라면" count={1} price={5000} />
+          <MenuOutputItem type="default" name="튀김" count={2} price={2000} />
+        </ParticipantCard>
+        <Divider />
 
         <TotalBox>
           <TotalRow>
@@ -63,8 +69,7 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
             <TotalAmount>{totalAmount.toLocaleString()}원</TotalAmount>
           </TotalRow>
           <ProgressRow>
-            <StatusBar type="simple"></StatusBar>
-            <Percent>{percent}%</Percent>
+            <StatusBar type="simple" totalPercent={percent} />
           </ProgressRow>
         </TotalBox>
       </Container>
@@ -72,12 +77,8 @@ const PostPartyContainer = ({ recruiter, participants, goalAmount }) => {
   );
 };
 
-// <<<<<<< HEAD
-// 스타일 정의
-// =======
 export default PostPartyContainer;
 
-// >>>>>>> 86d67e34078de65ac02c6848efc2fa33bf6420dc
 const Wrapper = styled.div`
   width: 393px;
   padding: 12px 0 20px 20px;
@@ -106,28 +107,6 @@ const HeaderRow = styled.div`
   gap: 8px;
 `;
 
-const Badge = styled.div`
-  font-size: 12px;
-  background: #ff6232;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 100px;
-  font-weight: 700;
-`;
-
-const StoreName = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  color: #ff6232;
-`;
-
-const SectionTitle = styled.div`
-  margin-left: auto;
-  font-size: 14px;
-  font-weight: 600;
-  color: #202020;
-`;
-
 const RecruiterBlock = styled.div`
   padding: 12px;
   display: flex;
@@ -140,12 +119,18 @@ const ParticipantCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  align-items: stretch;  
 `;
 
 const TopRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 32px;
+  gap: 8px;
+  & > *:last-child {
+    flex-shrink: 0;
+  }
 `;
 
 const DeleteButton = styled.button`
@@ -156,17 +141,6 @@ const DeleteButton = styled.button`
   display: flex;
   align-items: center;
   gap: 4px;
-  cursor: pointer;
-`;
-
-const KickButton = styled.button`
-  padding: 6px 12px;
-  background: white;
-  border: 1px solid #d4d4d4;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #ff6232;
-  font-weight: 600;
   cursor: pointer;
 `;
 

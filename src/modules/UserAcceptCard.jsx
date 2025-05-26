@@ -16,6 +16,7 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
       <MenuList>
         {menus.map((menu, idx) => (
           <MenuOutputitem
+            type="default"
             key={idx}
             name={menu.name}
             count={menu.count}
