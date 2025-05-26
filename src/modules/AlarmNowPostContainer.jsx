@@ -10,7 +10,11 @@ flex-direction: column;
 gap: 12px;
 background-color: #f8f8f8;
 
-
+& > p {
+padding: 0;
+margin: 0;
+font-weight: 600;
+coloe: #202020;}
 `
 const AlarmNowPostCard = styled.div`
 background-color: #ffffff;
@@ -67,17 +71,19 @@ function AlarmNowPostContainer(props){
   const {category="카테고리", storeName="음식점", post} = props;
   const { title="제목", content="내용"} = post || {};
 
-  return (<StyledContainer>
-  <p>현재 참여중인 모집게시글입니다.</p>
-  <AlarmNowPostCard>
-    <StoreName category={category} storeName={storeName}></StoreName>
-    <PostContents>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </PostContents>
-    <StyledStatusBar><StatusBar type="simple"></StatusBar></StyledStatusBar>
-    <StyledBTN><SubBtn text="바로가기 ->"></SubBtn></StyledBTN>
-  </AlarmNowPostCard>
-  </StyledContainer>)}
+  return (
+    <StyledContainer>
+      <p>현재 참여중인 모집게시글입니다.</p>
+      <AlarmNowPostCard>
+        <StoreName category={category} storeName={storeName}></StoreName>
+        <PostContents>
+          <h1>{title}</h1>
+          <p>{content}</p>
+        </PostContents>
+        <StyledStatusBar><StatusBar type="simple"></StatusBar></StyledStatusBar>
+        <StyledBTN><SubBtn text="바로가기 ->"></SubBtn></StyledBTN>
+      </AlarmNowPostCard>
+    </StyledContainer>
+  )}
 
 export default AlarmNowPostContainer

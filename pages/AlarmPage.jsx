@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Device from "../src/layouts/Device";
-import AlarmNowPostContainer from "../src/modules/Alarm_NowPostContainer";
+import AlarmNowPostContainer from "../src/modules/AlarmNowPostContainer";
 import AlarmItem from "../src/modules/AlarmItem";
 
 const AlarmUl = styled.ul`
@@ -10,9 +10,6 @@ const AlarmUl = styled.ul`
   flex-direction: column;
   gap: 30px;
   margin-top: 35px;
-`
-const Device1 = styled(Device)`
-
 `
 const UlBox = styled.div` 
   height: 360px;
@@ -25,6 +22,10 @@ const UlBox = styled.div`
   display: none;       
 }
 `
+const StyledBox=styled.div`
+  height: 100%;
+  overflow: hidden;
+`
 function AlarmPage(props) {
   
   const data =[
@@ -34,7 +35,7 @@ function AlarmPage(props) {
     {id: 3, type:'partyendMember'},
     {id: 4, type:'deliveryend'},
     {id: 5, type:'leaveparty'},
-    {id: 6, type:'partyapplication'},
+    {id: 6, type:'partyapplication'}, 
     {id: 7, type:'partyrequest'},
   ]
 
@@ -45,16 +46,21 @@ function AlarmPage(props) {
       )
     }
   )
+
+
   
 
-  return  <Device content="알림" gnbType="gnb">
-    <AlarmNowPostContainer></AlarmNowPostContainer>
-    <UlBox>
-    <AlarmUl>
-      {AlarmList}
-    </AlarmUl>
-    </UlBox>
-  </Device>
+  return  (
+    <Device content="알림" gnbType="gnb">
+      <StyledBox>
+        <AlarmNowPostContainer></AlarmNowPostContainer>
+        <UlBox>
+          <AlarmUl>{AlarmList}</AlarmUl>
+        </UlBox>
+      </StyledBox>
+    </Device>
+  )
+
 }
 
 export default AlarmPage;

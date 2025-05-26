@@ -1,8 +1,23 @@
 :root {
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  --main-font: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: var(--main-font);
   line-height: 140%;
   background-color: #eeeeee;
+  color: #202020;
 }
+
+input,
+textarea,
+button,
+select {
+  font-family: var(--main-font) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: var(--main-font) !important;
+}
+
 .display > * {
   display: block;
   flex-direction: column;
