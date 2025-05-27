@@ -2,52 +2,10 @@ import styled from "styled-components";
 import CategoryBtn from "../src/components/CategoryBtn";
 import PostItem from "../src/modules/Postitem";
 import Device from "../src/layouts/Device";
+import CategoryBox from "../src/modules/MainCategoryBox";
+import PostBox from "../src/modules/MainPostBox";
 
-const CategoryBox = styled.div`
-width: 393px;
-box-sizing: border-box;
-overflow-x: scroll;
-background-color: #f8f8f8;
-margin: 0;
-padding: 15px 20px;
-scrollbar-width: none;      
--ms-overflow-style: none;     
 
-&::-webkit-scrollbar {
-  display: none;       
-}
-`
-const CategoryUl = styled.ul`
-display: flex;
-height: 32px;
-margin: 0;
-padding: 0;
-gap: 8px;
-white-space: nowrap;
-
-  &::after {
-    content: '';
-    flex: 0 0 12px;
-  }
-`
-
-const PostBox =styled.div`
-height: 588px;
-overflow-y: scroll; 
-scrollbar-width: none;      
--ms-overflow-style: none;     
-
-&::-webkit-scrollbar {
-  display: none;       
-}
-`
-const PostUl =styled.div`
-display: flex;
-flex-direction: column;
-padding: 12px 0;
-gap: 20px;
-
-`
 const ContentBox=styled.div`
 overflow-x: hidden;
 `
@@ -98,16 +56,8 @@ function MainPage(props){
   return (
     <Device headerType="main" gnbType="gnb">
     <ContentBox>
-      <CategoryBox>
-        <CategoryUl>
-        {CategoryList}
-        </CategoryUl>
-      </CategoryBox>
-      <PostBox>
-        <PostUl>
-          {PostList}
-        </PostUl>
-      </PostBox>
+      <CategoryBox>{CategoryList}</CategoryBox>
+      <PostBox>{PostList}</PostBox>
     </ContentBox>
 
     </Device>

@@ -2,26 +2,8 @@ import styled from "styled-components";
 import Device from "../src/layouts/Device";
 import AlarmNowPostContainer from "../src/modules/AlarmNowPostContainer";
 import AlarmItem from "../src/modules/AlarmItem";
+import UlBox from "../src/modules/AlarmUlBox"
 
-const AlarmUl = styled.ul`
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin-top: 35px;
-`
-const UlBox = styled.div` 
-  padding-bottom: 20px;
-  flex: 1 1 auto;
-  overflow-y: scroll;
-  scrollbar-width: none;      
--ms-overflow-style: none;     
-
-&::-webkit-scrollbar {
-  display: none;       
-}
-`
 const StyledBox=styled.div`
   height: 100%;
   display: flex;
@@ -49,16 +31,11 @@ function AlarmPage(props) {
     }
   )
 
-
-  
-
   return  (
     <Device content="알림" gnbType="none">
       <StyledBox>
         <AlarmNowPostContainer></AlarmNowPostContainer>
-        <UlBox>
-          <AlarmUl>{AlarmList}</AlarmUl>
-        </UlBox>
+        <UlBox>{AlarmList}</UlBox>
       </StyledBox>
     </Device>
   )
