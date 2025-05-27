@@ -5,8 +5,7 @@ const SearchItem = ({ category, storeName, minPrice }) => {
   return (
     <ItemWrapper>
       <IconBox>
-        <Circle />
-        <CircleInner />
+        <img src="/SearchIcon.svg" alt="검색아이콘"></img>
       </IconBox>
       <StoreNameBox>
         <CategoryBtn type="toggle" text={category} />

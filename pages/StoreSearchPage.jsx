@@ -4,8 +4,9 @@ import SearchItem from "../src/components/SearchItem";
 
 const SearchUI = styled.ul`
   margin: 0;
-  padding: 20px;
+  padding: 12px 20px;
   display: flex;
+  gap: 8px;
   flex-direction: column;
   `
 

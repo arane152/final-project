@@ -4,7 +4,7 @@ const StyledHeader = styled.div`
 height: 113px;
 width: 393px;
 margin: 0;
-padding: 0;
+box-sizing: border-box;
 background-color: #ffffff;
 box-shadow: 0px 4px 4px 0px rgba(128, 128, 128, 10%);
 position: absolute;
@@ -27,7 +27,7 @@ height: 24px;
 const StyledContent = styled.div`
 height: 59px;
 box-sizing: border-box;
-padding: 0px 20px;
+padding: 0 20px 10px 20px;
 font-size: 16px;
 font-weight: 600;
 color: #202020;
@@ -62,6 +62,7 @@ const SearchBar = styled.div`
   border-radius: 8px;
   display: flex;
   height: 44px;
+
   padding: 12px;
   align-items: center;
   box-sizing: border-box;
