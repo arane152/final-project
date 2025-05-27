@@ -22,7 +22,6 @@ const SearchItem = ({ category, storeName, minPrice }) => {
 
 export default SearchItem;
 
-// ===== 스타일 정의 =====
 const ItemWrapper = styled.div`
   width: 335px;
   padding: 8px 0;

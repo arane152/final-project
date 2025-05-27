@@ -36,6 +36,7 @@ import AlarmPage from '../pages/AlarmPage.jsx'
 import MainPage from '../pages/MainPage.jsx'
 import PostWritePage from '../pages/PostWritePage.jsx'
 import ParticipationPage from '../pages/ParticipationPage.jsx'
+import StoreSearchPage from '../pages/StoreSearchPage.jsx'
 
 import Modal from './layouts/BottomModal.jsx'
 
@@ -57,6 +58,9 @@ createRoot(document.getElementById('root')).render(
 
       <h1>participationpage</h1>
       <ParticipationPage></ParticipationPage>
+
+      <h1>StoreSearchPage</h1>
+      <StoreSearchPage></StoreSearchPage>
   
       {/* <InfoArea></InfoArea>
       <OderMenuArea></OderMenuArea> */}
