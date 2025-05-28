@@ -30,7 +30,7 @@ function StoreSearchPage() {
   ];
 
     return (
-    <Device content="search" headerType="search" gnbType="btn" btnType="default" btnMainText="음식점 추가하기">
+    <Device content="search" headerType="search" gnbType="btn" btnType="default" btnMainText="음식점 추가하기" backPage="/write">
         <SearchUI>
             {dummyStoreList.map((store, idx) => (
                 <SearchItem
