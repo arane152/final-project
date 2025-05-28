@@ -19,8 +19,8 @@ createRoot(document.getElementById('root')).render(
         <Route index element={<MainPage/>}></Route>
         <Route path='alarm' element={<AlarmPage/>}></Route>
         <Route path='write' element={<PostWritePage/>}></Route>
-        <Route path='view' element={<PostViewPage userType="writer"/>}></Route>
-        <Route path='view/participation' element={<ParticipationPage/>}></Route>
+        <Route path='post' element={<PostViewPage userType="writer"/>}></Route>
+        <Route path='post/participation' element={<ParticipationPage/>}></Route>
         <Route path='store' element={<StoreSearchPage/>}></Route>
       </Routes>
     </BrowserRouter>

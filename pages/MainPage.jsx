@@ -51,7 +51,7 @@ function MainPage(props){
   const PostList = postdata.map(
     (item)=>{
       return ( 
-        <PostItem onClick={()=>navigate(`/view`)} key={item.id} title={item.title}  content={item.content}  user={item.user}  total={item.total}></PostItem>
+        <PostItem onClick={()=>navigate(`/post`)} key={item.id} title={item.title}  content={item.content}  user={item.user}  total={item.total}></PostItem>
       )
     }
   )
