@@ -3,6 +3,8 @@ import PostImage from "../src/components/PostImage";
 import PostConatiner from "../src/modules/PostContainer";
 import PostMenuConatiner from "../src/modules/PostMenuContainer";
 
+import { useNavigate } from "react-router-dom";
+
 import Modal from "../src/layouts/BottomModal";
 import ModalBg from "../src/layouts/BottomModalBg";
 
@@ -11,16 +13,18 @@ import TotalAmount from "../src/components/TotalAmount";
 
 
 function PostViewPage(props) {
+    const navigate = useNavigate();
+
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (props.userType == "writer") {
         return (
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/">
-                <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation">
+                {/* <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
                     <MenuDefault type="info"></MenuDefault>
                     <MenuDefault type="info"></MenuDefault>
                     <TotalAmount title="총액"></TotalAmount>
                 </Modal>
-                <ModalBg></ModalBg>
+                <ModalBg></ModalBg> */}
                 <PostImage></PostImage>
                 <PostConatiner postTitle="post 제목" postContent="post 내용"></PostConatiner>
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>

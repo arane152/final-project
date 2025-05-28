@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { useNavigate } from "react-router-dom";
+
 const Wrapper = styled.div`
     display: flex;
     width: 353px;
@@ -17,6 +19,7 @@ const BtnWrapperDefault = styled.div`
     border-radius: 8px;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `
 
 const BtnWrapperDisable = styled(BtnWrapperDefault)`
@@ -39,6 +42,7 @@ const BtnMainSub = styled.div`
     border: solid #FF6232 1px;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `
 
 const BtnWrapperDubble = styled(BtnWrapperDefault)`
@@ -51,9 +55,13 @@ const BtnTextSub = styled(BtnText)`
 `
 
 function MainBtn(props) {
+    const navigate = useNavigate();
     // props.type : 버튼 타입  (default : "default" / disable : "disable" / dubble : "dubble")
     // props.mainText : 메인 버튼 내용
     // props.subText : 서브 버튼 내용
+
+    // 만약 메인 버튼에 onClick 이벤트를 넣고 싶으면 onClick={()=>navigate(`${props.mainOnClick}`)} 를 복사해서 넣을것
+    // 현재 어떤 기능이 들어갈지 몰라 빼놓았음
     if (props.type == "disable") {
         return (
         <Wrapper>
@@ -69,7 +77,7 @@ function MainBtn(props) {
             <BtnWrapperDubble>
                 <BtnText>{props.mainText}</BtnText>
             </BtnWrapperDubble>
-            <BtnMainSub>
+            <BtnMainSub onClick={()=>navigate(`${props.subOnClick}`)}>
                 <BtnTextSub>{props.subText}</BtnTextSub>
             </BtnMainSub>
         </Wrapper>
@@ -78,7 +86,7 @@ function MainBtn(props) {
     else if (props.type == "default"){
         return (
         <Wrapper>
-            <BtnWrapperDefault>
+            <BtnWrapperDefault> 
                 <BtnText>{props.mainText}</BtnText>
             </BtnWrapperDefault>
         </Wrapper>

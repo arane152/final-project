@@ -47,6 +47,8 @@ function Device(props) {
     // props.btnMainText : Gnb.jsx의 type이 "btn"일 떄, 표시되는 메인 버튼의 내용
     // props.btnSubText : Gnb.jsx의 type이 "btn"이고, btnType이 "dubble"일 때, 표시되는 서브 버튼의 내용
     // props.backPage : Header의 type이 메인이고 backBtn이 있는 header일 때, backBtn을 눌렀을 때 이동되는 페이지 경로
+    // props.mainPage : Gnb의 MainBtn을 눌렀을 때 이동되는 페이지 경로 -> MainBtn의 역할이 바뀌면 해당 props의 이름도 바뀌어야함
+    // props.subPage : Gnb의 SubBtn을 눌렀을 때 이동되는 페이지 경로
     return (
         <DeviceWrapper>
             <Header content={props.content} type={props.headerType || ""} navigatePage={props.backPage}></Header>
@@ -54,7 +56,7 @@ function Device(props) {
                 {props.children}
             </ContentWrapper>
             <Gnb type={props.gnbType || "none"}>
-                <MainBtn type={props.btnType} mainText={props.btnMainText} subText={props.btnSubText}></MainBtn>
+                <MainBtn type={props.btnType} mainText={props.btnMainText} subText={props.btnSubText} mainOnClick={props.mainPage} subOnClick={props.subPage}></MainBtn>
             </Gnb>
         </DeviceWrapper>
     )

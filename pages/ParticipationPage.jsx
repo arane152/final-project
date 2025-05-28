@@ -22,7 +22,7 @@ function ParticipationPage() {
   ];
 
   return (
-    <Device content="참여현황" headerType="" gnbType="none" btnType="">
+    <Device content="참여현황" headerType="" gnbType="none" btnType="" backPage="/view">
       <PostPartyContainer />
       <PostRequestContainer applicants={dummyApplicants} />
     </Device>
