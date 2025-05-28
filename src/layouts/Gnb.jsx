@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 const GnbWrapper = styled.div`
     display: flex;
@@ -49,9 +50,11 @@ const GnbAddIcon = styled.div`
     width: 46px;
     height: 46px;
     background-image: url(/AddPostIcon.svg);
+    cursor: pointer;
 `
 
 function Gnb(props) {
+    const navigate = useNavigate();
     // props.type : gnb 타입 (gnb : "gnb" / 버튼 : "btn")
     // props.children : gnb 타입중 btn 타입일때, 안에 들어가는 버튼
     if (props.type == "gnb") {
@@ -59,7 +62,7 @@ function Gnb(props) {
             <GnbWrapper>
                 <GnbLayout>
                     <GnbHomeIcon></GnbHomeIcon>
-                    <GnbAddIcon></GnbAddIcon>
+                    <GnbAddIcon onClick={()=>navigate(`/write`)}></GnbAddIcon>
                     <GnbProfileIcon></GnbProfileIcon>
                 </GnbLayout>
             </GnbWrapper>
