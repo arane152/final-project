@@ -14,7 +14,7 @@ function PostViewPage(props) {
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (props.userType == "writer") {
         return (
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황">
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/">
                 <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
                     <MenuDefault type="info"></MenuDefault>
                     <MenuDefault type="info"></MenuDefault>
@@ -29,7 +29,7 @@ function PostViewPage(props) {
     }
     else {
         return (
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기">
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/">
                 <PostImage></PostImage>
                 <PostConatiner postTitle="post 제목" postContent="post 내용"></PostConatiner>
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>

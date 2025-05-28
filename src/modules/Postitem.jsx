@@ -3,6 +3,7 @@ import StoreName from "./StoreName";
 import LikeBtn from "../components/LikeBtn";
 import Profile from "../components/Profile";
 import StateBadge from "../components/StateBadge";
+
 const ItemHead = styled.div`
 padding: 0 20px;
 display: flex;
@@ -20,21 +21,25 @@ margin-bottom: 10px;
 font-size: 16px;
 color: #202020;
 font-weight: 700;
+cursor: pointer;
 }
 & > p{
 padding: 0 20px;
 font-size: 13px;
 color: #404040;
-font-weight: 400;}
+font-weight: 400;
+cursor: pointer;
+}
 `
 const ImgUlBox = styled.div`
 
 margin-top: 16px;
 margin-bottom: 12px;
-height; 200px;
+height: 200px;
 overflow-x: scroll;
 scrollbar-width: none;      
--ms-overflow-style: none;     
+-ms-overflow-style: none;   
+cursor: pointer;  
 
 &::-webkit-scrollbar {
   display: none;       
@@ -71,7 +76,7 @@ right: 30px;
 bottom: 44px;
 `
 function PostItem(props){
-  const {category="카테고리", storeName="음식점", post, title, content} = props;
+  const {category="카테고리", storeName="음식점", post, title, content, onClick} = props;
 
   const Imgdata =[
     {id: 0, url:'https://i.namu.wiki/i/k1w5qzFr5A-UUVo0RhGHLp6n7HzoX5HvPXtt43x7LgsPMm9I8b5pmN2W6F0t1FjyLp1Tdm0ctsYdMyJ3OSsYfQ.webp'},
@@ -91,9 +96,9 @@ function PostItem(props){
   return (
     <PostItemBox>
       <ItemHead><StoreName category={category} storeName={storeName}></StoreName><LikeBtn type="default" likeNumber="00"></LikeBtn></ItemHead>
-      <h1>{title}</h1>
-      <p>{content}</p>
-      <ImgUlBox>
+      <h1 onClick={onClick}>{title}</h1>
+      <p onClick={onClick}>{content}</p>
+      <ImgUlBox onClick={onClick}>
         <ImgUl>
           {ImgList}
         </ImgUl>

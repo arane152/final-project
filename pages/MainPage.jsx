@@ -5,12 +5,15 @@ import Device from "../src/layouts/Device";
 import CategoryBox from "../src/modules/MainCategoryBox";
 import PostBox from "../src/modules/MainPostBox";
 
+import { useNavigate } from "react-router-dom";
+
 
 const ContentBox=styled.div`
 overflow-x: hidden;
 `
 
 function MainPage(props){
+  const navigate = useNavigate();
 
 
   const categorydata =[
@@ -48,7 +51,7 @@ function MainPage(props){
   const PostList = postdata.map(
     (item)=>{
       return ( 
-        <PostItem key={item.id} title={item.title}  content={item.content}  user={item.user}  total={item.total}></PostItem>
+        <PostItem onClick={()=>navigate(`/view`)} key={item.id} title={item.title}  content={item.content}  user={item.user}  total={item.total}></PostItem>
       )
     }
   )
