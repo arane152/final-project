@@ -13,27 +13,6 @@ import ParticipationPage from '../pages/ParticipationPage.jsx'
 import StoreSearchPage from '../pages/StoreSearchPage.jsx'
 
 createRoot(document.getElementById('root')).render(
-    // <div className="display">
-    //   <h1>postviewpage (userType="writer")</h1>
-    //   <PostViewPage userType="writer"></PostViewPage>
-    //   <h1>postviewpage (userType="")</h1>
-    //   <PostViewPage></PostViewPage>
-
-    //   <h1>alarmpage</h1>
-    //   <AlarmPage></AlarmPage>
-
-    //   <h1>mainpage</h1>
-    //   <MainPage></MainPage>
-
-    //   <h1>postwritepage</h1>
-    //   <PostWritePage></PostWritePage>
-
-    //   <h1>participationpage</h1>
-    //   <ParticipationPage></ParticipationPage>
-
-    //   <h1>StoreSearchPage</h1>
-    //   <StoreSearchPage></StoreSearchPage>
-    // </div>
     <BrowserRouter>
       {/* 우선 아직 페이지별로 이동할 수 있는 방법이 없기 떄문에 경로 뒤에 /path 를 넣어주셔서 작업해주세요 */}
       <Routes>
