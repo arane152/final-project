@@ -32,7 +32,7 @@ function AlarmPage(props) {
   )
 
   return  (
-    <Device content="알림" gnbType="none">
+    <Device content="알림" gnbType="none" backPage="/">
       <StyledBox>
         <AlarmNowPostContainer></AlarmNowPostContainer>
         <UlBox>{AlarmList}</UlBox>

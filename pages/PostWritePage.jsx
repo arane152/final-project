@@ -5,7 +5,7 @@ import OderMenuArea from "../src/modules/OrderMenuArea";
 
 function PostWritePage(props) {
     return(
-        <Device content="모집글쓰기" headerType="" gnbType="btn" btnType="default" btnMainText="모집글 올리기">
+        <Device content="모집글쓰기" headerType="" gnbType="btn" btnType="default" btnMainText="모집글 올리기" backPage="/">
             <InfoArea></InfoArea>
             <OderMenuArea></OderMenuArea>
         </Device>

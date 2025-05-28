@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+
 const StyledHeader = styled.div`
 height: 113px;
 width: 393px;
@@ -23,6 +25,7 @@ padding: 0;
 margin: 0;
 width: 24px;
 height: 24px;
+cursor: pointer;
 `
 const StyledContent = styled.div`
 height: 59px;
@@ -101,20 +104,22 @@ color: #AAAAAA;
   outline: none;}
 `
 function Header(props){
-  const {type, content, onFunction, location} = props;
+  const {type, content, navigatePage, location} = props;
   const [text, setText] = useState("")
+  const navigate = useNavigate();
+
   return (
   <><StyledHeader>
     <img src="/StatusBar.svg" alt="스테이터스바목업이미지"></img>
     <StyledContent>{/* type props가 main인지 판단, 맞다면 main출력 -> 아니라면 search 인지 판단, 맞다면 search 출력 -> 아니라면 기본값 출력  */}
-    {type == "main" ?<img src="/Logo.svg" alt="서비스로고"></img> : <img src="/BackArrowIcon.svg" alt="뒤로가기아이콘"></img>}
+    {type == "main" ?<img src="/Logo.svg" alt="서비스로고"></img> : <img style={{ cursor: 'pointer' }} src="/BackArrowIcon.svg" alt="뒤로가기아이콘" onClick={()=>navigate(`${navigatePage}`)}></img>}
     
     {type == "main" ? 
       //메인페이지헤더
       (<div>
         <MainTitle>{content || "함께먹기"}</MainTitle>
         <MainLocation><img src="/LocationIcon.svg" alt="위치핀아이콘"></img>{location || "1기숙사"}</MainLocation>
-        <AlarmButton onClick={onFunction}><img src="/AlarmIcon.svg"></img></AlarmButton>
+        <AlarmButton onClick={()=>navigate(`/alarm`)}><img src="/AlarmIcon.svg"></img></AlarmButton>
       </div>) 
       
       //서치페이지헤더

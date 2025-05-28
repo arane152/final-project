@@ -45,10 +45,11 @@ function Device(props) {
     // props.gnbType : Gnb.jsx의 type (gnb : "gnb" / 버튼 : "btn")
     // props.btnType : Gnb.jsx의 type이 "btn"일때, 표시되는 버튼의 타입 (default : "default" / disable : "disable" / dubble : "dubble")
     // props.btnMainText : Gnb.jsx의 type이 "btn"일 떄, 표시되는 메인 버튼의 내용
-    // porps.btnSubText : Gnb.jsx의 type이 "btn"이고, btnType이 "dubble"일 때, 표시되는 서브 버튼의 내용
+    // props.btnSubText : Gnb.jsx의 type이 "btn"이고, btnType이 "dubble"일 때, 표시되는 서브 버튼의 내용
+    // props.backPage : Header의 type이 메인이고 backBtn이 있는 header일 때, backBtn을 눌렀을 때 이동되는 페이지 경로
     return (
         <DeviceWrapper>
-            <Header content={props.content} type={props.headerType || ""}></Header>
+            <Header content={props.content} type={props.headerType || ""} navigatePage={props.backPage}></Header>
             <ContentWrapper gnbtype={props.gnbType || "none"}>
                 {props.children}
             </ContentWrapper>
