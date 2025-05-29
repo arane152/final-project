@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Modal from "./BottomModal";
 
 const Wrapper = styled.div`
-    display: flex;
     position: absolute;
     top: 0;
     left: 0;

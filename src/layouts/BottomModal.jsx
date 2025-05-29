@@ -6,7 +6,6 @@ import MainBtn from "../components/MainBtn";
 import ModalBg from "./BottomModalBg";
 
 const Wrapper = styled.div`
-    display: flex;
     position: absolute;
     bottom: 0;
     width: 393px;
