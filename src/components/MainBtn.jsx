@@ -62,37 +62,35 @@ function MainBtn(props) {
 
     // 만약 메인 버튼에 onClick 이벤트를 넣고 싶으면 onClick={()=>navigate(`${props.mainOnClick}`)} 를 복사해서 넣을것
     // 현재 어떤 기능이 들어갈지 몰라 빼놓았음
-    if (props.type == "disable") {
-        return (
-        <Wrapper>
-            <BtnWrapperDisable>
-                <BtnText>{props.mainText}</BtnText>
-            </BtnWrapperDisable>
-        </Wrapper>
-        )
-    }
-    else if (props.type == "dubble") {
-        return (
-        <Wrapper>
-            <BtnWrapperDubble>
-                <BtnText>{props.mainText}</BtnText>
-            </BtnWrapperDubble>
-            <BtnMainSub onClick={()=>navigate(`${props.subOnClick}`)}>
-                <BtnTextSub>{props.subText}</BtnTextSub>
-            </BtnMainSub>
-        </Wrapper>
-        )
-    }
-    else if (props.type == "default"){
-        return (
-        <Wrapper>
-            <BtnWrapperDefault> 
-                <BtnText>{props.mainText}</BtnText>
-            </BtnWrapperDefault>
-        </Wrapper>
-        )
-    }
-    
+    // 모달 오픈 용도로 "default" 안에 modalOnclick 추가가
+  if (type === "disable") {
+    return (
+      <Wrapper>
+        <BtnWrapperDisable>
+          <BtnText>{mainText}</BtnText>
+        </BtnWrapperDisable>
+      </Wrapper>
+    );
+  } else if (type === "dubble") {
+    return (
+      <Wrapper>
+        <BtnWrapperDubble>
+          <BtnText>{mainText}</BtnText>
+        </BtnWrapperDubble>
+        <BtnMainSub onClick={() => navigate(`${subOnClick}`)}>
+          <BtnTextSub>{subText}</BtnTextSub>
+        </BtnMainSub>
+      </Wrapper>
+    );
+  } else if (type === "default") {
+    return (
+      <Wrapper>
+        <BtnWrapperDefault onClick={modalOnClick}>
+          <BtnText>{mainText}</BtnText>
+        </BtnWrapperDefault>
+      </Wrapper>
+    );
+  }
 }
 
 export default MainBtn

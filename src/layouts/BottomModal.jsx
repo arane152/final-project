@@ -77,6 +77,7 @@ function Modal(props) {
     // props.btnType : 메인 버튼 타입
     // props.mainText : 메인 버튼 텍스트
     // props.modalText : 모달 상단 텍스트
+    // props.openModal : 모달 오픈
     return (
         <Wrapper>
             <ModalTopWrapper>
@@ -88,7 +89,7 @@ function Modal(props) {
                 {props.children}
             </ModalContent>
             <Gnb type="btn">
-                <MainBtn type={props.btnType} mainText={props.mainText}></MainBtn>
+                <MainBtn type={props.btnType} mainText={props.mainText} modalOnClick={props.openModal}></MainBtn>
             </Gnb>
         </Wrapper>
     )
