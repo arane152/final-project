@@ -56,6 +56,7 @@ const BtnTextSub = styled(BtnText)`
 
 function MainBtn(props) {
     const navigate = useNavigate();
+    const {mainText, subOnClick, subText, type, modalOnClick} = props;
     // props.type : 버튼 타입  (default : "default" / disable : "disable" / dubble : "dubble")
     // props.mainText : 메인 버튼 내용
     // props.subText : 서브 버튼 내용
