@@ -83,13 +83,13 @@ right: 30px;
 bottom: 44px;
 `
 function PostItem(props){
-  const {category="카테고리", storeName="음식점", post} = props;
+  const {post} = props;
 
 
 
   return (
     <PostItemBox>
-      <ItemHead><StoreName category={category} storeName={storeName}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
+      <ItemHead><StoreName storeId={post.storeId}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
       <h1 onClick={post.onClick}>{post.title}</h1>
       <p onClick={post.onClick}>{post.content}</p>
       <ImgUlBox onClick={post.onClick}>

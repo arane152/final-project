@@ -13,10 +13,10 @@ import ParticipationPage from '../pages/ParticipationPage.jsx'
 import StoreSearchPage from '../pages/StoreSearchPage.jsx'
 
 //context
-import UserProvider from '../context/UserContext.jsx'
+import AllProvider from '../context/AllProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
-    <UserProvider>
+    <AllProvider>
     <BrowserRouter>
       {/* 우선 아직 페이지별로 이동할 수 있는 방법이 없기 떄문에 경로 뒤에 /path 를 넣어주셔서 작업해주세요 */}
       <Routes>
@@ -28,5 +28,5 @@ createRoot(document.getElementById('root')).render(
         <Route path='store' element={<StoreSearchPage/>}></Route>
       </Routes>
     </BrowserRouter>
-    </UserProvider>
+    </AllProvider>
 )
