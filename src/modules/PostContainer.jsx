@@ -79,7 +79,7 @@ function PostConatiner (props) {
             <PostTop>
                 <PostTopStoreInfo>
                     <StoreName category="카테고리" storeName="가게이름"></StoreName>
-                    <LikeBtn type="default" likeNumber="0"></LikeBtn>
+                    <LikeBtn type="default"q></LikeBtn>
                 </PostTopStoreInfo>
                 <PostTitle>{props.postTitle}</PostTitle>
                 <Profile name="홍길동" date="00월 00일 00:00"/>
