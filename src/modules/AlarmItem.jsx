@@ -82,7 +82,7 @@ function AlarmItem(props){
             </AlarmText>
 
             {/* 주문신청일경우 버튼출력 그 외의 경우 게시물이미지출력 */}
-            {(type == "partyrequest") ? <SubBtn text="신청수락"></SubBtn> : <PostImg src="https://i.namu.wiki/i/k1w5qzFr5A-UUVo0RhGHLp6n7HzoX5HvPXtt43x7LgsPMm9I8b5pmN2W6F0t1FjyLp1Tdm0ctsYdMyJ3OSsYfQ.webp"></PostImg>}
+            {(type == "partyrequest") ? <SubBtn text="신청수락"></SubBtn> : <PostImg src="/AlarmBasicImg.svg"></PostImg>}
       </StyledAlarmItem>
     )
 }

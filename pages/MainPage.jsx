@@ -6,35 +6,47 @@ import CategoryBox from "../src/modules/MainCategoryBox";
 import PostBox from "../src/modules/MainPostBox";
 
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 const ContentBox=styled.div`
 overflow-x: hidden;
 `
 
+const StyledBtn=styled.button`
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+`
 function MainPage(props){
   const navigate = useNavigate();
-
-
+  const [nowCategory, setCategory] = useState('전체');
+  
   const categorydata =[
     {id: 0, text:'전체'},
-    {id: 1, text:'음식'},
-    {id: 2, text:'음식'},
-    {id: 3, text:'음식'},
-    {id: 4, text:'음식'},
-    {id: 5, text:'음식'},
-    {id: 6, text:'음식'},
-    {id: 7, text:'음식'},
-    {id: 8, text:'음식'},
-    {id: 9, text:'음식'},
-    {id: 10, text:'음식'},
-    {id: 11, text:'음식'},
+    {id: 1, text:'음식1'},
+    {id: 2, text:'음식2'},
+    {id: 3, text:'음식3'},
+    {id: 4, text:'음식4'},
+    {id: 5, text:'음식5'},
+    {id: 6, text:'음식6'},
+    {id: 7, text:'음식7'},
+    {id: 8, text:'음식8'},
+    {id: 9, text:'음식9'},
+    {id: 10, text:'음식10'},
+    {id: 11, text:'음식11'},
   ]
 
   const CategoryList =  categorydata.map(
     (item)=>{
       return ( 
-        <CategoryBtn key={item.id} text={item.text}></CategoryBtn>
+        <StyledBtn onClick={() => setCategory(item.text)}>
+          <CategoryBtn 
+            key={item.id} 
+            text={item.text}
+            type={nowCategory === item.text ? 'toggle' : ''}>
+          </CategoryBtn>
+        </StyledBtn>
       )
     }
   )
