@@ -8,42 +8,25 @@ const BtnWrapperDefault = styled.div`
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    border: 1px solid #FF6232;
-`
-
-const BtnWrapperNoneToggle = styled(BtnWrapperDefault)`
-    border: 1px solid #AAAAAA;
+    border: ${props => props.isSelected ? '1px solid #FF6232' : '1px solid #AAAAAA'};
 `
 
 const BtnText = styled.p`
     display: flex;
     font-size: 14px;
     font-weight: 600;
-    color: #FF6232;
-`
-
-const BtnTextNoneToggle = styled(BtnText)`
-    color: #AAAAAA;
-    font-weight: 500;
+    color: ${props => props.isSelected ? '#FF6232' : '#AAAAAA'};
 `
 
 function ToggleBtn(props) {
     const width = props.width || '112'
+    const { text, onClick, isSelected} = props;
 
-    if (props.type == "none-toggle") {
-        return (
-            <BtnWrapperNoneToggle width={width}>
-                <BtnTextNoneToggle>{props.text}</BtnTextNoneToggle>
-            </BtnWrapperNoneToggle>
-        )
-    }
-    else {
-        return (
-            <BtnWrapperDefault width={width}>
-                <BtnText>{props.text}</BtnText>
-            </BtnWrapperDefault>
-        )
-    }
+    return (
+        <BtnWrapperDefault width={width} isSelected={isSelected} onClick={onClick}>
+            <BtnText isSelected={isSelected}>{text}</BtnText>
+        </BtnWrapperDefault>
+    )
 }
 
 export default ToggleBtn

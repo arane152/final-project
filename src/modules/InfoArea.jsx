@@ -33,6 +33,12 @@ const ImgBtn = styled.button`
 `
 
 function InfoArea(props) {
+    const [toggle, setToggle] = useState('자유')
+
+    const handleToggleClick = (selectedToggle) => {
+        setToggle(selectedToggle);
+    };
+
     return(
     <StyledWrapper>
         <Container>
@@ -43,8 +49,10 @@ function InfoArea(props) {
             <InfoBox title="메뉴사진"><ImgBtn>+</ImgBtn></InfoBox>
             <InfoBox title="계좌번호"><TextInput placeholder="계좌번호를 입력해주세요."></TextInput></InfoBox>
             <InfoBox title={<>선입금<br />필수여부</>}>
-                <ToggleBtn width='142' text="자유"></ToggleBtn>
-                <ToggleBtn width='142' type="none-toggle" text="필수"></ToggleBtn>
+                <ToggleBtn width='142' text="자유"
+                onClick={() => handleToggleClick('자유')} isSelected={toggle === '자유'} ></ToggleBtn>
+                <ToggleBtn width='142'text="필수"
+                onClick={() => handleToggleClick('필수')} isSelected={toggle === '필수'}></ToggleBtn>
             </InfoBox>
         </Container>
     </StyledWrapper>

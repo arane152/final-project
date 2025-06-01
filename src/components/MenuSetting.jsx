@@ -29,14 +29,22 @@ const Container = styled.div`
 function MenuSetting(props) {
     const navigate = useNavigate();
 
+    const [toggle, setToggle] = useState('허용')
+
+    const handleToggleClick = (selectedToggle) => {
+        setToggle(selectedToggle);
+    };
+
     return(
         <Container>
             <Subtitle>음식점 설정</Subtitle>
             <InfoBox title="음식점명"><TextInput placeholder="음식점명을 입력해주세요." onClick={()=>navigate(`/store`)}></TextInput></InfoBox>
             <InfoBox title="최소금액"><TextInput placeholder="최소금액을 입력해주세요."></TextInput></InfoBox>
             <InfoBox title={<>신청자<br />메뉴추가</>}>
-                <ToggleBtn width='122' text="허용"></ToggleBtn>
-                <ToggleBtn width='122' type="none-toggle" text="금지"></ToggleBtn>
+                <ToggleBtn width='122' text="허용"
+                onClick={() => handleToggleClick('허용')} isSelected={toggle === '허용'}></ToggleBtn>
+                <ToggleBtn width='122' text="금지"
+                onClick={() => handleToggleClick('금지')} isSelected={toggle === '금지'}></ToggleBtn>
             </InfoBox>
         </Container>
     )
