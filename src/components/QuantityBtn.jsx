@@ -19,7 +19,7 @@ const BtnWrapper = styled.div`
     height: 12px;
     justify-content: center;
     align-items: center;
-    background-image: url(${(props) => props.btnType === 'minus' ? '/QuantityMinus.svg' : '/QuantityPlus.svg'});
+    background-image: url(${(props) => props.$btnType === 'minus' ? '/QuantityMinus.svg' : '/QuantityPlus.svg'});
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -33,14 +33,16 @@ const QuantityText = styled.p`
 
 function QuantityBtn (props) {
     // props.quantity : 수량
+    const { quantity, onPlusClick, onMinusClick } = props;
 
     return (
         <Wrapper>
-            <BtnWrapper btnType="minus"></BtnWrapper>
-            <QuantityText>나의 수량 : {props.quantity}</QuantityText>
-            <BtnWrapper btnType="plus"></BtnWrapper>
+            <BtnWrapper $btnType="minus" onClick={onMinusClick}></BtnWrapper>
+            <QuantityText>나의 수량 : {quantity}</QuantityText>
+            <BtnWrapper $btnType="plus" onClick={onPlusClick}></BtnWrapper>
         </Wrapper>
-    )
+    );
 }
+
 
 export default QuantityBtn

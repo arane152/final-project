@@ -74,7 +74,7 @@ const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
     return (
       <ItemContainer width={width}>
         <MenuTextBold>
-          {name} × {count}개
+          {name}
         </MenuTextBold>
         <PriceText>개당 {price.toLocaleString()}원</PriceText>
       </ItemContainer>

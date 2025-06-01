@@ -39,6 +39,18 @@ function InfoArea(props) {
         setToggle(selectedToggle);
     };
 
+    // 이미지 업로더
+    const [image, setImage] = useState(null)
+
+    const handleImage = (e)=>{
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = (_e)=>{
+            console.log(_e.target.result)
+            setImage(_e.target.result)
+        }
+    }
+
     return(
     <StyledWrapper>
         <Container>

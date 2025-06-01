@@ -34,28 +34,48 @@ const TotalPrice = styled(CurrentQuantity)`
     font-weight: 600;
 `
 
-function MenuDefault(props) {
-    const {onClick} = props;
+function formatPrice(price) {
+    return price.toLocaleString('ko-KR');
+}
 
+function MenuDefault(props) {
     const type = props.type || "default";  // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
 
-    if(type == "default"){   
+    const [quantity, setQuantity] = useState(0);
+
+    const totalAmount = quantity * 15000; //임시 금액 계산
+
+    const handlePlusClick = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    const handleMinusClick = () => {
+        if (quantity > 0) {
+            setQuantity(prevQuantity => prevQuantity - 1);
+        }
+    };
+
+    if(type == "default"){
         return(
-            <Container onClick={onClick}>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" count="1" price="15,000" width="313"></MenuOutPutItem>
+            <Container>
+                <MenuOutPutItem type="bold" name="후라이드 치킨" price="15,000" width="313"></MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>현재수량: 0</CurrentQuantity>
-                    <QuantityBtn></QuantityBtn>
+                    <CurrentQuantity>금액: {formatPrice(totalAmount)}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
+                    <QuantityBtn
+                        quantity={quantity}
+                        onPlusClick={handlePlusClick}
+                        onMinusClick={handleMinusClick}
+                    ></QuantityBtn>
                 </ContainerWrapper>
             </Container>
         )
     }else if(type == "info"){
         return(
-            <Container onClick={onClick}>
+            <Container>
                 <MenuOutPutItem type="bold" name="후라이드 치킨" count="1" price="15,000" width="313"></MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>현재수량: 0</CurrentQuantity>
-                    <TotalPrice>총 0원</TotalPrice>
+                    <CurrentQuantity>현재 수량: {quantity}</CurrentQuantity>
+                    <TotalPrice>총 {formatPrice(totalAmount)}원</TotalPrice> {/*실제 가격 계산 필요*/}
                 </ContainerWrapper>
             </Container>
         )
