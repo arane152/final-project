@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import React from 'react';
-import { useState } from 'react';
 
 const Wrapper = styled.div`
     display: flex;
