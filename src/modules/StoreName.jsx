@@ -23,6 +23,7 @@ const StoreTextBlack = styled(StoreText)`
 `
 
 function StoreName(props) { 
+    const { storeId } = props
     // props.type : 글자 색 타입 (default : "" / black : "black")
     // props.categroy : 카테고리 이름
     // props.storeName : 가게 이름

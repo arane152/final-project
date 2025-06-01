@@ -3,7 +3,9 @@ import Device from "../src/layouts/Device";
 import AlarmNowPostContainer from "../src/modules/AlarmNowPostContainer";
 import AlarmItem from "../src/modules/AlarmItem";
 import UlBox from "../src/modules/AlarmUlBox"
-
+import { useState, useEffect } from "react";
+import {db} from '/src/firebase.js'
+import { useUser } from '../context/UserContext'
 const StyledBox=styled.div`
   height: 100%;
   display: flex;
@@ -11,22 +13,24 @@ const StyledBox=styled.div`
   overflow: hidden;
 `
 function AlarmPage(props) {
-  
-  const data =[
-    {id: 0, type:'timeend'},
-    {id: 1, type:'totalend'},
-    {id: 2, type:'partyendCaptain'},
-    {id: 3, type:'partyendMember'},
-    {id: 4, type:'deliveryend'},
-    {id: 5, type:'leaveparty'},
-    {id: 6, type:'partyapplication'}, 
-    {id: 7, type:'partyrequest'},
-  ]
+  const { nowuser } = useUser();
+  const [notData, setNotData] = useState([])
+  useEffect(() => {
+    let tempData = [];
+    db.collection('notification').get().then(function (qs) {
+      qs.forEach(function (doc) {
+        tempData.push(doc.data());
+      });
+      const filteredUser = tempData.filter((item) => item.userId == nowuser.userId
+      );
+      setNotData(filteredUser);
+    });
+  }, []);
 
-  const AlarmList = data.map(
+  const AlarmList = notData.map(
     (item)=>{
       return ( 
-        <AlarmItem key={item.id} type={item.type}></AlarmItem>
+        <AlarmItem key={item.notId} type={item.type || "deliveryend"}></AlarmItem>
       )
     }
   )
