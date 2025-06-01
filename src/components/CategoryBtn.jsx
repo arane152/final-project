@@ -6,6 +6,7 @@ const BtnWrapperDefault = styled.div`
     height: 32px;
     background-color: #FF6232;
     border-radius: 16px;
+    border: 1px solid #FF6232;
     justify-content: center;
     align-items: center;
     padding: 0px 11px;
