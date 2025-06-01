@@ -30,17 +30,34 @@ function MainPage(props){
   
   // firebase
   useEffect(()=>{
-    // 임시 저장 장소
-    let tempData = []
+    // post 임시 저장 장소
+    let tempDataPost = []
+    // post 불러오기
     db.collection('post').get().then((qs)=>{
       qs.forEach((doc)=>{
-        tempData.push(doc.data())
+        tempDataPost.push(doc.data())
       })
-      setData(tempData)
+      setData(tempDataPost)
       // 테스트용 콘솔로그
-      console.log(tempData)
+      console.log(tempDataPost)
+    })
+
+    // user 임시 저장 장소
+    let tempDataUser = []
+    // user 불러오기
+    db.collection('user').get().then((qs)=>{
+      qs.forEach((doc)=>{
+        tempDataUser.push(doc.data())
+      })
+      setData(tempDataUser)
+      // 테스트용 콘솔로그
+      console.log(tempDataUser)
     })
   }, [])
+
+
+
+
   
   const categorydata =[
     {id: 0, text:'전체'},
