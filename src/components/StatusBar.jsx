@@ -34,7 +34,8 @@ const StatusBarWrapper = styled.div`
 
 const StatusBarTextWrapper = styled.div`
     display: flex;
-    width: 197px;
+    min-width: 197px;
+    width: 240px;
     height: 17px;
     justify-content: space-between;
     align-items: center;
@@ -43,7 +44,9 @@ const StatusBarTextWrapper = styled.div`
     color: #606060;
 `
 
-const StatusBarText = styled.p``
+const StatusBarText = styled.p`
+    width: auto;
+`
 
 const StatusBarBackground = styled.div`
     display: flex;
@@ -79,7 +82,7 @@ const StatusBarImg = styled.div`
 
 const StatusBarMarker = styled.div`
     display: flex;
-    width: 15px;
+    width: ${props => 15 + ((props.totalPercent ?? 0) / 100) * (256 - 15)}px;
     height: 4px;
     background-color: #FF6232;
     margin-left: 24px;
@@ -98,12 +101,14 @@ const StatusBarMark = styled.div`
 `
 
 function StatusBar(props) {
+    const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
+
     if (props.type == "simple") {
         return (
             <WrapperSimple>
                 <StatusBarWrapper>
                     <StatusBarBackgroundSimple>
-                        <StatusBarMarker></StatusBarMarker>
+                        <StatusBarMarker totalPercent={totalPercent}></StatusBarMarker>
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackgroundSimple>
                 </StatusBarWrapper>
@@ -119,12 +124,12 @@ function StatusBar(props) {
                         <StatusBarText>지금담긴금액 {props.nowPrice}원</StatusBarText> / <StatusBarText>최소주문금액 {props.postMinPrice}원</StatusBarText>
                     </StatusBarTextWrapper>
                     <StatusBarBackground>
-                        <StatusBarMarker></StatusBarMarker>
+                        <StatusBarMarker totalPercent={totalPercent}></StatusBarMarker>
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackground>
                     <StatusBarMark></StatusBarMark>
                 </StatusBarWrapper>
-                <StatusText>{props.totalPercent}%</StatusText>
+                <StatusText>{totalPercent}%</StatusText>
             </Wrapper>
         )
     }

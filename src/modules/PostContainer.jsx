@@ -90,7 +90,7 @@ function PostConatiner (props) {
                 <InfoBox title="선입금" content="농협 000000000000" badge="필수"></InfoBox>
             </PostInfo>
             <PostContent>{props.postContent}</PostContent>
-            <StatusBar totalPercent="0" nowPrice="0" postMinPrice="0"></StatusBar>
+            <StatusBar nowPrice="1000" postMinPrice="15000"></StatusBar>
         </PostWrapper>
     )
 }
