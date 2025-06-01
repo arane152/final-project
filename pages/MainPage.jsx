@@ -6,7 +6,10 @@ import CategoryBox from "../src/modules/MainCategoryBox";
 import PostBox from "../src/modules/MainPostBox";
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// firebase db
+import {db} from '/src/firebase.js'
 
 const ContentBox=styled.div`
 overflow-x: hidden;
@@ -21,6 +24,23 @@ const StyledBtn=styled.button`
 function MainPage(props){
   const navigate = useNavigate();
   const [nowCategory, setCategory] = useState('전체');
+
+  // firebase data state
+  const [data, setData] = useState([])
+  
+  // firebase
+  useEffect(()=>{
+    // 임시 저장 장소
+    let tempData = []
+    db.collection('post').get().then((qs)=>{
+      qs.forEach((doc)=>{
+        tempData.push(doc.data())
+      })
+      setData(tempData)
+      // 테스트용 콘솔로그
+      console.log(tempData)
+    })
+  }, [])
   
   const categorydata =[
     {id: 0, text:'전체'},
