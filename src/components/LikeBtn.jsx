@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react"
 
 const LikeWrapper = styled.div`
     display: inline-flex;
@@ -8,6 +9,7 @@ const LikeWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `
 
 const LikeIcon = styled.div`
@@ -25,29 +27,50 @@ const LikeIconChecked = styled(LikeIcon)`
     background-image: url(/LikeIconFill.svg);
 `
 
-const LikeNumber = styled.p`
+const LikeNumberText = styled.p`
     font-size: 14px;
     font-weight: 500;
     color: #666666;
 `
 
 function LikeBtn(props) {
-    if (props.type == "default") {
-        return (
-            <LikeWrapper>
-                <LikeIcon></LikeIcon>
-                <LikeNumber>{props.likeNumber}</LikeNumber>
-            </LikeWrapper>
-        )
+    const [type, setType] = useState(props.type);
+    const [likeCount, setLikeCount] = useState(props.likeNumber || 0)
+
+    const handleClick = () => {
+        if (type === "default") {
+            setType("like");
+            setLikeCount(likeCount + 1);
+        }
+        else {
+            setType("default");
+            setLikeCount(likeCount - 1);
+        }
     }
-    else if (props.type == "like") {
-        return (
-            <LikeWrapper>
-                <LikeIconChecked></LikeIconChecked>
-                <LikeNumber>{props.likeNumber}</LikeNumber>
-            </LikeWrapper>
-        )
-    }
+
+    return (
+        <LikeWrapper onClick={handleClick}>
+            {type === "default" ? <LikeIcon /> : <LikeIconChecked />}
+            <LikeNumberText>{likeCount}</LikeNumberText>
+        </LikeWrapper>
+    )
+
+    // if (type == "default") {
+    //     return (
+    //         <LikeWrapper >
+    //             <LikeIcon></LikeIcon>
+    //             <LikeNumber>{likeNumber}</LikeNumber>
+    //         </LikeWrapper>
+    //     )
+    // }
+    // else if (type == "like") {
+    //     return (
+    //         <LikeWrapper>
+    //             <LikeIconChecked></LikeIconChecked>
+    //             <LikeNumber>{likeNumber}</LikeNumber>
+    //         </LikeWrapper>
+    //     )
+    // }
 
 }
 

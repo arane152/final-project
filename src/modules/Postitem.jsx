@@ -95,7 +95,7 @@ function PostItem(props){
 
   return (
     <PostItemBox>
-      <ItemHead><StoreName category={category} storeName={storeName}></StoreName><LikeBtn type="default" likeNumber="00"></LikeBtn></ItemHead>
+      <ItemHead><StoreName category={category} storeName={storeName}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
       <h1 onClick={onClick}>{title}</h1>
       <p onClick={onClick}>{content}</p>
       <ImgUlBox onClick={onClick}>
