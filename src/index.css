@@ -20,6 +20,7 @@ select {
 input::placeholder,
 textarea::placeholder {
   font-family: var(--main-font) !important;
+  color: #aaaaaa;
 }
 
 .display > * {
