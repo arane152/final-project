@@ -25,20 +25,27 @@ const ClosedWrapper = styled.div`
     width: 393px;
     height: 247px;
     background-color: #000000;
-    opacity: 40%;
     justify-content: center;
     align-items: center;
     z-index: 2;
+
+    & > img {
+            width: 393px;
+            height: 247px;
+            object-fit: cover;
+        }
 `
 
 const ClosedImage = styled.div`
     display: flex;
-    width: 100px;
-    height: 100px;
+    position: absolute;
+    background-color: #0000006e;
+    width: 393px;
+    height: 247px;
     background-image: url(/RecruitmentClosed.svg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100px 100px;
 `
 
 function PostImage(props) {
@@ -46,6 +53,7 @@ function PostImage(props) {
         return (
             <Wrapper>
                 <ClosedWrapper>
+                    <img src={props.postImage}></img>
                     <ClosedImage></ClosedImage>
                 </ClosedWrapper>
             </Wrapper>
