@@ -24,8 +24,15 @@ font-weight: 700;
 cursor: pointer;
 }
 & > p{
+margin: 0;
 padding: 0 20px;
 font-size: 13px;
+line-height: 100%;
+height: 13px;
+white-space: nowrap;        
+overflow: hidden;          
+text-overflow: ellipsis; 
+
 color: #404040;
 font-weight: 400;
 cursor: pointer;
@@ -76,32 +83,17 @@ right: 30px;
 bottom: 44px;
 `
 function PostItem(props){
-  const {category="카테고리", storeName="음식점", post, title, content, onClick} = props;
+  const {post} = props;
 
-  const Imgdata =[
-    {id: 0, url:'https://i.namu.wiki/i/k1w5qzFr5A-UUVo0RhGHLp6n7HzoX5HvPXtt43x7LgsPMm9I8b5pmN2W6F0t1FjyLp1Tdm0ctsYdMyJ3OSsYfQ.webp'},
-    {id: 1, url:'https://kfcapi.inicis.com/kfcs_api_img/KFCS/goods/DL_2177082_20250403133606385.png'},
-    {id: 2, url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ9r-KrwjPCb5ZLq6XR-LF5Kwhh7dWAl-xQUkWNWqw9fSRvWwFIraW0vUGJDol8m0TZzg&usqp=CAU'},
-    {id: 4, url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShD-4SqZ9PRCTmm2HLqUWg49924LPnXOHe2A&s'},
-  ]
 
-  const ImgList = Imgdata.map(
-    (item)=>{
-      return ( 
-        <img key={item.id} src={item.url}></img>
-      )
-    }
-  )
 
   return (
     <PostItemBox>
-      <ItemHead><StoreName category={category} storeName={storeName}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
-      <h1 onClick={onClick}>{title}</h1>
-      <p onClick={onClick}>{content}</p>
-      <ImgUlBox onClick={onClick}>
-        <ImgUl>
-          {ImgList}
-        </ImgUl>
+      <ItemHead><StoreName storeId={post.storeId}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
+      <h1 onClick={post.onClick}>{post.title}</h1>
+      <p onClick={post.onClick}>{post.content}</p>
+      <ImgUlBox onClick={post.onClick}>
+        <ImgUl><img src={post.image}></img></ImgUl>
       </ImgUlBox>
       <StyledBadge><StateBadge type="TotalAcount">00%</StateBadge></StyledBadge>
       <ItemBotton><Profile name="사용자" location="1기숙사" date="0000.00.00" fontSize="12px"></Profile></ItemBotton> 

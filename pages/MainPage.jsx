@@ -11,6 +11,8 @@ import { useState, useEffect } from "react";
 // firebase db
 import {db} from '/src/firebase.js'
 
+import { useCategory } from "../context/CategoryContext";
+
 const ContentBox=styled.div`
 overflow-x: hidden;
 `
@@ -23,75 +25,68 @@ const StyledBtn=styled.button`
 `
 function MainPage(props){
   const navigate = useNavigate();
+
+
+  //카테고리 함수
   const [nowCategory, setCategory] = useState('전체');
 
-  // firebase data state
-  const [data, setData] = useState([])
-  
-  // firebase
-  useEffect(()=>{
-    // 임시 저장 장소
-    let tempData = []
-    db.collection('post').get().then((qs)=>{
-      qs.forEach((doc)=>{
-        tempData.push(doc.data())
-      })
-      setData(tempData)
-      // 테스트용 콘솔로그
-      console.log(tempData)
-    })
-  }, [])
-  
-  const categorydata =[
-    {id: 0, text:'전체'},
-    {id: 1, text:'음식1'},
-    {id: 2, text:'음식2'},
-    {id: 3, text:'음식3'},
-    {id: 4, text:'음식4'},
-    {id: 5, text:'음식5'},
-    {id: 6, text:'음식6'},
-    {id: 7, text:'음식7'},
-    {id: 8, text:'음식8'},
-    {id: 9, text:'음식9'},
-    {id: 10, text:'음식10'},
-    {id: 11, text:'음식11'},
-  ]
+  const {categoryData} = useCategory();
 
-  const CategoryList =  categorydata.map(
+  const CategoryList =  categoryData.map(
     (item)=>{
       return ( 
-        <StyledBtn onClick={() => setCategory(item.text)}>
+        <StyledBtn key={item.id}  onClick={() => setCategory(item.name)}>
           <CategoryBtn 
-            key={item.id} 
-            text={item.text}
-            type={nowCategory === item.text ? 'toggle' : ''}>
+            text={item.name}
+            type={nowCategory === item.name ? 'toggle' : ''}>
           </CategoryBtn>
         </StyledBtn>
       )
     }
   )
 
-  const postdata =[
-    {id: 0, title:'제목입니다', content:'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', user:'1', total:'1'},
-    {id: 1, title:'제목입니다1', content:'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', user:'1', total:'1'},
-    {id: 2, title:'제목입니다2', content:'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', user:'1', total:'1'},
-    {id: 3, title:'제목입니다3', content:'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', user:'1', total:'1'},
-    {id: 4, title:'제목입니다4', content:'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', user:'1', total:'1'},
-    {id: 5, title:'제목입니다5', content:'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', user:'1', total:'1'},
-  ]
 
-  const PostList = postdata.map(
+  //포스트함수
+  // firebase data state
+  const [data, setData] = useState([])
+  // firebase
+  useEffect(()=>{
+    // post 임시 저장 장소
+    let tempDataPost = []
+    // post 불러오기
+    db.collection('post').get().then((qs)=>{
+      qs.forEach((doc)=>{
+        tempDataPost.push(doc.data())
+      })
+      // const filteredPost = tempData.filter(
+      //   (item) => item.
+      // );
+      setData(tempDataPost)
+      // 테스트용 콘솔로그
+      // console.log(tempDataPost)
+    })
+  }, [nowCategory])
+
+  const PostList = data.map(
     (item)=>{
       return ( 
-        <PostItem onClick={()=>navigate(`/post`)} key={item.id} title={item.title}  content={item.content}  user={item.user}  total={item.total}></PostItem>
+        <PostItem onClick={()=>navigate(`/post`)} key={item.postId} post={item} image={item.image}></PostItem>
       )
     }
   )
 
+
+
+
   return (
     <Device headerType="main" gnbType="gnb">
     <ContentBox>
-      <CategoryBox>{CategoryList}</CategoryBox>
+      <CategoryBox>          
+        <StyledBtn onClick={() => setCategory('전체')}><CategoryBtn 
+            text={'전체'}
+            type={nowCategory === '전체' ? 'toggle' : ''}>
+          </CategoryBtn></StyledBtn>
+          {CategoryList}</CategoryBox>
       <PostBox>{PostList}</PostBox>
     </ContentBox>
 
