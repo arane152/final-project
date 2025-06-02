@@ -82,7 +82,7 @@ function PostConatiner (props) {
                     <LikeBtn type="default"q></LikeBtn>
                 </PostTopStoreInfo>
                 <PostTitle>{props.postTitle}</PostTitle>
-                <Profile name="홍길동" date="00월 00일 00:00"/>
+                <Profile name={props.name} date={props.date}/>
             </PostTop>
             <PostTopLine></PostTopLine>
             <PostInfo>
