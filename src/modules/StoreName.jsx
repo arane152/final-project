@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import StateBadge from '../components/StateBadge'
 import { useStore } from '../../context/StoreContext'
-import { useEffect, useState } from 'react'
+import { useCategory } from '../../context/CategoryContext'
 
 const StoreWrapper = styled.div`
     display: inline-flex;
@@ -27,8 +27,12 @@ const StoreTextBlack = styled(StoreText)`
 function StoreName(props) { 
     const { storeId } = props
     const {storeData} = useStore();
+    const {categoryData} = useCategory();
     const matchedStore = storeData.find((store) => store.id == storeId);   
-    
+    const matchedCategory = categoryData.find((category) => category.id == matchedStore?.categoryId);   
+
+    //storeId로 원하는 가게의 Id를 props로 전달
+
 
     // props.type : 글자 색 타입 (default : "" / black : "black")
     // props.categroy : 카테고리 이름
@@ -36,7 +40,7 @@ function StoreName(props) {
     if (props.type == "black") {
         return (
             <StoreWrapper>
-                <StateBadge>{matchedStore?.categoryId || props.category}</StateBadge>
+                <StateBadge>{matchedCategory?.name || props.category}</StateBadge>
                 <StoreTextBlack>{matchedStore?.name || props.storeName}</StoreTextBlack>
             </StoreWrapper>
         )
@@ -44,7 +48,7 @@ function StoreName(props) {
     else {
         return (
             <StoreWrapper>
-                <StateBadge>{matchedStore?.categoryId || props.category}</StateBadge>
+                <StateBadge>{matchedCategory?.name || props.category}</StateBadge>
                 <StoreText>{matchedStore?.name || props.storeName}</StoreText>
             </StoreWrapper>
         )

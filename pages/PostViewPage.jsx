@@ -3,7 +3,11 @@ import PostImage from "../src/components/PostImage";
 import PostConatiner from "../src/modules/PostContainer";
 import PostMenuConatiner from "../src/modules/PostMenuContainer";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+// firebase db
+import { db } from '/src/firebase.js'
 
 import Modal from "../src/layouts/BottomModal";
 import ModalBg from "../src/layouts/BottomModalBg";
@@ -13,7 +17,18 @@ import TotalAmount from "../src/components/TotalAmount";
 
 
 function PostViewPage(props) {
-    const navigate = useNavigate();
+    //포스트함수
+    // firebase data state
+    const postId = 'postId(1)';
+    const [post, setPost] = useState([])
+
+    // firebase
+    useEffect(() => {
+        db.collection('post').doc(postId).get().then((doc) => {
+            setPost(doc.data())
+            console.log(doc.data())
+        })
+    }, [])
 
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (props.userType == "writer") {
@@ -26,7 +41,15 @@ function PostViewPage(props) {
                 </Modal>
                 <ModalBg></ModalBg> */}
                 <PostImage></PostImage>
-                <PostConatiner postTitle="post 제목" postContent="post 내용"></PostConatiner>
+                {/* <PostConatiner postTitle={post.title} postContent={post.content} date={post.date} name={post.writer?.[1]}></PostConatiner> */}
+                {post && (
+                    <PostConatiner
+                        postTitle={post.title}
+                        postContent={post.content}
+                        date={post.date}
+                        name={post.writer?.[1]}
+                    />
+                )}
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
             </Device>
         )
@@ -35,7 +58,7 @@ function PostViewPage(props) {
         return (
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/">
                 <PostImage></PostImage>
-                <PostConatiner postTitle="post 제목" postContent="post 내용"></PostConatiner>
+                {/* <PostConatiner postTitle={post[0].title} postContent={post[0].content}></PostConatiner> */}
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
             </Device>
         )
