@@ -13,13 +13,11 @@ function PostWritePage(props) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [receiptLocation, setReceiptLocation] = useState('');
-    const [acountNumber, setAcountNumber] = useState('');
     const [addMenuPossible, setAddMenuPossible] = useState('자유')
 
     const handleTitleChange = (e) => setTitle(e.target.value);
     const handleContentChange = (e) => setContent(e.target.value);
     const handleReceiptLocationChange = (e) => setReceiptLocation(e.target.value);
-    const handleAcountNumberChange = (e) => setAcountNumber(e.target.value);
 
     const handleAddMenuPossibleChange = (selectedToggle) => {
         setAddMenuPossible(selectedToggle);
@@ -38,7 +36,6 @@ function PostWritePage(props) {
             title: title,
             content: content,
             receiptLocation: receiptLocation,
-            acountNumber: acountNumber,
             addMenuPossible: addMenuPossible
         }).then(()=>{
             navigate('/')
@@ -58,7 +55,6 @@ function PostWritePage(props) {
                 title={title} onTitleChange={handleTitleChange}
                 content={content} onContentChange={handleContentChange}
                 receiptLocation={receiptLocation} onReceiptLocationChange={handleReceiptLocationChange}
-                acountNumber={acountNumber} onAcountNumberChange={handleAcountNumberChange}
                 addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}></InfoArea>
             <OderMenuArea></OderMenuArea>
         </Device>
