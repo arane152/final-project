@@ -86,8 +86,8 @@ function PostConatiner (props) {
             </PostTop>
             <PostTopLine></PostTopLine>
             <PostInfo>
-                <InfoBox title="수령장소" content="팁 1층 쥬씨"></InfoBox>
-                <InfoBox title="선입금" content="농협 000000000000" badge="필수"></InfoBox>
+                <InfoBox title="수령장소" content={props.receiptLocation}></InfoBox>
+                <InfoBox title="선입금" content={props.accountNumber} badge={props.deposite}></InfoBox>
             </PostInfo>
             <PostContent>{props.postContent}</PostContent>
             <StatusBar nowPrice="1000" postMinPrice="15000"></StatusBar>

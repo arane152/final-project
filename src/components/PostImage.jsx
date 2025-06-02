@@ -5,13 +5,19 @@ const Wrapper = styled.div`
     width: 393px;
     height: 247px;
     background-color: #909090;
-    background-image: url(); // 포스트 이미지 데이터 추가 필요
+    /* background-image: url(props); // 포스트 이미지 데이터 추가 필요 */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 1;
     justify-content: center;
     align-items: center;
+
+        & > img {
+            width: 393px;
+            height: 247px;
+            object-fit: cover;
+        }
 `
 
 const ClosedWrapper = styled.div`
@@ -47,7 +53,7 @@ function PostImage(props) {
     }
     else {
         return (
-            <Wrapper></Wrapper>
+            <Wrapper><img src={props.postImage}></img></Wrapper>
         )
     }
 }

@@ -40,7 +40,7 @@ function PostViewPage(props) {
                     <TotalAmount title="총액"></TotalAmount>
                 </Modal>
                 <ModalBg></ModalBg> */}
-                <PostImage></PostImage>
+                <PostImage postImage={post.image}></PostImage>
                 {/* <PostConatiner postTitle={post.title} postContent={post.content} date={post.date} name={post.writer?.[1]}></PostConatiner> */}
                 {post && (
                     <PostConatiner
@@ -48,6 +48,9 @@ function PostViewPage(props) {
                         postContent={post.content}
                         date={post.date}
                         name={post.writer?.[1]}
+                        receiptLocation={post.receiptLocation}
+                        accountNumber={post.writer?.[3]}
+                        deposite={post.deposite}
                     />
                 )}
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
