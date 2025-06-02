@@ -41,7 +41,6 @@ function PostViewPage(props) {
                 </Modal>
                 <ModalBg></ModalBg> */}
                 <PostImage postImage={post.image}></PostImage>
-                {/* <PostConatiner postTitle={post.title} postContent={post.content} date={post.date} name={post.writer?.[1]}></PostConatiner> */}
                 {post && (
                     <PostConatiner
                         postTitle={post.title}
@@ -60,8 +59,7 @@ function PostViewPage(props) {
     else {
         return (
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/">
-                <PostImage></PostImage>
-                {/* <PostConatiner postTitle={post[0].title} postContent={post[0].content}></PostConatiner> */}
+                <PostImage postImage={post.image} postRecruitment="closed"></PostImage>
                 {post && (
                     <PostConatiner
                         postTitle={post.title}
