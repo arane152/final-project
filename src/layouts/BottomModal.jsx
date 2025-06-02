@@ -88,7 +88,7 @@ function Modal(props) {
                 {props.children}
             </ModalContent>
             <Gnb type="btn">
-                <MainBtn type={props.btnType} mainText={props.mainText} modalOnClick={props.openModal}></MainBtn>
+                <MainBtn type={props.btnType} mainText={props.mainText} modalOnClick={props.modalOnClick}></MainBtn>
             </Gnb>
         </Wrapper>
     )

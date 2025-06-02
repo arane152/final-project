@@ -5,6 +5,10 @@ import SubBtn from "../components/SubBtn";
 import MenuDefault from "../components/MenuDefault";
 import MenuAdd from "../components/MenuAdd";
 
+import { db } from '/src/firebase.js';
+import { useState, useEffect } from "react";
+
+
 const PostMenuWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -56,6 +60,8 @@ const PostMenuAddTitle = styled.p`
 `
 
 function PostMenuConatiner(props) {
+
+
     if (props.userType == "writer") {
         return (
             <PostMenuWrapper>

@@ -39,7 +39,7 @@ function PostViewPage(props) {
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
                 {modalOpen && (
                     <>
-                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
+                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}>
                             <MenuDefault type="info"></MenuDefault>
                             <MenuDefault type="info"></MenuDefault>
                             <TotalAmount title="총액"></TotalAmount>
