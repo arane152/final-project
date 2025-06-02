@@ -37,9 +37,9 @@ function PostViewPage(props) {
             // modalOnClick가 실행됐을때, <Modal>과 <ModalBg>가 렌더링 됩니다.
             // modalOnClick은 <Device>의 props로 전달되어, 버튼 클릭시 모달이 열리도록 합니다.
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
-                {modalOpen && (
+                {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
-                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}>
+                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}> 
                             <MenuDefault type="info"></MenuDefault>
                             <MenuDefault type="info"></MenuDefault>
                             <TotalAmount title="총액"></TotalAmount>
