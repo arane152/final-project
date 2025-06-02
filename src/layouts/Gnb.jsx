@@ -134,7 +134,7 @@ function Gnb(props) {
     else if (props.type == "btn") {
         return (
             <GnbWrapper>
-                <GnbBtn>
+                <GnbBtn onClick={props.onClick}>
                     {props.children}
                 </GnbBtn>
             </GnbWrapper>

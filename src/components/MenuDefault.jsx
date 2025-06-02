@@ -60,7 +60,7 @@ function MenuDefault(props) {
             <Container>
                 <MenuOutPutItem type="bold" name="후라이드 치킨" price="15,000" width="313"></MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>금액: {formatPrice(totalAmount)}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
+                    <CurrentQuantity>{formatPrice(totalAmount)}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
                     <QuantityBtn
                         quantity={quantity}
                         onPlusClick={handlePlusClick}
