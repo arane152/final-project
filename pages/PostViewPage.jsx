@@ -1,7 +1,7 @@
 import Device from "../src/layouts/Device";
 import PostImage from "../src/components/PostImage";
-import PostConatiner from "../src/modules/PostContainer";
-import PostMenuConatiner from "../src/modules/PostMenuContainer";
+import PostContainer from "../src/modules/PostContainer";
+import PostMenuContainer from "../src/modules/PostMenuContainer";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -21,6 +21,7 @@ function PostViewPage(props) {
     // firebase data state
     const postId = 'postId(1)';
     const [post, setPost] = useState([])
+    const [modalOpen, setModalOpen] = useState(false);
 
     // firebase
     useEffect(() => {
@@ -33,16 +34,22 @@ function PostViewPage(props) {
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (props.userType == "writer") {
         return (
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation">
-                {/* <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
-                    <MenuDefault type="info"></MenuDefault>
-                    <MenuDefault type="info"></MenuDefault>
-                    <TotalAmount title="총액"></TotalAmount>
-                </Modal>
-                <ModalBg></ModalBg> */}
+            // modalOnClick가 실행됐을때, <Modal>과 <ModalBg>가 렌더링 됩니다.
+            // modalOnClick은 <Device>의 props로 전달되어, 버튼 클릭시 모달이 열리도록 합니다.
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
+                {modalOpen && (
+                    <>
+                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기">
+                            <MenuDefault type="info"></MenuDefault>
+                            <MenuDefault type="info"></MenuDefault>
+                            <TotalAmount title="총액"></TotalAmount>
+                        </Modal>
+                        <ModalBg />
+                    </>
+                )}
                 <PostImage postImage={post.image}></PostImage>
                 {post && (
-                    <PostConatiner
+                    <PostContainer
                         postTitle={post.title}
                         postContent={post.content}
                         date={post.date}
@@ -52,7 +59,7 @@ function PostViewPage(props) {
                         deposite={post.deposite}
                     />
                 )}
-                <PostMenuConatiner 
+                <PostMenuContainer
                     userType={props.userType}
                 />
             </Device>
@@ -63,7 +70,7 @@ function PostViewPage(props) {
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/">
                 <PostImage postImage={post.image} postRecruitment="closed"></PostImage>
                 {post && (
-                    <PostConatiner
+                    <PostContainer
                         postTitle={post.title}
                         postContent={post.content}
                         date={post.date}
@@ -73,7 +80,7 @@ function PostViewPage(props) {
                         deposite={post.deposite}
                     />
                 )}
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
+                <PostMenuContainer userType={props.userType}></PostMenuContainer>
             </Device>
         )
     }

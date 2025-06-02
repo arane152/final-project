@@ -75,7 +75,7 @@ function MainBtn(props) {
   } else if (type === "dubble") {
     return (
       <Wrapper>
-        <BtnWrapperDubble>
+        <BtnWrapperDubble onClick={modalOnClick}>
           <BtnText>{mainText}</BtnText>
         </BtnWrapperDubble>
         <BtnMainSub onClick={() => navigate(`${subOnClick}`)}>
