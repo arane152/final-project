@@ -34,6 +34,10 @@ color: #666666;
   &:focus{
   border: none;
   outline: none;}
+
+  &:focus::placeholder {
+      color: transparent;
+  }
 `
 const StyledLinesInput=styled(StyledALineInput)`
   height: ${props=> props.height || "44px"};
