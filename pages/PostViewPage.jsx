@@ -52,7 +52,9 @@ function PostViewPage(props) {
                         deposite={post.deposite}
                     />
                 )}
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
+                <PostMenuConatiner 
+                    userType={props.userType}
+                />
             </Device>
         )
     }
