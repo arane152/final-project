@@ -33,42 +33,52 @@ const ImgBtn = styled.button`
 `
 
 function InfoArea(props) {
-    const [toggle, setToggle] = useState('자유')
+    const {
+        title, onTitleChange,
+        content, onContentChange,
+        receiptLocation, onReceiptLocationChange,
+        acountNumber, onAcountNumberChange,
+        addMenuPossible, onAddMenuPossibleChange,
+        image, onImageChange,
+        onImgBtnClick,
+        fileInputRef } = props;
 
     const handleToggleClick = (selectedToggle) => {
-        setToggle(selectedToggle);
+        onAddMenuPossibleChange(selectedToggle);
     };
-
-    // 이미지 업로더
-    const [image, setImage] = useState(null)
-
-    const handleImage = (e)=>{
-        let reader = new FileReader()
-        reader.readAsDataURL(e.target.files[0])
-        reader.onload = (_e)=>{
-            console.log(_e.target.result)
-            setImage(_e.target.result)
-        }
-    }
 
     return(
     <StyledWrapper>
         <Container>
-            <InfoBox title="제목"><TextInput placeholder="제목을 입력해주세요."></TextInput></InfoBox>
-            <InfoBox title="수령장소"><TextInput placeholder="수령장소를 입력해주세요."></TextInput></InfoBox>
-            <InfoBox title="마감시간"><TextInput placeholder="마감시간을 입력해주세요."></TextInput></InfoBox>
-            <InfoBox title="내용"><TextInput height={"108px"} placeholder="내용을 입력해주세요."></TextInput></InfoBox>
-            <InfoBox title="메뉴사진"><ImgBtn>+</ImgBtn></InfoBox>
-            <InfoBox title="계좌번호"><TextInput placeholder="계좌번호를 입력해주세요."></TextInput></InfoBox>
+            <InfoBox title="제목"><TextInput placeholder="제목을 입력해주세요." value={title}
+                    onChange={onTitleChange}></TextInput></InfoBox>
+
+            <InfoBox title="수령장소"><TextInput placeholder="수령장소를 입력해주세요." value={receiptLocation}
+                    onChange={onReceiptLocationChange}></TextInput></InfoBox>
+
+            <InfoBox title="마감시간"><TextInput placeholder="마감시간을 입력해주세요." ></TextInput></InfoBox>
+
+            <InfoBox title="내용"><TextInput height={"108px"} placeholder="내용을 입력해주세요." value={content}
+                    onChange={onContentChange}></TextInput></InfoBox>
+
+            <InfoBox title="메뉴사진">
+                <ImgBtn onClick={onImgBtnClick} $imageUrl={image}>
+                    {!image && '+'}
+                </ImgBtn>
+            </InfoBox>
+
+            <InfoBox title="계좌번호"><TextInput placeholder="계좌번호를 입력해주세요." value={acountNumber}
+                    onChange={onAcountNumberChange}></TextInput></InfoBox>
+
             <InfoBox title={<>선입금<br />필수여부</>}>
                 <ToggleBtn width='142' text="자유"
-                onClick={() => handleToggleClick('자유')} isSelected={toggle === '자유'} ></ToggleBtn>
+                onClick={() => handleToggleClick('자유')} isSelected={addMenuPossible === '자유'} ></ToggleBtn>
                 <ToggleBtn width='142'text="필수"
-                onClick={() => handleToggleClick('필수')} isSelected={toggle === '필수'}></ToggleBtn>
+                onClick={() => handleToggleClick('필수')} isSelected={addMenuPossible === '필수'}></ToggleBtn>
             </InfoBox>
         </Container>
     </StyledWrapper>
-    )
+    );
 }
 
 export default InfoArea
