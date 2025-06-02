@@ -40,25 +40,39 @@ function PostViewPage(props) {
                     <TotalAmount title="총액"></TotalAmount>
                 </Modal>
                 <ModalBg></ModalBg> */}
-                <PostImage></PostImage>
-                {/* <PostConatiner postTitle={post.title} postContent={post.content} date={post.date} name={post.writer?.[1]}></PostConatiner> */}
+                <PostImage postImage={post.image}></PostImage>
                 {post && (
                     <PostConatiner
                         postTitle={post.title}
                         postContent={post.content}
                         date={post.date}
                         name={post.writer?.[1]}
+                        receiptLocation={post.receiptLocation}
+                        accountNumber={post.writer?.[3]}
+                        deposite={post.deposite}
                     />
                 )}
-                <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
+                <PostMenuConatiner 
+                    userType={props.userType}
+                />
             </Device>
         )
     }
     else {
         return (
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/">
-                <PostImage></PostImage>
-                {/* <PostConatiner postTitle={post[0].title} postContent={post[0].content}></PostConatiner> */}
+                <PostImage postImage={post.image} postRecruitment="closed"></PostImage>
+                {post && (
+                    <PostConatiner
+                        postTitle={post.title}
+                        postContent={post.content}
+                        date={post.date}
+                        name={post.writer?.[1]}
+                        receiptLocation={post.receiptLocation}
+                        accountNumber={post.writer?.[3]}
+                        deposite={post.deposite}
+                    />
+                )}
                 <PostMenuConatiner userType={props.userType}></PostMenuConatiner>
             </Device>
         )

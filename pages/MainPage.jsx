@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import {db} from '/src/firebase.js'
 
 import { useCategory } from "../context/CategoryContext";
-
+import { useStore } from '../context/StoreContext'
 const ContentBox=styled.div`
 overflow-x: hidden;
 `
@@ -27,15 +27,17 @@ function MainPage(props){
   const navigate = useNavigate();
 
 
-  //카테고리 함수
-  const [nowCategory, setCategory] = useState('전체');
-
   const {categoryData} = useCategory();
+  const {storeData} = useStore();
+
+
+  //카테고리 함수
+    const [nowCategory, setCategory] = useState('전체');
 
   const CategoryList =  categoryData.map(
     (item)=>{
       return ( 
-        <StyledBtn key={item.id}  onClick={() => setCategory(item.name)}>
+        <StyledBtn key={item.id} onClick={() => setCategory(item.name)}>
           <CategoryBtn 
             text={item.name}
             type={nowCategory === item.name ? 'toggle' : ''}>
@@ -44,10 +46,7 @@ function MainPage(props){
       )
     }
   )
-
-
   //포스트함수
-  // firebase data state
   const [data, setData] = useState([])
   // firebase
   useEffect(()=>{
@@ -58,10 +57,20 @@ function MainPage(props){
       qs.forEach((doc)=>{
         tempDataPost.push(doc.data())
       })
-      // const filteredPost = tempData.filter(
-      //   (item) => item.
-      // );
-      setData(tempDataPost)
+      if(nowCategory != '전체'){
+        const filteredPost = tempDataPost.filter((item) => {
+          const store = storeData.find((store) => store.id === item.storeId);
+          if (!store) return false;
+
+          const category = categoryData.find((category) => category.id === store.categoryId);
+          if (!category) return false;
+
+          return category.name === nowCategory;
+      });
+      setData(filteredPost)
+      }else{
+        setData(tempDataPost)
+      }
       // 테스트용 콘솔로그
       // console.log(tempDataPost)
     })
@@ -71,11 +80,11 @@ function MainPage(props){
     (item)=>{
       return ( 
         <PostItem onClick={()=>navigate(`/post`)} key={item.postId} post={item} image={item.image}></PostItem>
+        //PostViewPage 데이터연결 완료시 하단문장으로 변경
+        //<PostItem onClick={()=>navigate(`/post/${item.postId}`)} key={item.postId} post={item} image={item.image}></PostItem>
       )
     }
   )
-
-
 
 
   return (
