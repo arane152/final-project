@@ -56,7 +56,7 @@ function Device(props) {
                 {props.children}
             </ContentWrapper>
             <Gnb type={props.gnbType || "none"}>
-                <MainBtn type={props.btnType} mainText={props.btnMainText} subText={props.btnSubText}  modalOnClick={props.modalOnClick}></MainBtn>
+                <MainBtn type={props.btnType} mainText={props.btnMainText} subText={props.btnSubText}  modalOnClick={props.modalOnClick} subOnClick={props.subPage}></MainBtn>
             </Gnb>
         </DeviceWrapper>
     )
