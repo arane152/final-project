@@ -53,7 +53,7 @@ function PostImage(props) {
         return (
             <Wrapper>
                 <ClosedWrapper>
-                    <img src={props.postImage}></img>
+                    <img src={props.postImage} alt="..."></img>
                     <ClosedImage></ClosedImage>
                 </ClosedWrapper>
             </Wrapper>
@@ -61,7 +61,7 @@ function PostImage(props) {
     }
     else {
         return (
-            <Wrapper><img src={props.postImage}></img></Wrapper>
+            <Wrapper><img src={props.postImage} alt="..."></img></Wrapper>
         )
     }
 }

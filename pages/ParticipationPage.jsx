@@ -2,7 +2,11 @@ import Device from "../src/layouts/Device";
 import PostPartyContainer from "../src/modules/PostPartyContainer";
 import PostRequestContainer from "../src/modules/PostRequestContainer";
 
+import { useParams } from "react-router-dom";
+
 function ParticipationPage() {
+  const { id } = useParams(); // URL에서 postId를 가져옵니다.
+
   const dummyApplicants = [
     {
       name: "홍길동",
@@ -22,7 +26,7 @@ function ParticipationPage() {
   ];
 
   return (
-    <Device content="참여현황" headerType="" gnbType="none" btnType="" backPage="/post">
+    <Device content="참여현황" headerType="" gnbType="none" btnType="" backPage={`/post/${id}`}>
       <PostPartyContainer />
       <PostRequestContainer applicants={dummyApplicants} />
     </Device>

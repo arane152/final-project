@@ -18,13 +18,12 @@ import AllProvider from '../context/AllProvider.jsx'
 createRoot(document.getElementById('root')).render(
     <AllProvider>
     <BrowserRouter>
-      {/* 우선 아직 페이지별로 이동할 수 있는 방법이 없기 떄문에 경로 뒤에 /path 를 넣어주셔서 작업해주세요 */}
       <Routes>
         <Route index element={<MainPage/>}></Route>
         <Route path='alarm' element={<AlarmPage/>}></Route>
         <Route path='write' element={<PostWritePage/>}></Route>
         <Route path='post/:id' element={<PostViewPage userType="writer"/>}></Route>
-        <Route path='post/participation' element={<ParticipationPage/>}></Route>
+        <Route path='post/:id/participation' element={<ParticipationPage/>}></Route>
         <Route path='store' element={<StoreSearchPage/>}></Route>
       </Routes>
     </BrowserRouter>
