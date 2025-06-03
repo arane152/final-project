@@ -52,7 +52,7 @@ function PostViewPage(props) {
                     <PostContainer
                         postTitle={post.title}
                         postContent={post.content}
-                        date={post.date}
+                        date={post.postId}
                         name={post.writer?.[1]}
                         receiptLocation={post.receiptLocation}
                         accountNumber={post.writer?.[3]}
