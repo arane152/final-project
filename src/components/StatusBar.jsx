@@ -120,7 +120,7 @@ const FrontProgress =styled.div`
     width: ${({ $percent }) => $percent}%;
     z-index: 2;
     margin-top: -9px;
-    margin-left: -12px;
+    margin-left: -4px;
 `
 const BackProgressimg = styled.img`
     height: 32px;
@@ -160,30 +160,36 @@ const AlarmText = styled.h1`
 const ProgressBarflex = styled.div`
     height: 100%;
     display: flex;
-    align-items: center;
     width: 100%;
     flex-direction: column;
 `
 function StatusBar(props) {
+    //데이터
     const {post}= props
     const {storeData} = useStore();
-    let percentPrice
+
     const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
 
-
-    if(post){    
+    //달성률계산
+    let percentPrice
+    if(post){ 
+        // post에서 storeid -> 해당 id의 store에서 mimPrice 추출출
         const matchedStore = storeData.find((store) => store.id == post.storeId);
         const minPrice = parseInt(matchedStore?.minPrice)
-        if (!post?.menuList || !matchedStore?.minPrice) {
-        return <>00%</>;
+        //필요한 데이터 없을시 기본값 출력
+        if (!post?.menuList && !matchedStore?.minPrice) {
+            return <>00%</>;
         }
+        //menuList의 각 메뉴별 가격*수량 합산
         const totalSum = Object.values(post.menuList).reduce((acc, item) => {
             const price = parseInt(item.menuPrice);
             const qty = parseInt(item.menuQaunitiy);
             return acc + price * qty;
         }, 0);
+        // (합산결과/최소금액*100)으로 달성률퍼센트 계산
         percentPrice = Math.floor((totalSum / minPrice) * 100)
     }else{
+        //post값 없으면 달성률 0 출력
         percentPrice = (0);
     }
 
@@ -192,11 +198,19 @@ function StatusBar(props) {
         return(
             <WrapperAlarm>
                 <Progressflex>
+                    {/* 노란원이미지 */}
                     <BackProgressimg src="/ProgressBackground_1.svg"></BackProgressimg>
+                    {/* 주황원이미지, 음수마진으로 겹치기 */}
                     <FrontProgressimg src="/StatusBarLogo.svg"></FrontProgressimg>
+                    
+                    {/* 게이지바div , 음수마진으로 원과 살짝 겹치기 */}
                     <ProgressBarflex>
+                        {/* 노란바div, width 변경시 이미지전체가 짜부돼서 div로 변경  */}
                         <BackProgress></BackProgress>
-                        <FrontProgress $percent={percentPrice >= 100 ? 100 : percentPrice}></FrontProgress>
+                        {/* 주황바div , percent함수로 width 조절, 음수마진으로 겹치기 */}
+                        <FrontProgress 
+                            $percent={percentPrice >= 100 ? 100 : percentPrice}>
+                        </FrontProgress>
                     </ProgressBarflex>
                 </Progressflex>
                 <AlarmText>{percentPrice}%</AlarmText>
