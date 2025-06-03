@@ -80,19 +80,23 @@ function Gnb(props) {
 
     //context
     const [onUserList, setOnUserList] = useState(false);
-    const { userListData, nowuser, setUser } = useUser();
-    const [nowUserName, setNowUserName] = useState("기본값");
+    const { userListData, nowuser, setUser } = useUser(); // userListData : 유저 리스트 데이터, nowuser : 현재 유저 정보, setUser : 유저 설정 함수
+    const [nowUserName, setNowUserName] = useState("기본값");  // 현재 유저 이름
 
     useEffect(()=>{
+        // 현재 유저 정보가 있을 경우, 현재 유저 이름을 설정
         if(nowuser){
             setNowUserName(nowuser.name)
         }
-
     }, [nowuser]);
 
+    // 유저 리스트를 클릭했을 때, 해당 유저 정보를 설정
     const UserList = userListData.map(
         (item)=>{
         return ( 
+            // key : 유저 아이디, onClick : 해당 유저 정보 설정
+            // item.name : 유저 이름
+            // item.userId : 유저 아이디
             <div key={item.userId} 
                 onClick={()=>{
                     setUser(item);
@@ -102,6 +106,16 @@ function Gnb(props) {
         )
         }
     )
+
+    // 선택된 유저 정보를 localStorage에 저장
+    useEffect(()=>{
+        if(nowuser){
+            localStorage.setItem("userId", nowuser.userId);
+            localStorage.setItem("userName", nowuser.name);
+            localStorage.setItem("accountNumber", nowuser.accountNumber);
+            localStorage.setItem("location", nowuser.location);
+        }
+    }, [nowuser]);
 
 
     // props.type : gnb 타입 (gnb : "gnb" / 버튼 : "btn")

@@ -28,6 +28,12 @@ function PostWritePage(props) {
         setAddMenuPossible(selectedToggle);
     };
 
+    //메인 페이지에서 설정하였던 유저 정보 가져오기
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+    const accountNumber = localStorage.getItem('accountNumber');
+    const location = localStorage.getItem('location');
+
     //메뉴 가격 계산
     const totalAmount = quantity * money;
     const formattedTotalAmount = formatPrice(totalAmount); 
@@ -57,7 +63,9 @@ function PostWritePage(props) {
             content: content,
             receiptLocation: receiptLocation,
             image: image,
-            addMenuPossible: addMenuPossible
+            addMenuPossible: addMenuPossible,
+            // 작성자 정보를 write {array}로 저장
+            writer: [userId, userName, location, accountNumber]
         }).then(()=>{
             navigate('/')
         })
