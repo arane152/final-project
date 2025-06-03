@@ -153,7 +153,7 @@ function StoreSearchPage() {
               modalText="음식점 추가"
               btnType="default"
               mainText="확인"
-              openModal={() => setIsModalOpen(false)}
+              modalOnClick={() => setIsModalOpen(false)}
               background="white"
             >
               <ModalContentWrapper>
