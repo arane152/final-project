@@ -9,7 +9,7 @@ const PostProvider = ({ children }) => {
 
   useEffect(() => {
     let tempData = [];
-    db.collection('post').get().then(function (qs) {
+    db.collection('post').orderBy('postId', 'desc').limit(8).get().then(function (qs) {
       qs.forEach(function (doc) {
         tempData.push(doc.data());
       });

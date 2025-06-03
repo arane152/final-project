@@ -19,7 +19,7 @@ import TotalAmount from "../src/components/TotalAmount";
 function PostViewPage(props) {
     //포스트함수
     // firebase data state
-    const postId = 'postId(1)';
+    const postId = useParams().id   
     const [post, setPost] = useState([])
     const [modalOpen, setModalOpen] = useState(false);
 
