@@ -29,3 +29,37 @@ textarea::placeholder {
   width: auto;
   margin: 10px;
 }
+
+
+/* 텍스트 드레그 및 선택 금지 */
+body,
+html,
+#root {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera, and Edge */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-drag: none; /* Chrome/Safari */
+  -khtml-user-drag: none; /* Konqueror */
+  -moz-user-drag: none; /* Firefox */
+  -ms-user-drag: none; /* Internet Explorer/Edge */
+}
+
+/* 이미지 드래그 및 선택 금지 */
+img {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera, and Edge */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-drag: none; /* Chrome/Safari */
+  -khtml-user-drag: none; /* Konqueror */
+  -moz-user-drag: none; /* Firefox */
+  -ms-user-drag: none; /* Internet Explorer/Edge */
+}
+
+/* tab으로 객체 선택시 파란박스 없애기 */
+:focus {
+  outline: none;
+}
