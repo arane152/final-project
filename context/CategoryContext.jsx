@@ -13,7 +13,8 @@ const CategoryProvider = ({ children }) => {
       qs.forEach(function (doc) {
         tempData.push(doc.data());
       });
-      setCategory( tempData);
+      const sortedData = tempData.sort((a, b)=> a.id - b.id)
+      setCategory(sortedData);
     });
   }, []);
 

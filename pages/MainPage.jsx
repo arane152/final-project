@@ -69,7 +69,7 @@ function MainPage(props){
   const PostList = data.map(
     (item)=>{
       return ( 
-        <PostItem onClick={()=>navigate(`/post`)} key={item.postId} post={item} image={item.image}></PostItem>
+        <PostItem onClick={()=>navigate(`/post`)} key={item.id} post={item} image={item.image}></PostItem>
         //PostViewPage 데이터연결 완료시 하단문장으로 변경
         //<PostItem onClick={()=>navigate(`/post/${item.postId}`)} key={item.postId} post={item} image={item.image}></PostItem>
       )

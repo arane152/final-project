@@ -13,7 +13,8 @@ const PostProvider = ({ children }) => {
       qs.forEach(function (doc) {
         tempData.push(doc.data());
       });
-      setPost(tempData);
+      const sortedData = tempData.sort((a, b)=> b.id - a.id)
+      setPost(sortedData);
     });
   }, []);
 

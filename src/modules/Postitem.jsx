@@ -3,6 +3,7 @@ import StoreName from "./StoreName";
 import LikeBtn from "../components/LikeBtn";
 import Profile from "../components/Profile";
 import StateBadge from "../components/StateBadge";
+import Percent from "../components/percent";
 
 const ItemHead = styled.div`
 padding: 0 20px;
@@ -85,8 +86,6 @@ bottom: 44px;
 function PostItem(props){
   const {post, onClick} = props;
 
-
-
   return (
     <PostItemBox>
       <ItemHead><StoreName storeId={post.storeId}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
@@ -95,8 +94,8 @@ function PostItem(props){
       <ImgUlBox onClick={onClick}> 
         <ImgUl><img src={post.image || "./PostImgBasic.svg"}></img></ImgUl>
       </ImgUlBox>
-      <StyledBadge><StateBadge type="TotalAcount">00%</StateBadge></StyledBadge>
-      <ItemBotton><Profile name="사용자" location="1기숙사" date="0000.00.00" fontSize="12px"></Profile></ItemBotton> 
+      <StyledBadge><StateBadge type="TotalAcount"><Percent post={post} ></Percent></StateBadge></StyledBadge>
+      <ItemBotton><Profile userId={post.userId} date={post.id} fontSize="12px"></Profile></ItemBotton> 
     </PostItemBox>
   )
 }
