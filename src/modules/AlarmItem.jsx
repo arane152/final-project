@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import SubBtn from "../components/SubBtn";
 import MenuOutPutItem from "../components/MenuOutputitem";
+import { usePost } from "../../context/PostContext";   
+
 const StyledAlarmItem = styled.div`
 display: flex;
 align-items: start;
@@ -48,42 +50,63 @@ width: 24px;
 background-color: #eeeeee;
 border-radius: 12px;
 `
+//Alarmpage 컨테이너 모듈
 function AlarmItem(props){
-  const { not, user, post, onClick} = props;
-  const { title = "제목 없음", location = "수령 장소 없음" } = post || {};
-  const { name = "사용자" } = user || {};
-  
-// 마감시간임박 : timeend  / 최소주문금액달성 : totalend/ 모집종료 : partyendCaptain(모집자) & partyendMember(참여자) / 
-// 배달완료 : deliveryend / 강퇴알림 : leaveparty / 신청수락알림 : partyapplication / 신청알림 : partyrequest
-    return (
-      <StyledAlarmItem>
-            {(not.type == "partyrequest") ? <AlarmImg src="ProfileIcon.svg" onClick={onClick}></AlarmImg> :  <AlarmImg src="Logo.svg" onClick={onClick}></AlarmImg>}
+  //데이터
+  const { not, onClick} = props;
+  const { postData } = usePost();
+  const post = postData.find((posts) => posts.Postid == not.PostId); 
 
-            {/* 상황별 메시지출력 */}
-            <AlarmText onClick={onClick}>
-              <div>
-              <b>
-                {not.type == "partyrequest" ? `${name}` : `${title}`} 
-              </b>
-              <span>
-                {not.type == "timeend" && `의 모집마감시간이 다가오고 있어요!`}
-                {not.type == "totalend" && `의의 최소주문금액이 달성되었습니다! 바로 주문하실건가요?`}
-                {not.type == "partyendCaptain" && `의 모집이 종료되었습니다. 음식 수령후 배달완료알림보내기 잊지마세요! `}
-                {not.type == "partyendMember" && `의 모집이 종료되었습니다. 배달완료 알림이 올때까지 잠시만 기다려주세요!`}
-                {not.type == "deliveryend" && `에서 주문한 음식이 배달완료되었습니다 수령장소는 ${not.location} 입니다 맛있는 식사되세요!`}
-                {not.type == "leaveparty" && `에서 주문이 거절되었습니다. 다른 모집을 찾거나 직접 모집하세요!`}
-                {not.type == "partyapplication" && `의 신청이 수락되었습니다!`}
-                {not.type == "partyrequest" && `님이 함께 주문하기를 신청했어요`} 
-              </span></div>
-
-              {(not.type == "partyrequest") && <MenuOutPutItem type="side" name="예시" count="1" price="0"></MenuOutPutItem>}
-
-              <h5>0000.00.00</h5> 
-            </AlarmText>
-
-            {/* 주문신청일경우 버튼출력 그 외의 경우 게시물이미지출력 */}
-            {(not.type == "partyrequest") ? <SubBtn text="신청수락"></SubBtn> : <PostImg src="/AlarmBasicImg.svg" onClick={onClick}></PostImg>}
-      </StyledAlarmItem>
+  // type구분
+  // 마감시간임박 : timeend  
+  // 최소주문금액달성 : totalend 
+  // 모집종료 : partyendCaptain(모집자) 
+  // 모집종료 : partyendMember(참여자)
+  // 배달완료 : deliveryend
+  // 강퇴알림 : leaveparty
+  // 신청수락알림 : partyapplication
+  // 신청알림 : partyrequest
+  const alarmMessages = {
+    timeend: "의 모집마감시간이 다가오고 있어요!",
+    totalend: "의 최소주문금액이 달성되었습니다! 바로 주문하실건가요?",
+    partyendCaptain: "의 모집이 종료되었습니다. 음식 수령 후 배달 완료 알림을 잊지 마세요!",
+    partyendMember: "의 모집이 종료되었습니다. 배달 완료 알림이 올 때까지 기다려주세요!",
+    leaveparty: "에서 주문이 거절되었습니다. 다른 모집을 찾거나 직접 모집해보세요!",
+    partyapplication: "의 신청이 수락되었습니다!",
+    partyrequest: "님이 함께 주문하기를 신청했어요",
+  };
+  //타입에 따른 메시지 출력함수
+  function getAlarmMessage(type) {
+    if(type === "deliveryend"){    
+      return `에서 주문한 음식이 배달 완료되었습니다. 수령 장소는 ${post.receiptLocation}입니다. 맛있게 드세요!`
+    }
+    return alarmMessages[type];
+  }
+  return (
+    <StyledAlarmItem>
+      {/* 다른사용자와 관련있는지에 따라 이미지 구분 */}
+      <AlarmImg
+        src={not.type === "partyrequest" ? "ProfileIcon.svg" : "Logo.svg"}
+        onClick={onClick}
+      />
+      <AlarmText onClick={onClick}>
+        <div>
+          <b>{not.type === "partyrequest" ? "이름" : post.title}</b>
+          <span>{getAlarmMessage(not.type)}</span>
+        </div>
+        {/* 신청메뉴를 표기해야하는지에 따라 구분 */}
+        {not.type === "partyrequest" && (
+          <MenuOutPutItem type="side" name="예시" count="1" price="0" />
+        )}
+        <h5>0000.00.00</h5> {/* 작성 시간 추후 props로 변경 */}
+      </AlarmText>
+      {/* 신청버튼 혹은 이미지 구분 */}
+      {not.type === "partyrequest" ? (
+        <SubBtn text="신청수락" />
+      ) : (
+        <PostImg src="/AlarmBasicImg.svg" onClick={onClick} />
+      )}
+    </StyledAlarmItem>
     )
 }
 

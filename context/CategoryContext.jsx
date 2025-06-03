@@ -4,9 +4,13 @@ import {db} from '/src/firebase.js'
 const CategoryContext = createContext();
 export const useCategory = () => useContext(CategoryContext);
 
+//프로젝트 전역에 대한 카테고리데이터 제공자
+//카테고리데이터 사용을 원할시 
+// (상단)import { useCategory } from "../context/CategoryContext";   
+// (컴포넌트내부)const {categoryData} = useCategory();
+// 작성 후 , 선언된 [ categoryData = 하단의 배열데이터 ] 사용 가능
 const CategoryProvider = ({ children }) => {
   const [categoryData, setCategory] = useState([])
-
   useEffect(() => {
     // let tempData = [];
     // db.collection('category').get().then(function (qs) {

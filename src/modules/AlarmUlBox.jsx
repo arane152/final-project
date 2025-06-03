@@ -18,6 +18,8 @@ const StyledBox = styled.div`
   display: none;       
 }
 `
+
+//Alarmpage 컨테이너 모듈
 function UlBox(props){
   const {children} = props
   return (

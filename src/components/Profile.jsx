@@ -48,15 +48,19 @@ const DateText = styled.div`
 `;
 
 
+//fontSize : 12px일시 작은버전, 기입 안할시 14px버전을 기본값으로 출력.
 
+//사용법 1. userId 기입
+//사용법 2. name, src : 사용자정보 기입
+
+//location, date, badge, : 각각 필요한 페이지일시 props 기입, 기입안할시 없는 버전으로 출력
 const Profile = (props) => {
-  //fontSize : 12px일시 작은버전, 기입 안할시 14px버전을 기본값으로 출력력.
-  //name, src : 사용자정보, 추후 사용자ID porps 기입으로 대체
-  //location, date, badge, : 각각 필요한 페이지일시 props 기입, 기입안할시 없는 버전으로 출력
+
   const { userListData } = useUser();
-  const { name, location, date, badge, fontSize, src, userId } = props;
+  const { name,  src, userId, location, date, badge, fontSize, } = props;
   const matchedUser = userListData.find((user) => user.userId == userId); 
 
+  //postId가 timestamp인걸 이용하여 작성시간 계산
   const posttime = new Date(parseInt(date));
   const mm = String(posttime.getMonth() + 1).padStart(2, '0');
   const dd = String(posttime.getDate()).padStart(2, '0');
@@ -66,23 +70,25 @@ const Profile = (props) => {
 
   return (
     <ProfileContainer>
-
       <Left>
-        <Avatar src={matchedUser?.profile || src || "./UserBasic.svg"} fontSize={fontSize || "14px"}/>
+        <Avatar 
+          src={matchedUser?.profile || src || "./UserBasic.svg"} 
+          fontSize={fontSize || "14px"}
+        />
         <NameBlock>
           <Name fontSize={fontSize || "14px"}>
             {matchedUser?.name || name}
           </Name>
-          {matchedUser?.location && <Location fontSize={fontSize || "14px"}>
-            {matchedUser?.location || location}
-          </Location>}
+          {matchedUser?.location && 
+            <Location fontSize={fontSize || "14px"}>
+              {matchedUser?.location || location}
+            </Location>
+          }
           {badge && <StateBadge type="Captain"></StateBadge>}
         </NameBlock>
       </Left>
 
       {date && <DateText>{formatted}</DateText>}
-
-
     </ProfileContainer>
   );
 };

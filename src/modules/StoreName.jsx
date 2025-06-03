@@ -32,12 +32,12 @@ function StoreName(props) {
     const matchedStore = storeData.find((store) => store.id == storeId);   
     const matchedCategory = categoryData.find((category) => category.id == matchedStore?.categoryId);   
 
-    //storeId로 원하는 가게의 Id를 props로 전달
-
 
     // props.type : 글자 색 타입 (default : "" / black : "black")
-    // props.categroy : 카테고리 이름
-    // props.storeName : 가게 이름
+
+    // 사용법 1. 해당하는 storeId를 props로 전달
+    // 사용법 2. props.categroy : 카테고리 이름 | props.storeName : 가게 이름
+
     if (props.type == "black") {
         return (
             <StoreWrapper>

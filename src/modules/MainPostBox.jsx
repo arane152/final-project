@@ -16,7 +16,7 @@ padding: 12px 0;
 gap: 20px;
 
 `
-
+//Mainpage 컨테이너 모듈
 function PostBox(props){
   const {children} = props
   return (

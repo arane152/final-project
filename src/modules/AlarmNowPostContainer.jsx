@@ -67,7 +67,7 @@ const CardBottom = styled.div`
   gap: 8px;
 `
 
-
+//Alarmpage 컨테이너 모듈
 function AlarmNowPostContainer(props){
   const navigate = useNavigate();
   const {post} = props;
@@ -82,8 +82,8 @@ function AlarmNowPostContainer(props){
           <p>{post.content}</p>
         </PostContents>
         <CardBottom>
-        <StatusBar type="alarm" post={post}></StatusBar>
-        <StyledBTN><SubBtn text="바로가기 ->" ></SubBtn></StyledBTN>
+          <StatusBar type="alarm" post={post}></StatusBar>
+          <StyledBTN><SubBtn text="바로가기 ->" ></SubBtn></StyledBTN>
         </CardBottom>
       </AlarmNowPostCard>
     </StyledContainer>

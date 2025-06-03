@@ -83,19 +83,38 @@ text-align: right;
 right: 30px;
 bottom: 44px;
 `
+
+//Mainpage 컨테이너 모듈
 function PostItem(props){
   const {post, onClick} = props;
 
   return (
     <PostItemBox>
-      <ItemHead><StoreName storeId={post.storeId}></StoreName><LikeBtn type="default"></LikeBtn></ItemHead>
+      <ItemHead>
+        <StoreName storeId={post.storeId}></StoreName>
+        <LikeBtn type="default"></LikeBtn>
+      </ItemHead>
+
       <h1 onClick={onClick}>{post.title}</h1>
       <p onClick={onClick}>{post.content}</p>
+
       <ImgUlBox onClick={onClick}> 
         <ImgUl><img src={post.image || "./PostImgBasic.svg"}></img></ImgUl>
       </ImgUlBox>
-      <StyledBadge><StateBadge type="TotalAcount"><Percent post={post} ></Percent></StateBadge></StyledBadge>
-      <ItemBotton><Profile userId={post.userId} date={post.postId || post.id} fontSize="12px"></Profile></ItemBotton> 
+      
+      <StyledBadge>
+        <StateBadge type="TotalAcount">
+          <Percent post={post} ></Percent>
+        </StateBadge>
+      </StyledBadge>
+
+      <ItemBotton>
+        <Profile 
+          userId={post.userId} 
+          date={parseInt(post.postId) ? post.postId : post.id} 
+          fontSize="12px">
+        </Profile>
+      </ItemBotton> 
     </PostItemBox>
   )
 }

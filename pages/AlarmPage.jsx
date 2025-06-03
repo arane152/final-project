@@ -17,47 +17,66 @@ const StyledBox=styled.div`
 `
 
 function AlarmPage(props) {
+  //데이터
   const navigate = useNavigate();
   const { nowuser } = useUser();
   const { postData } = usePost();
 
-  const [nowPostData, setNowPost] = useState([])
+  //Post중 userId가 nowuser(현재 사용자)와 같은 Post 불러오기,
+  const [nowPostData, setNowPost] = useState([]);
 
   useEffect(() => {
-      if (!nowuser) return;
+    if (!nowuser) return; //nowuser 랜더링중 오류방지
 
-        const filteredUserPost = postData.filter((item) => item.userId == nowuser.userId
-        );
-        setNowPost(filteredUserPost);
+    const filteredUserPost = 
+    postData.filter((item) => item.userId == nowuser.userId);
+    setNowPost(filteredUserPost);
   }, [postData]);
 
 
+  //알림목록불러오기
   const [notData, setNotData] = useState([])
   useEffect(() => {
-    if (!nowuser) return;
-
+    if (!nowuser) return; //nowuser 랜더링중 오류방지
     let tempData = [];
-    db.collection('notification').where('userId', '==', nowuser.userId).get().then(function (qs) {
-      qs.forEach(function (doc) {
-        tempData.push(doc.data());
+    //firebase 컬렉션 notification의 userId가 nowuser와 동일한 문서만 받아오기
+    db.collection('notification')
+      .where('userId', '==', nowuser.userId)
+      .get()
+      .then(function (qs) {
+        qs.forEach(function (doc) {tempData.push(doc.data());});
+        setNotData(tempData);
       });
-      setNotData(tempData);
-    });
   }, []);
 
+  //불러온 알림목록 map으로 정리
   const AlarmList = notData.map(
     (item)=>{
       return ( 
-        <AlarmItem key={item.notId} not={item} onClick={()=>navigate(`/post/${item.postId}`)}></AlarmItem>
+        <AlarmItem 
+          key={item.notId} 
+          not={item} 
+          onClick={()=>navigate(`/post/${item.postId}`)}>
+          {/* 클릭시 알림발생한 post로 이동 */}
+        </AlarmItem>
       )
     }
   )
 
+  
   return  (
     <Device content="알림" gnbType="none" backPage="/">
       <StyledBox>
-        {nowPostData[0] && <AlarmNowPostContainer post={nowPostData[0]}></AlarmNowPostContainer>}
-        <UlBox>{AlarmList}</UlBox>
+        {/* 불러온 Post중 가장 최신 Post만 반영 */}
+        {nowPostData[0] && 
+          <AlarmNowPostContainer 
+            post={nowPostData[0]}>
+          </AlarmNowPostContainer>
+        }
+        {/* 알림 item 배치 */}
+        <UlBox>
+          {AlarmList}
+        </UlBox>
       </StyledBox>
     </Device>
   )

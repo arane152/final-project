@@ -27,6 +27,8 @@ white-space: nowrap;
     flex: 0 0 12px;
   }
 `
+
+//Mainpage 컨테이너 모듈
 function CategoryBox(props){
   const {children} = props
   return (
