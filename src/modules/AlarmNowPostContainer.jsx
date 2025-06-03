@@ -61,12 +61,9 @@ width: 100%;
 }
 `
 
-const StyledStatusBar= styled.div`
-& > div{
-width: 100%;
-}
 
-`
+
+
 function AlarmNowPostContainer(props){
   const navigate = useNavigate();
   const {post} = props;
@@ -80,7 +77,7 @@ function AlarmNowPostContainer(props){
           <h1>{post.title}</h1>
           <p>{post.content}</p>
         </PostContents>
-        <StyledStatusBar><StatusBar type="simple"></StatusBar></StyledStatusBar>
+        <StatusBar type="alarm" post={post}></StatusBar>
         <StyledBTN><SubBtn text="바로가기 ->" ></SubBtn></StyledBTN>
       </AlarmNowPostCard>
     </StyledContainer>

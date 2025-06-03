@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import Percent from './percent'
 const Wrapper = styled.div`
     display: flex;
     width: 353px;
@@ -99,11 +99,77 @@ const StatusBarMark = styled.div`
     background-size: cover;
     margin-top: -4px;
 `
+const BackProgress =styled.div`
+    border: #FFB9B9 1px solid;
+    height: 12px;
+    background-color: #FFF5D5;
+    border-radius: 6px;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+`
+const FrontProgress =styled.div`
+    height: 4px;
+    background-color: #FF6232;
+    border-radius: 2px;
+    width: 100%;
+    z-index: 2;
+`
+const BackProgressimg = styled.img`
+    height: 32px;
+    z-index: 2;
+`
+const FrontProgressimg = styled.img`
+    height: 24px;
+    z-index: 3;
+    margin-left: -36px;
+`
+const Progressflex = styled.div`
+    display: flex;
+    width: 80%;
+    align-items: center;
+`
+const WrapperAlarm = styled.div`
+    width: 100%;
+    gap: 20px;
+    display: flex;
+    height: 49px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
 
+const AlarmText = styled.p`
+    height: 28px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #FF6232;
+    justify-content: center;
+    text-align: right;
+`
+const ProgressBarflex = styled.div`
+    display: flex;
+    align-items: center;
+`
 function StatusBar(props) {
+    const {post}= props
     const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
-
-    if (props.type == "simple") {
+    if (props.type == "alarm") {
+        return(
+            <WrapperAlarm>
+                <Progressflex>
+                    <BackProgressimg src="/ProgressBackground_1.svg"></BackProgressimg>
+                    <FrontProgressimg src="/StatusBarLogo.svg"></FrontProgressimg>
+                    <ProgressBarflex>
+                        <BackProgress></BackProgress>
+                        <FrontProgress></FrontProgress>
+                    </ProgressBarflex>
+                </Progressflex>
+                <AlarmText><Percent post={post}></Percent></AlarmText>
+            </WrapperAlarm> 
+        )
+    }else if (props.type == "simple") {
         return (
             <WrapperSimple>
                 <StatusBarWrapper>
@@ -112,7 +178,7 @@ function StatusBar(props) {
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackgroundSimple>
                 </StatusBarWrapper>
-                <StatusText>{props.totalPercent}%</StatusText>
+                <StatusText>{totalPercent}%</StatusText>
             </WrapperSimple>
         )
     }

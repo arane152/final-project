@@ -23,15 +23,18 @@ function AlarmPage(props) {
   const [nowPostData, setNowPost] = useState([])
 
   useEffect(() => {
+      if (!nowuser) return;
+
         const filteredUserPost = postData.filter((item) => item.userId == nowuser.userId
         );
         setNowPost(filteredUserPost);
-        console.log("필터링된 결과:", filteredUserPost);
   }, [postData]);
 
 
   const [notData, setNotData] = useState([])
   useEffect(() => {
+    if (!nowuser) return;
+    
     let tempData = [];
     db.collection('notification').get().then(function (qs) {
       qs.forEach(function (doc) {
