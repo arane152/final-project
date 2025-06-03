@@ -100,6 +100,8 @@ const StatusBarMark = styled.div`
     background-size: cover;
     margin-top: -4px;
 `
+
+//아래부터는 alarm 타입용
 const BackProgress =styled.div`
     border: #FFB9B9 1px solid;
     height: 12px;
@@ -164,22 +166,23 @@ const ProgressBarflex = styled.div`
 `
 function StatusBar(props) {
     const {post}= props
+
     const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
     
-    const {storeData} = useStore();
-    const matchedStore = storeData.find((store) => store.id == post.storeId);
-    const minPrice = parseInt(matchedStore?.minPrice)
+    // const {storeData} = useStore();
+    // const matchedStore = storeData.find((store) => store.id == post.storeId);
+    // const minPrice = parseInt(matchedStore?.minPrice)
 
-    if (!post?.menuList || !matchedStore?.minPrice) {
-    return <>00%</>;
-    }
+    // if (!post?.menuList || !matchedStore?.minPrice) {
+    // return <>00%</>;
+    // }
 
-    const totalSum = Object.values(post.menuList).reduce((acc, item) => {
-    const price = parseInt(item.menuPrice);
-    const qty = parseInt(item.menuQaunitiy);
-    return acc + price * qty;
-    }, 0);
-    const percentPrice = Math.floor(totalSum/minPrice*100)
+    // const totalSum = Object.values(post.menuList).reduce((acc, item) => {
+    // const price = parseInt(item.menuPrice);
+    // const qty = parseInt(item.menuQaunitiy);
+    // return acc + price * qty;
+    // }, 0);
+    // const percentPrice = Math.floor(totalSum/minPrice*100)
 
     if (props.type == "alarm") {
         return(
