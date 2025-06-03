@@ -110,7 +110,7 @@ function PostItem(props){
 
       <ItemBotton>
         <Profile 
-          userId={post.userId} 
+          userId={post.writer?.[0]} 
           date={parseInt(post.postId) ? post.postId : post.id} 
           fontSize="12px">
         </Profile>
