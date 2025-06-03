@@ -52,7 +52,7 @@ function PostWritePage(props) {
         }
 
         db.collection('post').doc(timestamp).set({
-            id: timestamp,
+            postId: timestamp,
             title: title,
             content: content,
             receiptLocation: receiptLocation,
