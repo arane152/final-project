@@ -9,10 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // firebase db
-import {db} from '/src/firebase.js'
+import {db} from '/src/firebase.js';
 
 import { useCategory } from "../context/CategoryContext";
-import { useStore } from '../context/StoreContext'
+import { useStore } from '../context/StoreContext';
+import { usePost } from '../context/PostContext';
 const ContentBox=styled.div`
 overflow-x: hidden;
 `
@@ -26,13 +27,12 @@ const StyledBtn=styled.button`
 function MainPage(props){
   const navigate = useNavigate();
 
-
+  const {postData} = usePost();
   const {categoryData} = useCategory();
   const {storeData} = useStore();
 
-
   //카테고리 함수
-    const [nowCategory, setCategory] = useState('전체');
+  const [nowCategory, setCategory] = useState('전체');
 
   const CategoryList =  categoryData.map(
     (item)=>{
@@ -48,33 +48,23 @@ function MainPage(props){
   )
   //포스트함수
   const [data, setData] = useState([])
-  // firebase
   useEffect(()=>{
-    // post 임시 저장 장소
-    let tempDataPost = []
     // post 불러오기
-    db.collection('post').get().then((qs)=>{
-      qs.forEach((doc)=>{
-        tempDataPost.push(doc.data())
-      })
-      if(nowCategory != '전체'){
-        const filteredPost = tempDataPost.filter((item) => {
-          const store = storeData.find((store) => store.id === item.storeId);
-          if (!store) return false;
+    if(nowCategory != '전체'){
+      const filteredPost = postData.filter((item) => {
+        const store = storeData.find((store) => store.id === item.storeId);
+        if (!store) return false;
 
-          const category = categoryData.find((category) => category.id === store.categoryId);
-          if (!category) return false;
+        const category = categoryData.find((category) => category.id === store.categoryId);
+        if (!category) return false;
 
-          return category.name === nowCategory;
+        return category.name === nowCategory;
       });
       setData(filteredPost)
-      }else{
-        setData(tempDataPost)
-      }
-      // 테스트용 콘솔로그
-      // console.log(tempDataPost)
-    })
-  }, [nowCategory])
+    }else{
+      setData(postData)
+    }
+  }, [nowCategory, postData])
 
   const PostList = data.map(
     (item)=>{

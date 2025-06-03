@@ -2,7 +2,7 @@ import styled from "styled-components"
 import StoreName from "./StoreName"
 import StatusBar from "../components/StatusBar"
 import SubBtn from "../components/SubBtn"
-
+import { useNavigate } from "react-router-dom";
 const StyledContainer = styled.div`
 padding: 20px;
 display: flex;
@@ -68,20 +68,20 @@ width: 100%;
 
 `
 function AlarmNowPostContainer(props){
-  const {category="카테고리", storeName="음식점", post} = props;
-  const { title="제목", content="내용"} = post || {};
+  const navigate = useNavigate();
+  const {post} = props;
 
   return (
-    <StyledContainer>
+    <StyledContainer onClick={()=>navigate(`/post`)}>
       <p>현재 참여중인 모집게시글입니다.</p>
       <AlarmNowPostCard>
-        <StoreName category={category} storeName={storeName}></StoreName>
+        <StoreName storeId={post.storeId}></StoreName>
         <PostContents>
-          <h1>{title}</h1>
-          <p>{content}</p>
+          <h1>{post.title}</h1>
+          <p>{post.content}</p>
         </PostContents>
         <StyledStatusBar><StatusBar type="simple"></StatusBar></StyledStatusBar>
-        <StyledBTN><SubBtn text="바로가기 ->"></SubBtn></StyledBTN>
+        <StyledBTN><SubBtn text="바로가기 ->" ></SubBtn></StyledBTN>
       </AlarmNowPostCard>
     </StyledContainer>
   )}

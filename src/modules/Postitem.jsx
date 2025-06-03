@@ -93,7 +93,7 @@ function PostItem(props){
       <h1 onClick={onClick}>{post.title}</h1>
       <p onClick={onClick}>{post.content}</p>
       <ImgUlBox onClick={onClick}> 
-        <ImgUl><img src={post.image}></img></ImgUl>
+        <ImgUl><img src={post.image || "./PostImgBasic.svg"}></img></ImgUl>
       </ImgUlBox>
       <StyledBadge><StateBadge type="TotalAcount">00%</StateBadge></StyledBadge>
       <ItemBotton><Profile name="사용자" location="1기숙사" date="0000.00.00" fontSize="12px"></Profile></ItemBotton> 

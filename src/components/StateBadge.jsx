@@ -4,6 +4,7 @@ const StateCategoryWrapper = styled.div`
     margin: 0;
     padding: 0;
     display: inline-flex;
+    line-height: 100%;
     width: auto;
     height: 22px;
     max-height: 22px;

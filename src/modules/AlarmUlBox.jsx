@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const AlarmUl = styled.ul`
   margin: 0;
-  padding: 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 30px;

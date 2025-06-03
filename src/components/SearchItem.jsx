@@ -4,9 +4,7 @@ import CategoryBtn from "./CategoryBtn";
 const SearchItem = ({ category, storeName, minPrice }) => {
   return (
     <ItemWrapper>
-      <IconBox>
-        <img src="/SearchIcon.svg" alt="검색아이콘"></img>
-      </IconBox>
+      <IconBox />
       <StoreNameBox>
         <CategoryBtn type="toggle" text={category} />
         <StoreName>{storeName}</StoreName>
@@ -33,27 +31,10 @@ const ItemWrapper = styled.div`
 const IconBox = styled.div`
   width: 24px;
   height: 24px;
-  position: relative;
-`;
-
-const Circle = styled.div`
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  left: 3px;
-  top: 3px;
-  border-radius: 50%;
-  border: 2px solid #666666;
-`;
-
-const CircleInner = styled.div`
-  width: 4.35px;
-  height: 4.35px;
-  position: absolute;
-  left: 16.65px;
-  top: 16.65px;
-  border-radius: 50%;
-  border: 2px solid #666666;
+  background-image: url("/SearchIcon.svg"); /* ✅ public 기준 절대 경로 */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const StoreNameBox = styled.div`

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import {db} from '/src/firebase.js'
 import { useUser } from '../../context/UserContext'
 
 const GnbWrapper = styled.div`
@@ -81,39 +80,28 @@ function Gnb(props) {
 
     //context
     const [onUserList, setOnUserList] = useState(false);
-    const [userData, setUserData] = useState([]);
-    const { nowuser, setUser } = useUser();
+    const { userListData, nowuser, setUser } = useUser();
+    const [nowUserName, setNowUserName] = useState("기본값");
 
-    useEffect(() => {
-        let tempData = [];
-        db.collection('user').get().then(function (qs) {
-            qs.forEach(function (doc) {
-            tempData.push(doc.data());
-        });
-            setUserData(tempData);
-            
-        });
-    }, []);
+    useEffect(()=>{
+        if(nowuser){
+            setNowUserName(nowuser.name)
+        }
 
-    const UserList = userData.map(
+    }, [nowuser]);
+
+    const UserList = userListData.map(
         (item)=>{
         return ( 
             <div key={item.userId} 
                 onClick={()=>{
-                    setUser({
-                        ...nowuser,
-                        userName: item.name,
-                        userId: item.userId,
-                        accountNumber: item.accountNumber || "00000000000",
-                        profile: item.profile || "none",
-                    });
+                    setUser(item);
             }}>
                 {item.name}
             </div>
         )
         }
     )
-
 
 
     // props.type : gnb 타입 (gnb : "gnb" / 버튼 : "btn")
@@ -126,7 +114,7 @@ function Gnb(props) {
                     <GnbAddIcon onClick={()=>navigate(`/write`)}></GnbAddIcon>
                     <GnbProfileIcon onClick={()=>{!onUserList ? setOnUserList(true) : setOnUserList(false)}}>
                     </GnbProfileIcon>
-                    {onUserList && <StyledUserList> <p>now : {nowuser.userName}</p>{UserList} </StyledUserList>}
+                    {onUserList && <StyledUserList> <p>now : {nowUserName}</p>{UserList} </StyledUserList>}
                 </GnbLayout>
             </GnbWrapper>
         )
