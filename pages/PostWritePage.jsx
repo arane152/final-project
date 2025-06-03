@@ -5,7 +5,7 @@ import OderMenuArea from "../src/modules/OrderMenuArea";
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-import {db} from '/src/firebase.js'
+import { db } from '/src/firebase.js'
 
 const money = 15000;
 
@@ -17,15 +17,29 @@ function PostWritePage(props) {
     const navigate = useNavigate();
     // 현재 postWritePage에서 storeSearchPage로 넘어갔을때, write page에 적어두었던 모든 정보들이 사라지는 문제가 있습니다. 추후 해결할 예정입니다.
 
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [receiptLocation, setReceiptLocation] = useState('');
-    const [image, setImage] = useState(null);
-    const [addMenuPossible, setAddMenuPossible] = useState('자유')
     const [quantity, setQuantity] = useState(1);
+
+    // 만약 세션 스토리지에서 "fromSearch"가 "true"가 아니라면, 로컬 스토리지의 값을 초기화합니다.
+    useEffect(() => {
+        if (sessionStorage.getItem("fromSearch") !== "true") {
+            localStorage.removeItem("title");
+            localStorage.removeItem("content");
+            localStorage.removeItem("receiptLocation");
+            localStorage.removeItem("addMenuPossible");
+            localStorage.removeItem("image");
+        }
+        sessionStorage.removeItem("fromSearch");
+    }, []);
+
+    const [title, setTitle] = useState(localStorage.getItem('title') || '');
+    const [content, setContent] = useState(localStorage.getItem('content') || '');
+    const [receiptLocation, setReceiptLocation] = useState(localStorage.getItem('receiptLocation') || '');
+    const [image, setImage] = useState(localStorage.getItem('image') || null);
+    const [addMenuPossible, setAddMenuPossible] = useState(localStorage.getItem('addMenuPossible') || '자유')
 
     const handleAddMenuPossibleChange = (selectedToggle) => {
         setAddMenuPossible(selectedToggle);
+        localStorage.setItem('addMenuPossible', selectedToggle);
     };
 
     //메인 페이지에서 설정하였던 유저 정보 가져오기
@@ -36,7 +50,7 @@ function PostWritePage(props) {
 
     //메뉴 가격 계산
     const totalAmount = quantity * money;
-    const formattedTotalAmount = formatPrice(totalAmount); 
+    const formattedTotalAmount = formatPrice(totalAmount);
 
     const handlePlusClick = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -52,9 +66,9 @@ function PostWritePage(props) {
     const writePost = () => {
         let timestamp = new Date().getTime().toString()
 
-        if (!title || !content || !receiptLocation ) {
-             alert('필수 정보를 모두 입력해주세요.');
-             return;
+        if (!title || !content || !receiptLocation) {
+            alert('필수 정보를 모두 입력해주세요.');
+            return;
         }
 
         db.collection('post').doc(timestamp).set({
@@ -66,35 +80,41 @@ function PostWritePage(props) {
             addMenuPossible: addMenuPossible,
             // 작성자 정보를 write {array}로 저장
             writer: [userId, userName, location, accountNumber]
-        }).then(()=>{
+        }).then(() => {
             navigate('/')
+            localStorage.removeItem('title');
+            localStorage.removeItem('content');
+            localStorage.removeItem('receiptLocation');
+            localStorage.removeItem('image');
+            localStorage.removeItem('addMenuPossible');
         })
     };
 
     //이미지 추가
-    const handleImage = (e)=>{
+    const handleImage = (e) => {
         let reader = new FileReader()
         reader.readAsDataURL(e.target.files[0])
-        reader.onload = (_e)=>{
+        reader.onload = (_e) => {
             console.log(_e.target.result)
-            setImage(_e.target.result)
+            setImage(_e.target.result);
+            localStorage.setItem('image', _e.target.result);
         }
     }
 
-    return(
+    return (
         <Device
-        content="모집글쓰기"
-        headerType=""
-        gnbType="btn"
-        btnType="default"
-        btnMainText="모집글 올리기"
-        backPage="/"
-        onClick={writePost}>
+            content="모집글쓰기"
+            headerType=""
+            gnbType="btn"
+            btnType="default"
+            btnMainText="모집글 올리기"
+            backPage="/"
+            onClick={writePost}>
             <InfoArea
-                title={title} onTitleChange={(e) => setTitle(e.target.value)}
-                content={content} onContentChange={(e) => setContent(e.target.value)}
+                title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); }}
+                content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); }}
                 image={image} onImageChange={(e) => handleImage(e)}
-                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => setReceiptLocation(e.target.value)}
+                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); }}
                 addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}>
             </InfoArea>
             <OderMenuArea

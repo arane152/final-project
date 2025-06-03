@@ -123,7 +123,10 @@ function StoreSearchPage() {
         gnbType="btn"
         btnType="default"
         btnMainText="음식점 추가하기"
-        backPage="/write"
+        backPage={() => {
+          sessionStorage.setItem("fromSearch", "true");
+          window.location.href = "/write";
+        }}
         modalOnClick={() => setIsModalOpen(true)}
         searchValue={searchText}
         onSearchChange={(e) => setSearchText(e.target.value)}
