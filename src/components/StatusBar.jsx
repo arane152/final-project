@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Percent from './percent'
+import { useStore } from '../../context/StoreContext'
 const Wrapper = styled.div`
     display: flex;
     width: 353px;
@@ -99,6 +100,8 @@ const StatusBarMark = styled.div`
     background-size: cover;
     margin-top: -4px;
 `
+
+//아래부터는 alarm 타입용
 const BackProgress =styled.div`
     border: #FFB9B9 1px solid;
     height: 12px;
@@ -108,13 +111,16 @@ const BackProgress =styled.div`
     z-index: 1;
     display: flex;
     align-items: center;
+    margin-top: -4px;
 `
 const FrontProgress =styled.div`
     height: 4px;
     background-color: #FF6232;
     border-radius: 2px;
-    width: 100%;
+    width: ${({ $percent }) => $percent}%;
     z-index: 2;
+    margin-top: -9px;
+    margin-left: -12px;
 `
 const BackProgressimg = styled.img`
     height: 32px;
@@ -134,27 +140,54 @@ const WrapperAlarm = styled.div`
     width: 100%;
     gap: 20px;
     display: flex;
-    height: 49px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 `
 
-const AlarmText = styled.p`
+const AlarmText = styled.h1`
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 100%;
     height: 28px;
     font-size: 20px;
     font-weight: 600;
     color: #FF6232;
-    justify-content: center;
+    align-content: center;
     text-align: right;
 `
 const ProgressBarflex = styled.div`
+    height: 100%;
     display: flex;
     align-items: center;
+    width: 100%;
+    flex-direction: column;
 `
 function StatusBar(props) {
     const {post}= props
+    const {storeData} = useStore();
+    let percentPrice
     const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
+
+
+    if(post){    
+        const matchedStore = storeData.find((store) => store.id == post.storeId);
+        const minPrice = parseInt(matchedStore?.minPrice)
+        if (!post?.menuList || !matchedStore?.minPrice) {
+        return <>00%</>;
+        }
+        const totalSum = Object.values(post.menuList).reduce((acc, item) => {
+            const price = parseInt(item.menuPrice);
+            const qty = parseInt(item.menuQaunitiy);
+            return acc + price * qty;
+        }, 0);
+        percentPrice = Math.floor((totalSum / minPrice) * 100)
+    }else{
+        percentPrice = (0);
+    }
+
+
     if (props.type == "alarm") {
         return(
             <WrapperAlarm>
@@ -163,10 +196,10 @@ function StatusBar(props) {
                     <FrontProgressimg src="/StatusBarLogo.svg"></FrontProgressimg>
                     <ProgressBarflex>
                         <BackProgress></BackProgress>
-                        <FrontProgress></FrontProgress>
+                        <FrontProgress $percent={percentPrice >= 100 ? 100 : percentPrice}></FrontProgress>
                     </ProgressBarflex>
                 </Progressflex>
-                <AlarmText><Percent post={post}></Percent></AlarmText>
+                <AlarmText>{percentPrice}%</AlarmText>
             </WrapperAlarm> 
         )
     }else if (props.type == "simple") {

@@ -19,9 +19,9 @@ import TotalAmount from "../src/components/TotalAmount";
 function PostViewPage(props) {
     //포스트함수
     // firebase data state
-    const postId = 'postId(1)';
     const [post, setPost] = useState([])
     const [modalOpen, setModalOpen] = useState(false);
+    const { id: postId } = useParams(); // /post/:id에서 id 파라미터를 추출 // URL에서 postId를 가져옵니다.
 
     // firebase
     useEffect(() => {
@@ -39,7 +39,7 @@ function PostViewPage(props) {
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
-                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}> 
+                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}>
                             <MenuDefault type="info"></MenuDefault>
                             <MenuDefault type="info"></MenuDefault>
                             <TotalAmount title="총액"></TotalAmount>

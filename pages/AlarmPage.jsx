@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import {db} from '/src/firebase.js'
 import { useUser } from '../context/UserContext'
 import { usePost } from '../context/PostContext'
-
+import { useNavigate } from "react-router-dom";
 
 const StyledBox=styled.div`
   height: 100%;
@@ -17,6 +17,7 @@ const StyledBox=styled.div`
 `
 
 function AlarmPage(props) {
+  const navigate = useNavigate();
   const { nowuser } = useUser();
   const { postData } = usePost();
 
@@ -34,23 +35,20 @@ function AlarmPage(props) {
   const [notData, setNotData] = useState([])
   useEffect(() => {
     if (!nowuser) return;
-    
+
     let tempData = [];
-    db.collection('notification').get().then(function (qs) {
+    db.collection('notification').where('userId', '==', nowuser.userId).get().then(function (qs) {
       qs.forEach(function (doc) {
         tempData.push(doc.data());
       });
-      const filteredUser = tempData.filter((item) => item.userId == nowuser.userId
-      );
-      setNotData(filteredUser);
-
+      setNotData(tempData);
     });
   }, []);
 
   const AlarmList = notData.map(
     (item)=>{
       return ( 
-        <AlarmItem key={item.notId} type={item.type || "deliveryend"}></AlarmItem>
+        <AlarmItem key={item.notId} not={item} onClick={()=>navigate(`/post/${item.postId}`)}></AlarmItem>
       )
     }
   )

@@ -7,7 +7,7 @@ import ToggleBtn from "../components/ToggleBtn";
 
 const StyledWrapper = styled.div`
     width: 393px;
-    height: 574px;
+    height: 510px;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -97,7 +97,6 @@ function InfoArea(props) {
         <Container>
             <InfoBox title="제목"><TextInput placeholder="제목을 입력해주세요." value={title} onChange={onTitleChange}></TextInput></InfoBox>
             <InfoBox title="수령장소"><TextInput placeholder="수령장소를 입력해주세요." value={receiptLocation} onChange={onReceiptLocationChange}></TextInput></InfoBox>
-            <InfoBox title="마감시간"><TextInput placeholder="마감시간을 입력해주세요." ></TextInput></InfoBox>
             <InfoBox title="내용"><TextInput height={"108px"} placeholder="내용을 입력해주세요." value={content} onChange={onContentChange}></TextInput></InfoBox>
 
             <InfoBox title="메뉴사진">

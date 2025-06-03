@@ -13,6 +13,9 @@ const DeviceWrapper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: calc( (100vh - 852px) / 2);
     align-items: center;
     overflow-y: auto;
     background-color: #ffffff;
