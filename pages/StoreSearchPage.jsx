@@ -85,9 +85,9 @@ function StoreSearchPage() {
   //toLowerCase: 대문자 소문자 관계 없게
   //includes: 전체를 안 쓰고 일부만 써도 검색 가능
   const handleSearch = () => {
-    const keyword = searchText.trim().toLowerCase(); // 앞뒤 공백 제거 + 소문자 변환
+    const trimmedKeyword = searchText.trim().toLowerCase(); // 앞뒤 공백 제거 + 소문자 변환
 
-    if (keyword === "") {
+    if (trimmedKeyword === "") {
       setFilteredList([]);
       setErrorMsg("검색어를 입력해주세요.");
       return;
@@ -98,8 +98,8 @@ function StoreSearchPage() {
       const categoryName = category?.name?.toLowerCase() || "";
 
       return (
-        store.name.toLowerCase().includes(keyword) ||
-        categoryName.includes(keyword)
+        store.name.toLowerCase().includes(trimmedKeyword) ||
+        categoryName.includes(trimmedKeyword)
       );
     });
 
