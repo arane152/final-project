@@ -22,6 +22,7 @@ function PostWritePage(props) {
     // 만약 세션 스토리지에서 "fromSearch"가 "true"가 아니라면, 로컬 스토리지의 값을 초기화합니다.
     useEffect(() => {
         if (sessionStorage.getItem("fromSearch") !== "true") {
+            // 로컬 스토리지에서 저장된 값들을 제거합니다.
             localStorage.removeItem("title");
             localStorage.removeItem("content");
             localStorage.removeItem("receiptLocation");
@@ -46,6 +47,7 @@ function PostWritePage(props) {
 
     const handleAddMenuPossibleChange = (selectedToggle) => {
         setAddMenuPossible(selectedToggle);
+        // 로컬 스토리지에 선택된 값을 저장합니다.
         localStorage.setItem('addMenuPossible', selectedToggle);
     };
 
@@ -89,6 +91,7 @@ function PostWritePage(props) {
             writer: [userId, userName, location, accountNumber]
         }).then(() => {
             navigate('/')
+            // 로컬 스토리지 초기화
             localStorage.removeItem('title');
             localStorage.removeItem('content');
             localStorage.removeItem('receiptLocation');
@@ -117,11 +120,12 @@ function PostWritePage(props) {
             btnMainText="모집글 올리기"
             backPage="/"
             onClick={writePost}>
+            {/*로컬 스토리지에 저장할 값이 있으면 해당 기능 검수자 '김예준'에게 문의해주세요.*/}
             <InfoArea
-                title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); }}
-                content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); }}
+                title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); /* 로컬 스토리지에 제목 저장 */ }}
+                content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); /* 로컬 스토리지에 내용 저장 */ }}
                 image={image} onImageChange={(e) => handleImage(e)}
-                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); }}
+                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
                 addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}>
             </InfoArea>
             <OderMenuArea

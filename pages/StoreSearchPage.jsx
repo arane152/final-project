@@ -124,6 +124,8 @@ function StoreSearchPage() {
         btnType="default"
         btnMainText="음식점 추가하기"
         backPage={() => {
+          // 세션 스토리지에 검색 상태 저장
+          // 나중에 검색 페이지에서 작성 페이지로 넘어갈때 검색 페이지 데이터도 로컬스토리지에 저장 필요
           sessionStorage.setItem("fromSearch", "true");
           window.location.href = "/write";
         }}
