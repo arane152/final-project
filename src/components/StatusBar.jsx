@@ -174,7 +174,7 @@ function StatusBar(props) {
 
 
     const totalPercent = minPrice === 0 ? 0 : Math.min(Math.round((totalSum / minPrice) * 100), 100);
-    const matchedStore = storeData.find((store) => store.id == post.storeId);
+    const matchedStore = post && post.storeId ? storeData.find((store) => store.id == post.storeId) : null;
 
     //달성률계산
     if (post && post.menuList && matchedStore?.minPrice) {
