@@ -117,7 +117,7 @@ const FrontProgress =styled.div`
     height: 4px;
     background-color: #FF6232;
     border-radius: 2px;
-    width: ${({ percent }) => percent}%;
+    width: ${({ $percent }) => $percent}%;
     z-index: 2;
     margin-top: -9px;
     margin-left: -12px;
@@ -166,23 +166,27 @@ const ProgressBarflex = styled.div`
 `
 function StatusBar(props) {
     const {post}= props
-
+    const {storeData} = useStore();
+    let percentPrice
     const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
-    
-    // const {storeData} = useStore();
-    // const matchedStore = storeData.find((store) => store.id == post.storeId);
-    // const minPrice = parseInt(matchedStore?.minPrice)
 
-    // if (!post?.menuList || !matchedStore?.minPrice) {
-    // return <>00%</>;
-    // }
 
-    // const totalSum = Object.values(post.menuList).reduce((acc, item) => {
-    // const price = parseInt(item.menuPrice);
-    // const qty = parseInt(item.menuQaunitiy);
-    // return acc + price * qty;
-    // }, 0);
-    // const percentPrice = Math.floor(totalSum/minPrice*100)
+    if(post){    
+        const matchedStore = storeData.find((store) => store.id == post.storeId);
+        const minPrice = parseInt(matchedStore?.minPrice)
+        if (!post?.menuList || !matchedStore?.minPrice) {
+        return <>00%</>;
+        }
+        const totalSum = Object.values(post.menuList).reduce((acc, item) => {
+            const price = parseInt(item.menuPrice);
+            const qty = parseInt(item.menuQaunitiy);
+            return acc + price * qty;
+        }, 0);
+        percentPrice = Math.floor((totalSum / minPrice) * 100)
+    }else{
+        percentPrice = (0);
+    }
+
 
     if (props.type == "alarm") {
         return(
@@ -192,7 +196,7 @@ function StatusBar(props) {
                     <FrontProgressimg src="/StatusBarLogo.svg"></FrontProgressimg>
                     <ProgressBarflex>
                         <BackProgress></BackProgress>
-                        <FrontProgress percent={percentPrice >= 100 ? 100 : percentPrice}></FrontProgress>
+                        <FrontProgress $percent={percentPrice >= 100 ? 100 : percentPrice}></FrontProgress>
                     </ProgressBarflex>
                 </Progressflex>
                 <AlarmText>{percentPrice}%</AlarmText>
