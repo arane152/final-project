@@ -27,6 +27,13 @@ function PostWritePage(props) {
             localStorage.removeItem("receiptLocation");
             localStorage.removeItem("addMenuPossible");
             localStorage.removeItem("image");
+
+            // 상태값도 초기화
+            setTitle('');
+            setContent('');
+            setReceiptLocation('');
+            setAddMenuPossible('자유');
+            setImage(null);
         }
         sessionStorage.removeItem("fromSearch");
     }, []);
