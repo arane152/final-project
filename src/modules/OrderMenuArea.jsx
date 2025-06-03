@@ -48,8 +48,16 @@ const ComonentWrapper = styled.div`
     flex-direction: column; 
     gap: 12px;
 `
-
+//
 function OderMenuArea(props) {
+     const {
+        totalAmount, // TotalAmount 컴포넌트에 전달할 총 금액 (이미 포맷팅된 문자열)
+        quantity, // MenuDefault에 전달할 수량 상태
+        onPlusClick, // MenuDefault에 전달할 Plus 핸들러
+        onMinusClick, // MenuDefault에 전달할 Minus 핸들러
+        itemPrice // MenuDefault에 전달할 항목 가격
+    } = props
+
     return(
     <StyledWrapper>
         <MaintitleWrapper>
@@ -58,9 +66,13 @@ function OderMenuArea(props) {
 
         <ComonentWrapper>
             <MenuSetting></MenuSetting>
-            <MenuDefault></MenuDefault>
+            <MenuDefault
+                quantity={quantity} // PostWritePage로부터 받은 수량 상태 전달
+                onPlusClick={onPlusClick} // PostWritePage로부터 받은 Plus 핸들러 전달
+                onMinusClick={onMinusClick} // PostWritePage로부터 받은 Minus 핸들러 전달
+                itemPrice={itemPrice}></MenuDefault>
             <MenuAdd></MenuAdd>
-            <TotalAmount title="메뉴총액"></TotalAmount>
+            <TotalAmount title="메뉴총액" totalAmount={totalAmount}></TotalAmount>
         </ComonentWrapper>
     </StyledWrapper>
     )

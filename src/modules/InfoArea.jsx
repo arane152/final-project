@@ -32,6 +32,7 @@ const ImgBtn = styled.button`
     text-align: center;
 `
 
+
 function InfoArea(props) {
     const {
         title, onTitleChange,
@@ -45,6 +46,16 @@ function InfoArea(props) {
     const handleToggleClick = (selectedToggle) => {
         onAddMenuPossibleChange(selectedToggle);
     };
+
+    const handleImage = (e)=>{
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = (_e)=>{
+            console.log(_e.target.result)
+            setImage(_e.target.result)
+        }
+    }
+
 
     return(
     <StyledWrapper>

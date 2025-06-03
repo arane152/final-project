@@ -44,7 +44,7 @@ const TransparentStyleWrapper = styled(StyleWrapper)`
 
 // #202020 #FF6232
 function TotalAmount(props) {
-    const {title} = props;
+    const {title, totalAmount} = props;
 
     const color = props.color || '#202020'
     const colorHex = (color == "orange")? '#FF6232' : '#202020'   // title 컬러 변경(총액/메뉴총액)
@@ -55,7 +55,7 @@ function TotalAmount(props) {
             <DefaultTotalAmount>
                 <StyleWrapper>
                 <TotalText color={colorHex}>{title}</TotalText>
-                    <TotalAmountText>0원</TotalAmountText>
+                    <TotalAmountText>{totalAmount}원</TotalAmountText>
                 </StyleWrapper>
             </DefaultTotalAmount>
         )
@@ -64,7 +64,7 @@ function TotalAmount(props) {
             <OutlineTotalAmount>
                 <StyleWrapper>
                     <TotalText color={colorHex}>{title}</TotalText>
-                    <TotalAmountText>0원</TotalAmountText>
+                    <TotalAmountText>{totalAmount}원</TotalAmountText>
                 </StyleWrapper>
             </OutlineTotalAmount>
         )
@@ -72,7 +72,7 @@ function TotalAmount(props) {
         return (
             <TransparentStyleWrapper>
                 <TotalText color={colorHex}>{title}</TotalText>
-                <TotalAmountText>0원</TotalAmountText>
+                <TotalAmountText>{totalAmount}원</TotalAmountText>
             </TransparentStyleWrapper>
         )
     }
