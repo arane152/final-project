@@ -50,6 +50,7 @@ function PostViewPage(props) {
                 <PostImage postImage={post.image}></PostImage>
                 {post && (
                     <PostContainer
+                        post={post}
                         postTitle={post.title}
                         postContent={post.content}
                         date={post.postId}
@@ -71,6 +72,7 @@ function PostViewPage(props) {
                 <PostImage postImage={post.image} postRecruitment="closed"></PostImage>
                 {post && (
                     <PostContainer
+                        post={post}
                         postTitle={post.title}
                         postContent={post.content}
                         date={post.date}

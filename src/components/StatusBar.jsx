@@ -83,7 +83,7 @@ const StatusBarImg = styled.div`
 
 const StatusBarMarker = styled.div`
     display: flex;
-    width: ${props => 15 + ((props.totalPercent ?? 0) / 100) * (256 - 15)}px;
+    width: ${({ percentPrice }) => 15 + (Math.min(percentPrice ?? 0, 100) / 100) * (256 - 15)}px;
     height: 4px;
     background-color: #FF6232;
     margin-left: 24px;
@@ -102,7 +102,7 @@ const StatusBarMark = styled.div`
 `
 
 //아래부터는 alarm 타입용
-const BackProgress =styled.div`
+const BackProgress = styled.div`
     border: #FFB9B9 1px solid;
     height: 12px;
     background-color: #FFF5D5;
@@ -113,7 +113,7 @@ const BackProgress =styled.div`
     align-items: center;
     margin-top: -4px;
 `
-const FrontProgress =styled.div`
+const FrontProgress = styled.div`
     height: 4px;
     background-color: #FF6232;
     border-radius: 2px;
@@ -165,63 +165,72 @@ const ProgressBarflex = styled.div`
 `
 function StatusBar(props) {
     //데이터
-    const {post}= props
-    const {storeData} = useStore();
+    const { post } = props
+    const { storeData } = useStore();
 
-    const totalPercent = props.postMinPrice === 0 ? 0 : Math.min(Math.round((props.nowPrice / props.postMinPrice) * 100), 100);
+    let percentPrice = 0;
+    let totalSum = 0;
+    let minPrice = 0;
+
+
+    const totalPercent = minPrice === 0 ? 0 : Math.min(Math.round((totalSum / minPrice) * 100), 100);
+    const matchedStore = storeData.find((store) => store.id == post.storeId);
 
     //달성률계산
-    let percentPrice
-    if(post){ 
+    if (post && post.menuList && matchedStore?.minPrice) {
         // post에서 storeid -> 해당 id의 store에서 mimPrice 추출출
-        const matchedStore = storeData.find((store) => store.id == post.storeId);
-        const minPrice = parseInt(matchedStore?.minPrice)
+        minPrice = parseInt(matchedStore?.minPrice);
         //필요한 데이터 없을시 기본값 출력
-        if (!post?.menuList && !matchedStore?.minPrice) {
-            return <>00%</>;
+        if (!post?.menuList || !matchedStore?.minPrice) {
+            percentPrice = 0;
         }
+
         //menuList의 각 메뉴별 가격*수량 합산
-        const totalSum = Object.values(post.menuList).reduce((acc, item) => {
+        totalSum = Object.values(post.menuList).reduce((acc, item) => {
             const price = parseInt(item.menuPrice);
             const qty = parseInt(item.menuQaunitiy);
             return acc + price * qty;
         }, 0);
         // (합산결과/최소금액*100)으로 달성률퍼센트 계산
         percentPrice = Math.floor((totalSum / minPrice) * 100)
-    }else{
+        console.log("달성률 퍼센트", percentPrice)
+        console.log("최소주문금액", minPrice)
+        console.log("현재 담긴 금액", totalSum)
+    } else {
         //post값 없으면 달성률 0 출력
         percentPrice = (0);
     }
 
 
+
     if (props.type == "alarm") {
-        return(
+        return (
             <WrapperAlarm>
                 <Progressflex>
                     {/* 노란원이미지 */}
                     <BackProgressimg src="/ProgressBackground_1.svg"></BackProgressimg>
                     {/* 주황원이미지, 음수마진으로 겹치기 */}
                     <FrontProgressimg src="/StatusBarLogo.svg"></FrontProgressimg>
-                    
+
                     {/* 게이지바div , 음수마진으로 원과 살짝 겹치기 */}
                     <ProgressBarflex>
                         {/* 노란바div, width 변경시 이미지전체가 짜부돼서 div로 변경  */}
                         <BackProgress></BackProgress>
                         {/* 주황바div , percent함수로 width 조절, 음수마진으로 겹치기 */}
-                        <FrontProgress 
+                        <FrontProgress
                             $percent={percentPrice >= 100 ? 100 : percentPrice}>
                         </FrontProgress>
                     </ProgressBarflex>
                 </Progressflex>
                 <AlarmText>{percentPrice}%</AlarmText>
-            </WrapperAlarm> 
+            </WrapperAlarm>
         )
-    }else if (props.type == "simple") {
+    } else if (props.type == "simple") {
         return (
             <WrapperSimple>
                 <StatusBarWrapper>
                     <StatusBarBackgroundSimple>
-                        <StatusBarMarker totalPercent={totalPercent}></StatusBarMarker>
+                        <StatusBarMarker percentPrice={percentPrice}></StatusBarMarker>
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackgroundSimple>
                 </StatusBarWrapper>
@@ -234,15 +243,15 @@ function StatusBar(props) {
             <Wrapper>
                 <StatusBarWrapper>
                     <StatusBarTextWrapper>
-                        <StatusBarText>지금담긴금액 {props.nowPrice}원</StatusBarText> / <StatusBarText>최소주문금액 {props.postMinPrice}원</StatusBarText>
+                        <StatusBarText>지금담긴금액 {totalSum}원</StatusBarText> / <StatusBarText>최소주문금액 {minPrice}원</StatusBarText>
                     </StatusBarTextWrapper>
                     <StatusBarBackground>
-                        <StatusBarMarker totalPercent={totalPercent}></StatusBarMarker>
+                        <StatusBarMarker percentPrice={percentPrice}></StatusBarMarker>
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackground>
                     <StatusBarMark></StatusBarMark>
                 </StatusBarWrapper>
-                <StatusText>{totalPercent}%</StatusText>
+                <StatusText>{percentPrice}%</StatusText>
             </Wrapper>
         )
     }
