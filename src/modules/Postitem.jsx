@@ -95,7 +95,7 @@ function PostItem(props){
         <ImgUl><img src={post.image || "./PostImgBasic.svg"}></img></ImgUl>
       </ImgUlBox>
       <StyledBadge><StateBadge type="TotalAcount"><Percent post={post} ></Percent></StateBadge></StyledBadge>
-      <ItemBotton><Profile userId={post.userId} date={post.id} fontSize="12px"></Profile></ItemBotton> 
+      <ItemBotton><Profile userId={post.userId} date={post.postId || post.id} fontSize="12px"></Profile></ItemBotton> 
     </PostItemBox>
   )
 }
