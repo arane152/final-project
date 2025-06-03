@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 const StyledHeader = styled.div`
@@ -104,8 +103,15 @@ color: #AAAAAA;
   outline: none;}
 `
 function Header(props){
-  const {type, content, navigatePage, location} = props;
-  const [text, setText] = useState("")
+  const {
+    type,
+    content,
+    navigatePage,
+    location,
+    searchValue,
+    onSearchChange,
+    onSearchSubmit,
+  } = props;
   const navigate = useNavigate();
 
   return (
@@ -126,11 +132,14 @@ function Header(props){
       : (type == "search" ? 
         <div>
           <SearchBar>
-            <textarea placeholder="검색어를 입력하세요" value={text} onChange={(e) => setText(e.target.value)}></textarea>
-            {/* 텍스트 있다면 X아이콘 출력 & 클릭시 검색어 삭제기능 */}
-            {text ? 
-            <img src="/SearchCancelIcon.svg" alt="검색삭제아이콘" onClick={() => setText("")}></img> 
-            : <img src="/SearchIcon.svg" alt="검색아이콘"></img>}
+            <textarea placeholder="검색어를 입력하세요"
+              value={searchValue}
+              onChange={onSearchChange}>
+              </textarea>
+            <img src="/SearchIcon.svg"
+            alt="검색아이콘"
+            onClick={onSearchSubmit}
+            style={{cursor:"pointer"}}></img>
           </SearchBar>
         </div> 
       

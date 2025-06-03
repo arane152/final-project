@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { db } from "../src/firebase";
 
 import Device from "../src/layouts/Device";
 import BottomModal from "../src/layouts/BottomModal";
@@ -9,41 +10,105 @@ import InfoBox from "../src/components/InfoBox";
 import TextInput from "../src/components/TextInput";
 import CategoryBtn from "../src/components/CategoryBtn";
 
+const Message = styled.li`
+  color: #999999;
+  padding: 20px 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+`;
+
 const SearchUI = styled.ul`
   margin: 0;
   padding: 12px 20px;
   display: flex;
-  gap: 8px;
   flex-direction: column;
+  gap: 8px;
 `;
 
 const ModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 313px;
+  width: 353px;
   margin: 0 auto;
+`;
+
+const StyledInfoBoxOverride = styled(InfoBox)`
+  & > p {
+    width: 80px;
+    white-space: nowrap;
+  }
+  & > div {
+    flex: 1;
+  }
 `;
 
 const CategoryBtnWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  flex: 1;
 `;
 
 function StoreSearchPage() {
+  // 모달/폼 관련 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [storeName, setStoreName] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const dummyStoreList = [
-    { category: "한식", storeName: "청년다방", minPrice: 12000 },
-    { category: "중식", storeName: "홍콩반점", minPrice: 10000 },
-    { category: "일식", storeName: "스시로", minPrice: 15000 },
-  ];
+  // firebase 연동 상태
+  const [storeList, setStoreList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
 
-  const categories = ["한식", "중식", "일식", "피자", "파스타", "해산물", "기타"];
+  // 검색 관련 상태
+  const [searchText, setSearchText] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // Firebase 데이터 불러오기
+  useEffect(() => {
+    const fetchData = async () => {
+      const storeSnap = await db.collection("store").get();
+      const categorySnap = await db.collection("category").get();
+
+      const stores = storeSnap.docs.map(doc => doc.data());
+      const categories = categorySnap.docs.map(doc => doc.data());
+
+      setStoreList(stores);
+      setCategoryList(categories);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSearch = () => {
+    const keyword = searchText.trim().toLowerCase();
+
+    if (keyword === "") {
+      setFilteredList([]);
+      setErrorMsg("검색어를 입력해주세요.");
+      return;
+    }
+
+    const results = storeList.filter(store => {
+      const category = categoryList.find(cat => cat.id === store.categoryId);
+      const categoryName = category?.name?.toLowerCase() || "";
+
+      return (
+        store.name.toLowerCase().includes(keyword) ||
+        categoryName.includes(keyword)
+      );
+    });
+
+    setFilteredList(results);
+    if (results.length === 0) {
+      setErrorMsg("아래의 음식점 추가하기 기능을 이용해주세요.");
+    } else {
+      setErrorMsg("");
+    }
+  };
 
   return (
     <>
@@ -55,16 +120,29 @@ function StoreSearchPage() {
         btnMainText="음식점 추가하기"
         backPage="/write"
         modalOnClick={() => setIsModalOpen(true)}
+        searchValue={searchText}
+        onSearchChange={(e) => setSearchText(e.target.value)}
+        onSearchSubmit={handleSearch}
       >
         <SearchUI>
-          {dummyStoreList.map((store, idx) => (
-            <SearchItem
-              key={idx}
-              category={store.category}
-              storeName={store.storeName}
-              minPrice={store.minPrice}
-            />
-          ))}
+          {searchText.trim() === "" ? (
+            <Message>검색어를 입력해주세요.</Message>
+          ) : errorMsg ? (
+            <Message>{errorMsg}</Message>
+          ) : (
+            filteredList.map((store, idx) => {
+              const category = categoryList.find(cat => cat.id === store.categoryId);
+              const categoryName = category?.name || "";
+              return (
+                <SearchItem
+                  key={idx}
+                  category={categoryName}
+                  storeName={store.name}
+                  minPrice={store.minPrice}
+                />
+              );
+            })
+          )}
         </SearchUI>
       </Device>
 
@@ -76,6 +154,7 @@ function StoreSearchPage() {
               btnType="default"
               mainText="확인"
               openModal={() => setIsModalOpen(false)}
+              background="white"
             >
               <ModalContentWrapper>
                 <InfoBox title="이름">
@@ -85,7 +164,6 @@ function StoreSearchPage() {
                     onChange={(e) => setStoreName(e.target.value)}
                   />
                 </InfoBox>
-
                 <InfoBox title="최소금액">
                   <TextInput
                     placeholder="최소 주문 금액을 입력하세요"
@@ -93,21 +171,22 @@ function StoreSearchPage() {
                     onChange={(e) => setMinPrice(e.target.value)}
                   />
                 </InfoBox>
-
-                <CategoryBtnWrapper>
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat)}
-                      style={{ all: "unset", cursor: "pointer" }}
-                    >
-                      <CategoryBtn
-                        text={cat}
-                        type={selectedCategory === cat ? "toggle" : ""}
-                      />
-                    </button>
-                  ))}
-                </CategoryBtnWrapper>
+                <StyledInfoBoxOverride title="카테고리">
+                  <CategoryBtnWrapper>
+                    {categoryList.map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => setSelectedCategory(cat.id)}
+                        style={{ all: "unset", cursor: "pointer" }}
+                      >
+                        <CategoryBtn
+                          text={cat.name}
+                          type={selectedCategory === cat.id ? "toggle" : ""}
+                        />
+                      </button>
+                    ))}
+                  </CategoryBtnWrapper>
+                </StyledInfoBoxOverride>
               </ModalContentWrapper>
             </BottomModal>
           </div>

@@ -49,12 +49,22 @@ function Device(props) {
     // props.backPage : Header의 type이 메인이고 backBtn이 있는 header일 때, backBtn을 눌렀을 때 이동되는 페이지 경로
     // props.mainPage : Gnb의 MainBtn을 눌렀을 때 이동되는 페이지 경로 -> MainBtn의 역할이 바뀌면 해당 props의 이름도 바뀌어야함
     // props.subPage : Gnb의 SubBtn을 눌렀을 때 이동되는 페이지 경로
+    // props.searchValue, onSearchChange, onSearchSubmit : 검색 기능능
+
     return (
         <DeviceWrapper>
-            <Header content={props.content} type={props.headerType || ""} navigatePage={props.backPage}></Header>
+            <Header content={props.content}
+            type={props.headerType || ""}
+            navigatePage={props.backPage}
+            searchValue={props.searchValue}
+            onSearchChange={props.onSearchChange}
+            onSearchSubmit={props.onSearchSubmit}>
+            </Header>
+
             <ContentWrapper gnbtype={props.gnbType || "none"}>
                 {props.children}
             </ContentWrapper>
+
             <Gnb type={props.gnbType || "none"} onClick={props.onClick}>
                 <MainBtn type={props.btnType} mainText={props.btnMainText} subText={props.btnSubText} subOnClick={props.subPage} modalOnClick={props.modalOnClick}></MainBtn>
             </Gnb>
