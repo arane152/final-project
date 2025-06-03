@@ -78,7 +78,7 @@ function PostConatiner (props) {
         <PostWrapper>
             <PostTop>
                 <PostTopStoreInfo>
-                    <StoreName category="카테고리" storeName="가게이름"></StoreName>
+                    <StoreName storeId={props.storeId}></StoreName>
                     <LikeBtn type="default"q></LikeBtn>
                 </PostTopStoreInfo>
                 <PostTitle>{props.postTitle}</PostTitle>

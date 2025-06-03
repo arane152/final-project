@@ -58,6 +58,7 @@ function PostViewPage(props) {
                         receiptLocation={post.receiptLocation}
                         accountNumber={post.writer?.[3]}
                         deposite={post.deposite}
+                        storeId={post.storeId}
                     />
                 )}
                 <PostMenuContainer
@@ -80,6 +81,7 @@ function PostViewPage(props) {
                         receiptLocation={post.receiptLocation}
                         accountNumber={post.writer?.[3]}
                         deposite={post.deposite}
+                        storeId={post.storeId}
                     />
                 )}
                 <PostMenuContainer userType={props.userType}></PostMenuContainer>
