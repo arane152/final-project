@@ -52,39 +52,40 @@ const CategoryBtnWrapper = styled.div`
 `;
 
 function StoreSearchPage() {
-  // 모달/폼 관련 상태
+  // 모달/폼 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [storeName, setStoreName] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // firebase 연동 상태
+  // Firebase 상태
   const [storeList, setStoreList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
-  // 검색 관련 상태
+  // 검색 상태
   const [searchText, setSearchText] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // Firebase 데이터 불러오기
+  // Firebase에서 데이터 불러오기
   useEffect(() => {
-    const fetchData = async () => {
-      const storeSnap = await db.collection("store").get();
-      const categorySnap = await db.collection("category").get();
-
-      const stores = storeSnap.docs.map(doc => doc.data());
-      const categories = categorySnap.docs.map(doc => doc.data());
-
+    db.collection("store").get().then((storeSnap) => {
+      const stores = storeSnap.docs.map((doc) => doc.data());
       setStoreList(stores);
-      setCategoryList(categories);
-    };
+    });
 
-    fetchData();
+    db.collection("category").get().then((categorySnap) => {
+      const categories = categorySnap.docs.map((doc) => doc.data());
+      setCategoryList(categories);
+    });
   }, []);
 
+  //검색 핸들링
+  //trim: 앞뒤 공백 제거거
+  //toLowerCase: 대문자 소문자 관계 없게
+  //includes: 전체를 안 쓰고 일부만 써도 검색 가능
   const handleSearch = () => {
-    const keyword = searchText.trim().toLowerCase();
+    const keyword = searchText.trim().toLowerCase(); // 앞뒤 공백 제거 + 소문자 변환
 
     if (keyword === "") {
       setFilteredList([]);
@@ -92,8 +93,8 @@ function StoreSearchPage() {
       return;
     }
 
-    const results = storeList.filter(store => {
-      const category = categoryList.find(cat => cat.id === store.categoryId);
+    const results = storeList.filter((store) => {
+      const category = categoryList.find((cat) => cat.id === store.categoryId);
       const categoryName = category?.name?.toLowerCase() || "";
 
       return (
@@ -102,6 +103,7 @@ function StoreSearchPage() {
       );
     });
 
+    //검색 결과가 없는 경우우
     setFilteredList(results);
     if (results.length === 0) {
       setErrorMsg("아래의 음식점 추가하기 기능을 이용해주세요.");
@@ -109,6 +111,9 @@ function StoreSearchPage() {
       setErrorMsg("");
     }
   };
+
+  //공백을 제외하고도 검색어가 비어있는 경우
+  const isSearchEmpty = searchText.trim() === "";
 
   return (
     <>
@@ -125,13 +130,15 @@ function StoreSearchPage() {
         onSearchSubmit={handleSearch}
       >
         <SearchUI>
-          {searchText.trim() === "" ? (
+          {isSearchEmpty ? (
             <Message>검색어를 입력해주세요.</Message>
           ) : errorMsg ? (
             <Message>{errorMsg}</Message>
           ) : (
             filteredList.map((store, idx) => {
-              const category = categoryList.find(cat => cat.id === store.categoryId);
+              const category = categoryList.find(
+                (cat) => cat.id === store.categoryId
+              );
               const categoryName = category?.name || "";
               return (
                 <SearchItem
