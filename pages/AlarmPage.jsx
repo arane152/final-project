@@ -6,14 +6,30 @@ import UlBox from "../src/modules/AlarmUlBox"
 import { useState, useEffect } from "react";
 import {db} from '/src/firebase.js'
 import { useUser } from '../context/UserContext'
+import { usePost } from '../context/PostContext'
+
+
 const StyledBox=styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 `
+
 function AlarmPage(props) {
   const { nowuser } = useUser();
+  const { postData } = usePost();
+
+  const [nowPostData, setNowPost] = useState([])
+
+  useEffect(() => {
+        const filteredUserPost = postData.filter((item) => item.userId == nowuser.userId
+        );
+        setNowPost(filteredUserPost);
+        console.log("필터링된 결과:", filteredUserPost);
+  }, [postData]);
+
+
   const [notData, setNotData] = useState([])
   useEffect(() => {
     let tempData = [];
@@ -24,6 +40,7 @@ function AlarmPage(props) {
       const filteredUser = tempData.filter((item) => item.userId == nowuser.userId
       );
       setNotData(filteredUser);
+
     });
   }, []);
 
@@ -38,7 +55,7 @@ function AlarmPage(props) {
   return  (
     <Device content="알림" gnbType="none" backPage="/">
       <StyledBox>
-        <AlarmNowPostContainer></AlarmNowPostContainer>
+        {nowPostData[0] && <AlarmNowPostContainer post={nowPostData[0]}></AlarmNowPostContainer>}
         <UlBox>{AlarmList}</UlBox>
       </StyledBox>
     </Device>

@@ -18,6 +18,7 @@ const StoreText = styled.p`
     font-weight: 600;
     color: #FF6232;
     margin-left: 8px;
+    line-height: 100%;
 `
 
 const StoreTextBlack = styled(StoreText)`
@@ -40,16 +41,16 @@ function StoreName(props) {
     if (props.type == "black") {
         return (
             <StoreWrapper>
-                <StateBadge>{matchedCategory?.name || props.category}</StateBadge>
-                <StoreTextBlack>{matchedStore?.name || props.storeName}</StoreTextBlack>
+                <StateBadge>{matchedCategory?.name || props.category || "전체"}</StateBadge>
+                <StoreTextBlack>{matchedStore?.name || props.storeName || "선택된 음식점이 없습니다"}</StoreTextBlack>
             </StoreWrapper>
         )
     }
     else {
         return (
             <StoreWrapper>
-                <StateBadge>{matchedCategory?.name || props.category}</StateBadge>
-                <StoreText>{matchedStore?.name || props.storeName}</StoreText>
+                <StateBadge>{matchedCategory?.name || props.category || "전체"}</StateBadge>
+                <StoreText>{matchedStore?.name || props.storeName || "선택된 음식점이 없습니다"}</StoreText>
             </StoreWrapper>
         )
     }
