@@ -32,7 +32,6 @@ const ImgBtn = styled.button`
     text-align: center;
 `
 
-
 function InfoArea(props) {
     const {
         title, onTitleChange,
@@ -41,21 +40,11 @@ function InfoArea(props) {
         addMenuPossible, onAddMenuPossibleChange,
         image, onImageChange,
         imgBtnClick,
-        fileInputRef } = props;
+        fileInputRef } = props
 
     const handleToggleClick = (selectedToggle) => {
-        onAddMenuPossibleChange(selectedToggle);
-    };
-
-    const handleImage = (e)=>{
-        let reader = new FileReader()
-        reader.readAsDataURL(e.target.files[0])
-        reader.onload = (_e)=>{
-            console.log(_e.target.result)
-            setImage(_e.target.result)
-        }
+        onAddMenuPossibleChange(selectedToggle)
     }
-
 
     return(
     <StyledWrapper>
@@ -67,6 +56,8 @@ function InfoArea(props) {
 
             <InfoBox title="메뉴사진">
                 <ImgBtn onClick={imgBtnClick}>+</ImgBtn>
+                <input type="file" accept='image/*' onChange={onImageChange} />
+                <img src={image}></img>
             </InfoBox>
 
             <InfoBox title="계좌번호"><TextInput placeholder="계좌번호를 입력해주세요."></TextInput></InfoBox>

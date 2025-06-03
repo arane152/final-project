@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 import TotalAmount from "../components/TotalAmount";
 import MenuDefault from "../components/MenuDefault";
@@ -67,9 +66,9 @@ function OderMenuArea(props) {
         <ComonentWrapper>
             <MenuSetting></MenuSetting>
             <MenuDefault
-                quantity={quantity} // PostWritePage로부터 받은 수량 상태 전달
-                onPlusClick={onPlusClick} // PostWritePage로부터 받은 Plus 핸들러 전달
-                onMinusClick={onMinusClick} // PostWritePage로부터 받은 Minus 핸들러 전달
+                quantity={quantity}
+                onPlusClick={onPlusClick}
+                onMinusClick={onMinusClick}
                 itemPrice={itemPrice}></MenuDefault>
             <MenuAdd></MenuAdd>
             <TotalAmount title="메뉴총액" totalAmount={totalAmount}></TotalAmount>

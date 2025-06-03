@@ -53,6 +53,13 @@ const MenuDelete = styled.div`
   margin-left: 12px;
 `
 
+function formatPrice(price) {
+    if (typeof price !== 'number' || isNaN(price)) {
+         return '0';
+    }
+    return price.toLocaleString('ko-KR');
+}
+
 
 const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
   // type : 표시 타입 (기본 : "default" / 메뉴 bold : "bold" / side 텍스트 : "side" / 삭제 : "delete")
@@ -66,7 +73,7 @@ const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
         <MenuText>
           {name} × {count}개
         </MenuText>
-        <PriceText>개당 {price.toLocaleString()}원</PriceText>
+        <PriceText>개당 {formatPrice(price)}원</PriceText>
       </ItemContainer>
     );
   }
@@ -76,7 +83,7 @@ const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
         <MenuTextBold>
           {name}
         </MenuTextBold>
-        <PriceText>개당 {price.toLocaleString()}원</PriceText>
+        <PriceText>개당 {formatPrice(price)}원</PriceText>
       </ItemContainer>
     );
   }
@@ -86,7 +93,7 @@ const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
         <MenuTextSide>
           {name} × {count}개&nbsp;
         </MenuTextSide>
-        <PriceTextSide>|&nbsp;&nbsp;총&nbsp;{price.toLocaleString()}원</PriceTextSide>
+        <PriceTextSide>|&nbsp;&nbsp;총&nbsp;{formatPrice(price)}원</PriceTextSide>
       </ItemContainerSide>
     )
   }
@@ -96,7 +103,7 @@ const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
         <MenuText>
           {name} × {count}개
         </MenuText>
-        <PriceText>개당 {price.toLocaleString()}원<MenuDelete></MenuDelete></PriceText>
+        <PriceText>개당 {formatPrice(price)}원<MenuDelete></MenuDelete></PriceText>
       </ItemContainer>
     );
   }

@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 
 import {db} from '/src/firebase.js'
 
-const ITEM_PRICE = 15000;
+const money = 15000;
 
 function formatPrice(price) {
     return price.toLocaleString('ko-KR');
@@ -20,6 +20,7 @@ function PostWritePage(props) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [receiptLocation, setReceiptLocation] = useState('');
+    const [image, setImage] = useState(null);
     const [addMenuPossible, setAddMenuPossible] = useState('자유')
     const [quantity, setQuantity] = useState(0);
 
@@ -27,10 +28,10 @@ function PostWritePage(props) {
         setAddMenuPossible(selectedToggle);
     };
 
-    const totalAmount = quantity * ITEM_PRICE;
+    //메뉴 가격 계산
+    const totalAmount = quantity * money;
     const formattedTotalAmount = formatPrice(totalAmount); 
 
-    //메뉴 가격 계산
     const handlePlusClick = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
     };
@@ -55,11 +56,22 @@ function PostWritePage(props) {
             title: title,
             content: content,
             receiptLocation: receiptLocation,
+            image: image,
             addMenuPossible: addMenuPossible
         }).then(()=>{
             navigate('/')
         })
     };
+
+    //이미지 추가
+    const handleImage = (e)=>{
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = (_e)=>{
+            console.log(_e.target.result)
+            setImage(_e.target.result)
+        }
+    }
 
     return(
         <Device
@@ -73,14 +85,24 @@ function PostWritePage(props) {
             <InfoArea
                 title={title} onTitleChange={(e) => setTitle(e.target.value)}
                 content={content} onContentChange={(e) => setContent(e.target.value)}
+                image={image} onImageChange={(e) => handleImage(e)}
                 receiptLocation={receiptLocation} onReceiptLocationChange={(e) => setReceiptLocation(e.target.value)}
-                addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}></InfoArea>
+                addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}>
+            </InfoArea>
             <OderMenuArea
-                totalAmount={formattedTotalAmount}
+                /*음식점 설정*/
+
+                /*메뉴 개수 선택*/
                 quantity={quantity}
                 onPlusClick={handlePlusClick}
                 onMinusClick={handleMinusClick}
-                itemPrice={ITEM_PRICE}></OderMenuArea>
+                itemPrice={money}
+
+                /*메뉴 추가*/
+
+                /*메뉴 총액*/
+                totalAmount={formattedTotalAmount}>
+            </OderMenuArea>
         </Device>
     )
 }

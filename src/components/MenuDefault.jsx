@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 import MenuOutPutItem from "./MenuOutputitem";
 import QuantityBtn from "./QuantityBtn";
@@ -34,11 +33,6 @@ const TotalPrice = styled(CurrentQuantity)`
     font-weight: 600;
 `
 
-//3자리 수에 , 붙이기기
-function formatPrice(price) {
-    return price.toLocaleString('ko-KR');
-}
-
 function MenuDefault(props) {
     const type = props.type || "default";  // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
     const { quantity, onPlusClick, onMinusClick, itemPrice } = props; 
@@ -47,9 +41,9 @@ function MenuDefault(props) {
     if(type == "default"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" price={formatPrice(itemPrice)} width="313"></MenuOutPutItem>
+                <MenuOutPutItem type="bold" name="후라이드 치킨" price={itemPrice} width="313"></MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>{formatPrice(totalAmount)}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
+                    <CurrentQuantity>{totalAmount}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
                     <QuantityBtn
                         quantity={quantity}
                         onPlusClick={onPlusClick}
@@ -61,10 +55,10 @@ function MenuDefault(props) {
     }else if(type == "info"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" count={quantity} price={formatPrice(itemPrice)} width="313"></MenuOutPutItem>
+                <MenuOutPutItem type="bold" name="후라이드 치킨" count={quantity} price={itemPrice} width="313"></MenuOutPutItem>
                 <ContainerWrapper>
                     <CurrentQuantity>현재 수량: {quantity}</CurrentQuantity>
-                    <TotalPrice>총 {formatPrice(totalAmount)}원</TotalPrice> {/*실제 가격 계산 필요*/}
+                    <TotalPrice>총 {totalAmount}원</TotalPrice> {/*실제 가격 계산 필요*/}
                 </ContainerWrapper>
             </Container>
         )
