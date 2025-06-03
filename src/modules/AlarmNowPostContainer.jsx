@@ -61,7 +61,11 @@ width: 100%;
 }
 `
 
-
+const CardBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
 
 
 function AlarmNowPostContainer(props){
@@ -69,7 +73,7 @@ function AlarmNowPostContainer(props){
   const {post} = props;
 
   return (
-    <StyledContainer onClick={()=>navigate(`/post`)}>
+    <StyledContainer onClick={()=>navigate(`/post/${post.postId}`)}>
       <p>현재 참여중인 모집게시글입니다.</p>
       <AlarmNowPostCard>
         <StoreName storeId={post.storeId}></StoreName>
@@ -77,8 +81,10 @@ function AlarmNowPostContainer(props){
           <h1>{post.title}</h1>
           <p>{post.content}</p>
         </PostContents>
+        <CardBottom>
         <StatusBar type="alarm" post={post}></StatusBar>
         <StyledBTN><SubBtn text="바로가기 ->" ></SubBtn></StyledBTN>
+        </CardBottom>
       </AlarmNowPostCard>
     </StyledContainer>
   )}
