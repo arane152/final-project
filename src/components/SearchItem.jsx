@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import CategoryBtn from "./CategoryBtn";
+import StateBadge from "./StateBadge";
 
 const SearchItem = ({ category, storeName, minPrice }) => {
   return (
     <ItemWrapper>
       <IconBox />
       <StoreNameBox>
-        <CategoryBtn type="toggle" text={category} />
+        <StateBadge>{category}</StateBadge>
         <StoreName>{storeName}</StoreName>
       </StoreNameBox>
       <PriceBox>
@@ -41,6 +41,7 @@ const StoreNameBox = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left:8px;
   flex: 1;
 `;
 
