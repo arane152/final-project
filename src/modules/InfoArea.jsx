@@ -32,6 +32,53 @@ const ImgBtn = styled.button`
     text-align: center;
 `
 
+const StyledImageInputArea = styled.label`
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    background-color: #F8F8F8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    background-image: ${props => props.$imagePreview ? `url(${props.$imagePreview})` : 'none'};
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &:active {
+        background-color: #F0F0F0;
+    }
+
+    & > span {
+        font-size: 14px;
+        color: #AAAAAA;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 140%;
+        width: 100%;
+        height: 100%;
+    }
+`
+
+const HiddenInput = styled.input`
+    position: absolute;
+    display: none;
+`
+
+const StyledFileWrapper = styled.div`
+    display: flex;
+    gap: 8px;
+`
+
+
+
+
 function InfoArea(props) {
     const {
         title, onTitleChange,
@@ -39,8 +86,7 @@ function InfoArea(props) {
         receiptLocation, onReceiptLocationChange,
         addMenuPossible, onAddMenuPossibleChange,
         image, onImageChange,
-        imgBtnClick,
-        fileInputRef } = props
+        } = props
 
     const handleToggleClick = (selectedToggle) => {
         onAddMenuPossibleChange(selectedToggle)
@@ -55,9 +101,13 @@ function InfoArea(props) {
             <InfoBox title="내용"><TextInput height={"108px"} placeholder="내용을 입력해주세요." value={content} onChange={onContentChange}></TextInput></InfoBox>
 
             <InfoBox title="메뉴사진">
-                <ImgBtn onClick={imgBtnClick}>+</ImgBtn>
-                <input type="file" accept='image/*' onChange={onImageChange} />
-                <img src={image}></img>
+                <StyledFileWrapper>
+                    <StyledImageInputArea>
+                        <span>+</span>
+                        <HiddenInput type="file" onChange={onImageChange} accept="image/*" />
+                    </StyledImageInputArea>
+                    <StyledImageInputArea $imagePreview={image} style={{ backgroundColor: 'transparent' }}></StyledImageInputArea>
+                </StyledFileWrapper>
             </InfoBox>
 
             <InfoBox title="계좌번호"><TextInput placeholder="계좌번호를 입력해주세요."></TextInput></InfoBox>

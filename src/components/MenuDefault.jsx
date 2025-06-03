@@ -49,7 +49,7 @@ function MenuDefault(props) {
     if(type == "default"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" price={itemPrice} width="313"></MenuOutPutItem>
+                <MenuOutPutItem type="bold" name="후라이드 치킨" price={formatPrice(itemPrice)} width="313"></MenuOutPutItem>
                 <ContainerWrapper>
                     <CurrentQuantity>{formatPrice(totalAmount)}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
                     <QuantityBtn
@@ -63,7 +63,7 @@ function MenuDefault(props) {
     }else if(type == "info"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" count={quantity} price={itemPrice} width="313"></MenuOutPutItem>
+                <MenuOutPutItem type="bold" name="후라이드 치킨" count={quantity} price={formatPrice(itemPrice)} width="313"></MenuOutPutItem>
                 <ContainerWrapper>
                     <CurrentQuantity>현재 수량: {quantity}</CurrentQuantity>
                     <TotalPrice>총 {formatPrice(totalAmount)}원</TotalPrice> {/*실제 가격 계산 필요*/}

@@ -22,7 +22,7 @@ function PostWritePage(props) {
     const [receiptLocation, setReceiptLocation] = useState('');
     const [image, setImage] = useState(null);
     const [addMenuPossible, setAddMenuPossible] = useState('자유')
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     const handleAddMenuPossibleChange = (selectedToggle) => {
         setAddMenuPossible(selectedToggle);
@@ -37,7 +37,7 @@ function PostWritePage(props) {
     };
 
     const handleMinusClick = () => {
-        if (quantity > 0) {
+        if (quantity > 1) {
             setQuantity(prevQuantity => prevQuantity - 1);
         }
     };
