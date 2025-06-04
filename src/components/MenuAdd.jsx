@@ -32,15 +32,24 @@ const ContainerWrapper = styled.div`
 `
 
 function MenuAdd(props) {
+    const {
+        //input란을 위한 props
+        name, onNameChange, 
+        menuPrice ,onPriceChange,
+        
+        //onClick함수 props
+        addMenuGo
+    } = props
+
     return(
         <Container>
-            <ContainerWrapper>
+            <ContainerWrapper onClick={addMenuGo}>
                 <Subtitle>메뉴추가</Subtitle>
                 <SubBtn type="stroke-plus" text="메뉴추가"></SubBtn>
             </ContainerWrapper>
                 
-            <InfoBox title="메뉴이름"><TextInput placeholder="메뉴이름을 입력해주세요."></TextInput></InfoBox>
-            <InfoBox title="메뉴가격"><TextInput placeholder="메뉴가격을 입력해주세요."></TextInput></InfoBox>
+            <InfoBox title="메뉴이름"><TextInput placeholder="메뉴이름을 입력해주세요." value={name} onChange={onNameChange}></TextInput></InfoBox>
+            <InfoBox title="메뉴가격"><TextInput placeholder="메뉴가격을 입력해주세요." value={menuPrice} onChange={onPriceChange}></TextInput></InfoBox>
         </Container>
     )
 }

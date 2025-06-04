@@ -13,8 +13,8 @@ function Percent(props){
   const minPrice = parseInt(matchedStore?.minPrice)
 
   //필요한 데이터가 없을 시 기본값 출력
-  if (!post?.menuList && !matchedStore?.minPrice) {
-    return <>0%</>;
+  if (!post?.menuList || !matchedStore?.minPrice) {
+    return <>00%</>;
   }
 
   //post의 menuList의 각 메뉴가격을 추출 후 합산

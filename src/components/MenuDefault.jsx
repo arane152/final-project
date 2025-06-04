@@ -33,40 +33,79 @@ const TotalPrice = styled(CurrentQuantity)`
     font-weight: 600;
 `
 
-function formatPrice(price) {
-    if (typeof price !== 'number' || isNaN(price)){
-         return '0';
-    }
-    return price.toLocaleString('ko-KR');
-}
+
 
 
 function MenuDefault(props) {
-    const type = props.type || "default";  // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
-    const { quantity, onPlusClick, onMinusClick, itemPrice, name, count, price } = props; 
-    const totalAmount = count * price; //임시 금액 계산
+    const { 
+        //버튼조작함수 props
+        onPlusClick, 
+        onMinusClick, 
+        //정보 props ( 이름 / 수량 / 가격)
+        name, 
+        count, 
+        price, 
+    } = props; 
+    // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
+    const type = props.type || "default";  
+    
+    //price 숫자여부 및 한국식 숫자양식으로 변환
+    const formatPrice = (price) => {
+        if (typeof price !== 'number' || isNaN(price)){
+            return '0';
+        }
+
+        return price.toLocaleString('ko-KR');
+    }
+    //수량에 따른 금액 계산
+    const totalAmount = count * price; 
+    
 
     if(type == "default"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" price={formatPrice(itemPrice)} width="313"></MenuOutPutItem>
+                {/* 이름 및 개별가격 */}
+                <MenuOutPutItem 
+                    type="bold" 
+                    name={name} 
+                    price={formatPrice(price)} 
+                    width="313">
+                </MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>{formatPrice(totalAmount)}원</CurrentQuantity> {/*실제 가격 계산 필요*/}
+                    {/* 수량에 따른 가격 */}
+                    <CurrentQuantity>
+                        {formatPrice(totalAmount)}원
+                    </CurrentQuantity>
+                    {/* 수량조작버튼 */}
                     <QuantityBtn
-                        quantity={quantity}
+                        quantity={count}
                         onPlusClick={onPlusClick}
-                        onMinusClick={onMinusClick}
-                    ></QuantityBtn>
+                        onMinusClick={onMinusClick}>
+                    </QuantityBtn>
                 </ContainerWrapper>
             </Container>
         )
+
     }else if(type == "info"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name={name} count={count} price={formatPrice(price)} width="313"></MenuOutPutItem>
+                {/* 이름 및 개별가격 */}
+                <MenuOutPutItem 
+                    type="bold" 
+                    name={name} 
+                    count={count} 
+                    price={formatPrice(price)} 
+                    width="313">
+                </MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>현재 수량: {count}</CurrentQuantity>
-                    <TotalPrice>총 {formatPrice(totalAmount)}원</TotalPrice> {/*실제 가격 계산 필요*/}
+                    {/* 현재수량 */}
+                    <CurrentQuantity>
+                        현재 수량: {count}
+                    </CurrentQuantity>
+                    {/* 수량에 따른 가격 */}
+                    <TotalPrice>
+                        총 {formatPrice(totalAmount)}원
+                    </TotalPrice>
                 </ContainerWrapper>
             </Container>
         )

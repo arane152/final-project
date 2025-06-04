@@ -7,11 +7,7 @@ import { useState, useEffect } from 'react'
 
 import { db } from '/src/firebase.js'
 
-const money = 15000;
 
-function formatPrice(price) {
-    return price.toLocaleString('ko-KR');
-}
 
 function PostWritePage(props) {
     const navigate = useNavigate();
@@ -57,25 +53,14 @@ function PostWritePage(props) {
     const accountNumber = localStorage.getItem('accountNumber');
     const location = localStorage.getItem('location');
 
-    //메뉴 가격 계산
-    const totalAmount = quantity * money;
-    const formattedTotalAmount = formatPrice(totalAmount);
-
-    const handlePlusClick = () => {
-        setQuantity(prevQuantity => prevQuantity + 1);
-    };
-
-    const handleMinusClick = () => {
-        if (quantity > 1) {
-            setQuantity(prevQuantity => prevQuantity - 1);
-        }
-    };
-
+    //메뉴목록 저장용 빈배열생성
+    const [ menuList, setMenuList ] = useState([])
+    
     //데이터 저장
     const writePost = () => {
         let timestamp = new Date().getTime().toString()
 
-        if (!title || !content || !receiptLocation) {
+        if (!title || !content || !receiptLocation || !menuList) {
             alert('필수 정보를 모두 입력해주세요.');
             return;
         }
@@ -88,7 +73,9 @@ function PostWritePage(props) {
             image: image,
             addMenuPossible: addMenuPossible,
             // 작성자 정보를 write {array}로 저장
-            writer: [userId, userName, location, accountNumber]
+            writer: [userId, userName, location, accountNumber],
+            // 메뉴리스트를 배열로 저장
+            menuList: menuList,
         }).then(() => {
             navigate('/')
             // 로컬 스토리지 초기화
@@ -128,19 +115,15 @@ function PostWritePage(props) {
                 receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
                 addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}>
             </InfoArea>
+
             <OderMenuArea
-                /*음식점 설정*/
+                /*메뉴 리스트 조작을 위한 State 전달*/
+                menuList = {menuList}
+                setMenuList = {setMenuList}
 
-                /*메뉴 개수 선택*/
-                quantity={quantity}
-                onPlusClick={handlePlusClick}
-                onMinusClick={handleMinusClick}
-                itemPrice={money}
-
-                /*메뉴 추가*/
-
-                /*메뉴 총액*/
-                totalAmount={formattedTotalAmount}>
+                /* 메뉴 신청자 정보저장을 위한 Id전달*/
+                userId = {userId}
+            >
             </OderMenuArea>
         </Device>
     )

@@ -91,18 +91,18 @@ function AlarmItem(props){
       />
       <AlarmText onClick={onClick}>
         <div>
-          <b>{not.type === "partyrequest" ? "이름" : post.title}</b>
+          <b>{not.type === "partyrequest" ? not.membername : post.title}</b>
           <span>{getAlarmMessage(not.type)}</span>
         </div>
         {/* 신청메뉴를 표기해야하는지에 따라 구분 */}
         {not.type === "partyrequest" && (
-          <MenuOutPutItem type="side" name="예시" count="1" price="0" />
+          <MenuOutPutItem type="side" name={not.menuname} count={not.menucount} price={not.menuprice} />
         )}
-        <h5>0000.00.00</h5> {/* 작성 시간 추후 props로 변경 */}
+        <h5>{not.time}</h5> {/* 작성 시간 추후 props로 변경 */}
       </AlarmText>
       {/* 신청버튼 혹은 이미지 구분 */}
       {not.type === "partyrequest" ? (
-        <SubBtn text="신청수락" />
+        <SubBtn type={not.btntype} text={not.btntype ? "수락완료" : "수락완료"}/>
       ) : (
         <PostImg src="/AlarmBasicImg.svg" onClick={onClick} />
       )}
