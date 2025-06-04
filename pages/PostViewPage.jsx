@@ -157,7 +157,7 @@ function PostViewPage(props) {
                         <ModalBg />
                     </>
                 )}
-                <PostImage postImage={post.image} postRecruitment=""></PostImage>
+                <PostImage postImage={post.image} postRecruitment={recruitment}></PostImage>
                 {post && (
                     <PostContainer
                         post={post}
@@ -171,7 +171,7 @@ function PostViewPage(props) {
                         storeId={post.storeId}
                     />
                 )}
-                <PostMenuContainer userType={props.userType}></PostMenuContainer>
+                <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuList}</PostMenuContainer>
             </Device>
         )
     }
