@@ -146,12 +146,7 @@ function PostViewPage(props) {
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="참여신청" modalOnClick={() => setModalOpen(false)}>
-                            <MenuDefault
-                                quantity={quantity}
-                                onPlusClick={handlePlusClick}
-                                onMinusClick={handleMinusClick}
-                                itemPrice={itemPrice}
-                            ></MenuDefault>
+                            {menuList}
                             <TotalAmount title="총액" totalAmount={totalSum}></TotalAmount>
                         </Modal>
                         <ModalBg />
