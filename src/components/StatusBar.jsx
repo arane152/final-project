@@ -193,9 +193,6 @@ function StatusBar(props) {
         }, 0);
         // (합산결과/최소금액*100)으로 달성률퍼센트 계산
         percentPrice = Math.floor((totalSum / minPrice) * 100)
-        console.log("달성률 퍼센트", percentPrice)
-        console.log("최소주문금액", minPrice)
-        console.log("현재 담긴 금액", totalSum)
     } else {
         //post값 없으면 달성률 0 출력
         percentPrice = (0);

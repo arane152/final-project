@@ -23,9 +23,7 @@ function PostViewPage(props) {
     const [modalOpen, setModalOpen] = useState(false);
     const { id: postId } = useParams(); // /post/:id에서 id 파라미터를 추출 // URL에서 postId를 가져옵니다.
     const [quantity, setQuantity] = useState(1); // 주문 수량 상태
-    const money = 15000;
-    const totalAmount = quantity * money;
-    const itemPrice = 15000; // 아이템 가격
+    const [recruitment, setRecruitment] = useState(""); // 모집 상태
     let participants = [];
     let totalSum = 0;
 
@@ -33,13 +31,11 @@ function PostViewPage(props) {
     useEffect(() => {
         db.collection('post').doc(postId).get().then((doc) => {
             setPost(doc.data())
-            console.log(doc.data())
         })
     }, [])
 
     if (post.menuList) {
         participants = Object.values(post.menuList);
-        console.log(participants);
     }
 
     if (post.menuList) {
@@ -62,8 +58,6 @@ function PostViewPage(props) {
         />
     ));
 
-    console.log(menuList);
-    console.log("총액", totalSum);
 
     const handlePlusClick = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -75,6 +69,28 @@ function PostViewPage(props) {
         }
     };
 
+    const handleEndPost = () => {
+        db.collection('post').doc(postId).update({
+            endPost: true
+        }).then(() => {
+            console.log('Post marked as ended.');
+            alert('모집이 종료되었습니다.');
+            setRecruitment("closed"); 
+            setModalOpen(false);
+        }).catch((error) => {
+            console.error('Error updating document: ', error);
+        });
+    };
+
+    // post의 endpost가 true일 경우, postrecruitment를 closed로 변경합니다
+    // post의 endpost가 false일 경우, postrecruitment를 공백으로 변경합니다
+    // if (post.endPost === true) {
+    //     recruitment = "closed";
+    // } else {
+    //     recruitment = "";
+    // }
+
+
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (props.userType == "writer") {
         return (
@@ -83,14 +99,14 @@ function PostViewPage(props) {
             <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
-                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}>
+                        <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={handleEndPost}>
                             {menuList}
                             <TotalAmount title="총액" totalAmount={totalSum}></TotalAmount>
                         </Modal>
                         <ModalBg />
                     </>
                 )}
-                <PostImage postImage={post.image}></PostImage>
+                <PostImage postImage={post.image} postRecruitment={recruitment}></PostImage>
                 {post && (
                     <PostContainer
                         post={post}
