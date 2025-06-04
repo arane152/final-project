@@ -34,6 +34,15 @@ function PostViewPage(props) {
         })
     }, [])
 
+    // endPost 상태에 따라 recruitment 값을 설정합니다.
+    useEffect(() => {
+        if (post.endPost === true) {
+            setRecruitment("closed");
+        } else {
+            setRecruitment("");
+        }
+    }, [post.endPost]);
+
     if (post.menuList) {
         participants = Object.values(post.menuList);
     }
