@@ -121,6 +121,9 @@ function OderMenuArea(props) {
                     alert('이미 같은 이름의 메뉴가 존재합니다.');
                     return prevList; 
                 }
+                //기입정보초기화
+                setName("")
+                setPrice("")
                 //  기입된 정보를 menuList에 추가,
                 return[...prevList, {
                     name: name,
@@ -128,6 +131,7 @@ function OderMenuArea(props) {
                     menuQaunitiy: 1,
                     userId: userId,
                 }]
+                
             }
         )
     }
