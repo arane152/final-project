@@ -67,7 +67,7 @@ function PostMenuConatiner(props) {
             <PostMenuWrapper>
                 <PostMenuTitle>메뉴현황</PostMenuTitle>
                     {props.children}
-                <TotalAmount title="총액"></TotalAmount>
+                <TotalAmount title="총액" totalAmount={props.totalAmount}></TotalAmount>
             </PostMenuWrapper>
         )
     }

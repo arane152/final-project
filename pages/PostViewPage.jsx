@@ -27,6 +27,7 @@ function PostViewPage(props) {
     const totalAmount = quantity * money;
     const itemPrice = 15000; // 아이템 가격
     let participants = [];
+    let totalSum = 0;
 
     // firebase postId에 해당하는 데이터 가져오기
     useEffect(() => {
@@ -41,18 +42,28 @@ function PostViewPage(props) {
         console.log(participants);
     }
 
+    if (post.menuList) {
+        participants = Object.values(post.menuList);
+        totalSum = participants.reduce((acc, item) => {
+            const price = parseInt(item.menuPrice || 0);
+            const qty = parseInt(item.menuQaunitiy || 0);
+            return acc + price * qty;
+        }, 0);
+    }
+
     // participants의 갯수만큼 </MenuDefault>를 렌더링합니다.
     const menuList = participants.map((participant, index) => (
         <MenuDefault
             type="info"
             key={index}
             name={participant.name}
-            price={Number(participant.menuPrice || 0 )}
-            count={Number(participant.menuQaunitiy || 0 )}
+            price={Number(participant.menuPrice || 0)}
+            count={Number(participant.menuQaunitiy || 0)}
         />
     ));
 
     console.log(menuList);
+    console.log("총액", totalSum);
 
     const handlePlusClick = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -74,7 +85,7 @@ function PostViewPage(props) {
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}>
                             {menuList}
-                            <TotalAmount title="총액"></TotalAmount>
+                            <TotalAmount title="총액" totalAmount={totalSum}></TotalAmount>
                         </Modal>
                         <ModalBg />
                     </>
@@ -93,7 +104,7 @@ function PostViewPage(props) {
                         storeId={post.storeId}
                     />
                 )}
-                <PostMenuContainer userType={props.userType}>{menuList}</PostMenuContainer>
+                <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuList}</PostMenuContainer>
             </Device>
         )
     }
@@ -109,7 +120,7 @@ function PostViewPage(props) {
                                 onMinusClick={handleMinusClick}
                                 itemPrice={itemPrice}
                             ></MenuDefault>
-                            <TotalAmount title="총액" totalAmount={totalAmount}></TotalAmount>
+                            <TotalAmount title="총액" totalAmount={totalSum}></TotalAmount>
                         </Modal>
                         <ModalBg />
                     </>
