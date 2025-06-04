@@ -66,8 +66,7 @@ function PostMenuConatiner(props) {
         return (
             <PostMenuWrapper>
                 <PostMenuTitle>메뉴현황</PostMenuTitle>
-                <MenuDefault type="info"></MenuDefault>
-                <MenuDefault type="info"></MenuDefault>
+                    {props.children}
                 <TotalAmount title="총액"></TotalAmount>
             </PostMenuWrapper>
         )

@@ -22,14 +22,47 @@ function PostViewPage(props) {
     const [post, setPost] = useState([])
     const [modalOpen, setModalOpen] = useState(false);
     const { id: postId } = useParams(); // /post/:id에서 id 파라미터를 추출 // URL에서 postId를 가져옵니다.
+    const [quantity, setQuantity] = useState(1); // 주문 수량 상태
+    const money = 15000;
+    const totalAmount = quantity * money;
+    const itemPrice = 15000; // 아이템 가격
+    let participants = [];
 
-    // firebase
+    // firebase postId에 해당하는 데이터 가져오기
     useEffect(() => {
         db.collection('post').doc(postId).get().then((doc) => {
             setPost(doc.data())
             console.log(doc.data())
         })
     }, [])
+
+    if (post.menuList) {
+        participants = Object.values(post.menuList);
+        console.log(participants);
+    }
+
+    // participants의 갯수만큼 </MenuDefault>를 렌더링합니다.
+    const menuList = participants.map((participant, index) => (
+        <MenuDefault
+            type="info"
+            key={index}
+            name={participant.name}
+            price={Number(participant.menuPrice || 0 )}
+            count={Number(participant.menuQaunitiy || 0 )}
+        />
+    ));
+
+    console.log(menuList);
+
+    const handlePlusClick = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    const handleMinusClick = () => {
+        if (quantity > 1) {
+            setQuantity(prevQuantity => prevQuantity - 1);
+        }
+    };
 
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (props.userType == "writer") {
@@ -40,8 +73,7 @@ function PostViewPage(props) {
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={() => setModalOpen(false)}>
-                            <MenuDefault type="info"></MenuDefault>
-                            <MenuDefault type="info"></MenuDefault>
+                            {menuList}
                             <TotalAmount title="총액"></TotalAmount>
                         </Modal>
                         <ModalBg />
@@ -61,16 +93,28 @@ function PostViewPage(props) {
                         storeId={post.storeId}
                     />
                 )}
-                <PostMenuContainer
-                    userType={props.userType}
-                />
+                <PostMenuContainer userType={props.userType}>{menuList}</PostMenuContainer>
             </Device>
         )
     }
     else {
         return (
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/">
-                <PostImage postImage={post.image} postRecruitment="closed"></PostImage>
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/" modalOnClick={() => setModalOpen(true)}>
+                {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
+                    <>
+                        <Modal background="" modalText="주문확정" btnType="default" mainText="참여신청" modalOnClick={() => setModalOpen(false)}>
+                            <MenuDefault
+                                quantity={quantity}
+                                onPlusClick={handlePlusClick}
+                                onMinusClick={handleMinusClick}
+                                itemPrice={itemPrice}
+                            ></MenuDefault>
+                            <TotalAmount title="총액" totalAmount={totalAmount}></TotalAmount>
+                        </Modal>
+                        <ModalBg />
+                    </>
+                )}
+                <PostImage postImage={post.image} postRecruitment=""></PostImage>
                 {post && (
                     <PostContainer
                         post={post}

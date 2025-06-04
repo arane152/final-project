@@ -43,8 +43,8 @@ function formatPrice(price) {
 
 function MenuDefault(props) {
     const type = props.type || "default";  // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
-    const { quantity, onPlusClick, onMinusClick, itemPrice } = props; 
-    const totalAmount = quantity * itemPrice; //임시 금액 계산
+    const { quantity, onPlusClick, onMinusClick, itemPrice, name, count, price } = props; 
+    const totalAmount = count * price; //임시 금액 계산
 
     if(type == "default"){
         return(
@@ -63,9 +63,9 @@ function MenuDefault(props) {
     }else if(type == "info"){
         return(
             <Container>
-                <MenuOutPutItem type="bold" name="후라이드 치킨" count={quantity} price={formatPrice(itemPrice)} width="313"></MenuOutPutItem>
+                <MenuOutPutItem type="bold" name={name} count={count} price={formatPrice(price)} width="313"></MenuOutPutItem>
                 <ContainerWrapper>
-                    <CurrentQuantity>현재 수량: {quantity}</CurrentQuantity>
+                    <CurrentQuantity>현재 수량: {count}</CurrentQuantity>
                     <TotalPrice>총 {formatPrice(totalAmount)}원</TotalPrice> {/*실제 가격 계산 필요*/}
                 </ContainerWrapper>
             </Container>
