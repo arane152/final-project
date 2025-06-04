@@ -42,6 +42,13 @@ const TransparentStyleWrapper = styled(StyleWrapper)`
     background-color: transparent;
 `
 
+function formatPrice(price) {
+    if (typeof price !== 'number' || isNaN(price)){
+         return '0';
+    }
+    return price.toLocaleString('ko-KR');
+}
+
 // #202020 #FF6232
 function TotalAmount(props) {
     const {title, totalAmount} = props;
@@ -55,7 +62,7 @@ function TotalAmount(props) {
             <DefaultTotalAmount>
                 <StyleWrapper>
                 <TotalText color={colorHex}>{title}</TotalText>
-                    <TotalAmountText>{totalAmount}원</TotalAmountText>
+                    <TotalAmountText>{formatPrice(totalAmount)}원</TotalAmountText>
                 </StyleWrapper>
             </DefaultTotalAmount>
         )
@@ -64,7 +71,7 @@ function TotalAmount(props) {
             <OutlineTotalAmount>
                 <StyleWrapper>
                     <TotalText color={colorHex}>{title}</TotalText>
-                    <TotalAmountText>{totalAmount}원</TotalAmountText>
+                    <TotalAmountText>{formatPrice(totalAmount)}원</TotalAmountText>
                 </StyleWrapper>
             </OutlineTotalAmount>
         )
@@ -72,7 +79,7 @@ function TotalAmount(props) {
         return (
             <TransparentStyleWrapper>
                 <TotalText color={colorHex}>{title}</TotalText>
-                <TotalAmountText>{totalAmount}원</TotalAmountText>
+                <TotalAmountText>{formatPrice(totalAmount)}원</TotalAmountText>
             </TransparentStyleWrapper>
         )
     }
