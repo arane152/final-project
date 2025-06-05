@@ -14,6 +14,7 @@ import ModalBg from "../src/layouts/BottomModalBg";
 
 import MenuDefault from "../src/components/MenuDefault";
 import TotalAmount from "../src/components/TotalAmount";
+import { use } from "react";
 
 
 function PostViewPage(props) {
@@ -24,6 +25,8 @@ function PostViewPage(props) {
     const { id: postId } = useParams(); // /post/:id에서 id 파라미터를 추출 // URL에서 postId를 가져옵니다.
     const [quantity, setQuantity] = useState(1); // 주문 수량 상태
     const [recruitment, setRecruitment] = useState(""); // 모집 상태
+    const [postRecruitmentWriter, setPostRecruitmentWriter] = useState(""); // 모집 상태 (Writer용)
+    const [postRecuitment, setPostRecuitment] = useState(""); // 모집 상태 (일반 참여자용)
     const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 userId를 가져옵니다.
     let participants = []; // 참여자 목록을 저장할 배열
     let totalSum = 0;   // 총 금액을 저장할 변수
@@ -36,11 +39,19 @@ function PostViewPage(props) {
     }, [])
 
     // endPost 상태에 따라 recruitment 값을 설정합니다.
+    // post.endPost가 true이면 모집 상태를 "closed"로 설정하고, 그렇지 않으면 "dubble"로 설정합니다.
+    // 또한, postRecruitmentWriter와 postRecuitment의 상태를 설정합니다.
+    // post.endPost가 true이면 postRecruitmentWriter는 "disabled", postRecuitment는 "disabled"로 설정합니다.
+    // 그렇지 않으면 postRecruitmentWriter는 "dubble", postRecuitment는 "default"로 설정합니다.
     useEffect(() => {
         if (post.endPost === true) {
             setRecruitment("closed");
+            setPostRecruitmentWriter("disable");
+            setPostRecuitment("disable");
         } else {
             setRecruitment("");
+            setPostRecruitmentWriter("dubble");
+            setPostRecuitment("default");
         }
     }, [post.endPost]);
 
@@ -100,6 +111,8 @@ function PostViewPage(props) {
             console.log('Post marked as ended.');
             alert('모집이 종료되었습니다.');
             setRecruitment("closed");
+            setPostRecruitmentWriter("disable");
+            setPostRecuitment("disable");
             setModalOpen(false);
         }).catch((error) => {
             console.error('Error updating document: ', error);
@@ -112,7 +125,7 @@ function PostViewPage(props) {
         return (
             // modalOnClick가 실행됐을때, <Modal>과 <ModalBg>가 렌더링 됩니다.
             // modalOnClick은 <Device>의 props로 전달되어, 버튼 클릭시 모달이 열리도록 합니다.
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="dubble" btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType={postRecruitmentWriter} btnMainText="모집종료" btnSubText="신청현황" backPage="/" subPage="participation" modalOnClick={() => setModalOpen(true)}>
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="모집종료하고 알림보내기" modalOnClick={handleEndPost}>
@@ -142,7 +155,7 @@ function PostViewPage(props) {
     }
     else {
         return (
-            <Device content="함께먹기" headerType="" gnbType="btn" btnType="default" btnMainText="신청하기" backPage="/" modalOnClick={() => setModalOpen(true)}>
+            <Device content="함께먹기" headerType="" gnbType="btn" btnType={postRecuitment} btnMainText="신청하기" backPage="/" modalOnClick={() => setModalOpen(true)}>
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="참여신청" modalOnClick={() => setModalOpen(false)}>
