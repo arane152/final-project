@@ -55,11 +55,12 @@ function PostImage(props) {
     // props.postRecruiment의 기본값은 "open"으로 설정되어 있다고 가정합니다.
     // 만약 "closed"로 설정되어 있다면, 닫힌 상태의 이미지를 보여줍니다.
     // props.postImage는 포스트의 이미지 URL을 받아옵니다.
+    const {postImage} = props;
     if (props.postRecruitment == "closed") {
         return (
             <Wrapper>
                 <ClosedWrapper>
-                    <img src={props.postImage} alt="..."></img>
+                    <img src={postImage || "/PostImgBasic.svg"} alt="..."></img>
                     <ClosedImage/>
                 </ClosedWrapper>
             </Wrapper>
@@ -67,7 +68,7 @@ function PostImage(props) {
     }
     else {
         return (
-            <Wrapper><img src={props.postImage} alt="..."></img></Wrapper>
+            <Wrapper><img src={postImage || "/PostImgBasic.svg"} alt="..."></img></Wrapper>
         )
     }
 }
