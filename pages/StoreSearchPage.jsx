@@ -52,41 +52,36 @@ const CategoryBtnWrapper = styled.div`
 `;
 
 function StoreSearchPage() {
-  // 모달/폼 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [storeName, setStoreName] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Firebase 상태
   const [storeList, setStoreList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
-  // 검색 상태
   const [searchText, setSearchText] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // Firebase에서 데이터 불러오기
   useEffect(() => {
-    db.collection("store").get().then((storeSnap) => {
-      const stores = storeSnap.docs.map((doc) => doc.data());
-      setStoreList(stores);
-    });
+    db.collection("store")
+      .get()
+      .then((storeSnap) => {
+        const stores = storeSnap.docs.map((doc) => doc.data());
+        setStoreList(stores);
+      });
 
-    db.collection("category").get().then((categorySnap) => {
-      const categories = categorySnap.docs.map((doc) => doc.data());
-      setCategoryList(categories);
-    });
+    db.collection("category")
+      .get()
+      .then((categorySnap) => {
+        const categories = categorySnap.docs.map((doc) => doc.data());
+        setCategoryList(categories);
+      });
   }, []);
 
-  //검색 핸들링
-  //trim: 앞뒤 공백 제거거
-  //toLowerCase: 대문자 소문자 관계 없게
-  //includes: 전체를 안 쓰고 일부만 써도 검색 가능
   const handleSearch = () => {
-    const trimmedKeyword = searchText.trim().toLowerCase(); // 앞뒤 공백 제거 + 소문자 변환
-
+    const trimmedKeyword = searchText.trim().toLowerCase();
     if (trimmedKeyword === "") {
       setFilteredList([]);
       setErrorMsg("검색어를 입력해주세요.");
@@ -96,115 +91,104 @@ function StoreSearchPage() {
     const results = storeList.filter((store) => {
       const category = categoryList.find((cat) => cat.id === store.categoryId);
       const categoryName = category?.name?.toLowerCase() || "";
-
       return (
         store.name.toLowerCase().includes(trimmedKeyword) ||
         categoryName.includes(trimmedKeyword)
       );
     });
 
-    //검색 결과가 없는 경우우
     setFilteredList(results);
-    if (results.length === 0) {
-      setErrorMsg("아래의 음식점 추가하기 기능을 이용해주세요.");
-    } else {
-      setErrorMsg("");
-    }
+    setErrorMsg(results.length === 0 ? "아래의 음식점 추가하기 기능을 이용해주세요." : "");
   };
 
-  //공백을 제외하고도 검색어가 비어있는 경우
   const isSearchEmpty = searchText.trim() === "";
 
   return (
-    <>
-      <Device
-        content="search"
-        headerType="search"
-        gnbType="btn"
-        btnType="default"
-        btnMainText="음식점 추가하기"
-        backPage={() => {
-          // 세션 스토리지에 검색 상태 저장
-          // 나중에 검색 페이지에서 작성 페이지로 넘어갈때 검색 페이지 데이터도 로컬스토리지에 저장 필요
-          sessionStorage.setItem("fromSearch", "true");
-          window.location.href = "/write";
-        }}
-        modalOnClick={() => setIsModalOpen(true)}
-        searchValue={searchText}
-        onSearchChange={(e) => setSearchText(e.target.value)}
-        onSearchSubmit={handleSearch}
-      >
-        <SearchUI>
-          {isSearchEmpty ? (
-            <Message>검색어를 입력해주세요.</Message>
-          ) : errorMsg ? (
-            <Message>{errorMsg}</Message>
-          ) : (
-            filteredList.map((store, idx) => {
-              const category = categoryList.find(
-                (cat) => cat.id === store.categoryId
-              );
-              const categoryName = category?.name || "";
-              return (
-                <SearchItem
-                  key={idx}
-                  category={categoryName}
-                  storeName={store.name}
-                  minPrice={store.minPrice}
-                />
-              );
-            })
-          )}
-        </SearchUI>
-      </Device>
+    <Device
+      content="search"
+      headerType="search"
+      gnbType="btn"
+      btnType="default"
+      btnMainText="음식점 추가하기"
+      backPage={() => {
+        sessionStorage.setItem("fromSearch", "true");
+        window.location.href = "/write";
+      }}
+      modalOnClick={() => setIsModalOpen(true)}
+      searchValue={searchText}
+      onSearchChange={(e) => setSearchText(e.target.value)}
+      onSearchSubmit={handleSearch}
+    >
+      <SearchUI>
+        {isSearchEmpty ? (
+          <Message>검색어를 입력해주세요.</Message>
+        ) : errorMsg ? (
+          <Message>{errorMsg}</Message>
+        ) : (
+          filteredList.map((store, idx) => {
+            const category = categoryList.find(
+              (cat) => cat.id === store.categoryId
+            );
+            const categoryName = category?.name || "";
+            return (
+              <SearchItem
+                key={idx}
+                category={categoryName}
+                storeName={store.name}
+                minPrice={store.minPrice}
+              />
+            );
+          })
+        )}
+      </SearchUI>
 
       {isModalOpen && (
-        <BottomModalBg onClick={() => setIsModalOpen(false)}>
-          <div onClick={(e) => e.stopPropagation()}>
-            <BottomModal
-              modalText="음식점 추가"
-              btnType="default"
-              mainText="확인"
-              modalOnClick={() => setIsModalOpen(false)}
-              background="white"
-            >
-              <ModalContentWrapper>
-                <InfoBox title="이름">
-                  <TextInput
-                    placeholder="음식점 이름을 입력하세요"
-                    value={storeName}
-                    onChange={(e) => setStoreName(e.target.value)}
-                  />
-                </InfoBox>
-                <InfoBox title="최소금액">
-                  <TextInput
-                    placeholder="최소 주문 금액을 입력하세요"
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
-                  />
-                </InfoBox>
-                <StyledInfoBoxOverride title="카테고리">
-                  <CategoryBtnWrapper>
-                    {categoryList.map((cat) => (
-                      <button
-                        key={cat.id}
-                        onClick={() => setSelectedCategory(cat.id)}
-                        style={{ all: "unset", cursor: "pointer" }}
-                      >
-                        <CategoryBtn
-                          text={cat.name}
-                          type={selectedCategory === cat.id ? "toggle" : ""}
-                        />
-                      </button>
-                    ))}
-                  </CategoryBtnWrapper>
-                </StyledInfoBoxOverride>
-              </ModalContentWrapper>
-            </BottomModal>
-          </div>
-        </BottomModalBg>
+        <>
+          <BottomModal
+            modalText="음식점 추가"
+            btnType="default"
+            mainText="확인"
+            modalOnClick={() => setIsModalOpen(false)}
+            background="white"
+          >
+            <ModalContentWrapper>
+              <InfoBox title="이름">
+                <TextInput
+                  placeholder="음식점 이름을 입력하세요"
+                  value={storeName}
+                  onChange={(e) => setStoreName(e.target.value)}
+                />
+              </InfoBox>
+              <InfoBox title="최소금액">
+                <TextInput
+                  placeholder="최소 주문 금액을 입력하세요"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                />
+              </InfoBox>
+              <StyledInfoBoxOverride title="카테고리">
+                <CategoryBtnWrapper>
+                  {categoryList.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      style={{ all: "unset", cursor: "pointer" }}
+                    >
+                      <CategoryBtn
+                        text={cat.name}
+                        type={selectedCategory === cat.id ? "toggle" : ""}
+                      />
+                    </button>
+                  ))}
+                </CategoryBtnWrapper>
+              </StyledInfoBoxOverride>
+            </ModalContentWrapper>
+          </BottomModal>
+
+          <BottomModalBg onClick={() => setIsModalOpen(false)} />
+        </>
       )}
-    </>
+    </Device>
   );
 }
 
