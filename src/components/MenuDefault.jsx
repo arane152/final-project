@@ -45,6 +45,7 @@ function MenuDefault(props) {
         name, 
         count, 
         price, 
+        userCount
     } = props; 
     // default : QuantityBtn포함 컴포넌트 | info: 현재수량 , 총 0원 포함 컴포넌트
     const type = props.type || "default";  
@@ -109,6 +110,31 @@ function MenuDefault(props) {
                 </ContainerWrapper>
             </Container>
         )
+    }else if(type == "simple"){
+        return(
+            <Container>
+                {/* 이름 및 개별가격 */}
+                <MenuOutPutItem 
+                    type="bold" 
+                    name={name} 
+                    price={formatPrice(price)} 
+                    width="313">
+                </MenuOutPutItem>
+                <ContainerWrapper>
+                    {/* 수량에 따른 가격 */}
+                    <CurrentQuantity>
+                        현재 수량 : {count}개
+                    </CurrentQuantity>
+                    {/* 수량조작버튼 */}
+                    <QuantityBtn
+                        quantity={userCount ?? 0}
+                        onPlusClick={onPlusClick}
+                        onMinusClick={onMinusClick}>
+                    </QuantityBtn>
+                </ContainerWrapper>
+            </Container>
+        )
+
     }
 }
 
