@@ -4,6 +4,7 @@ import TotalAmount from "../components/TotalAmount";
 import MenuDefault from "../components/MenuDefault";
 import MenuAdd from "../components/MenuAdd";
 import MenuSetting from "../components/MenuSetting";
+import MainBtn from "../components/MainBtn";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -183,7 +184,7 @@ function OderMenuArea(props) {
             {!isStoreSelected && (
                 <Container>
                     <Subtitle>음식점 설정</Subtitle>
-                    <ToggleBtn text="음식점 선택" width="313" onClick={()=>navigate(`/store`)}></ToggleBtn>
+                    <MainBtn type="ghost" mainText="음식점 선택" menuOnClick={()=>navigate(`/store`)}></MainBtn>
                 </Container>
             )}
 

@@ -77,19 +77,17 @@ const StyledFileWrapper = styled.div`
 `
 
 
-
-
 function InfoArea(props) {
     const {
         title, onTitleChange,
         content, onContentChange,
         receiptLocation, onReceiptLocationChange,
-        deposite,
+        deposite, onDepositeChange,
         image, onImageChange,
         } = props
 
     const handleToggleClick = (selectedToggle) => {
-        onepositeChange(selectedToggle)
+        onDepositeChange(selectedToggle)
     }
 
     return(

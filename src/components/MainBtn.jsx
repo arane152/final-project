@@ -54,9 +54,22 @@ const BtnTextSub = styled(BtnText)`
     font-weight: 600;
 `
 
+const BtnWrapperGhost = styled(BtnWrapperDefault)`
+    background-color: #FFFFFF;
+    border: solid #FF6232 1px;
+    height: 44px;
+    width: 313px;
+`
+
+const BtnTextGhost = styled(BtnText)`
+    color: #FF6232;
+    font-weight: 600;
+    font-size: 14px;
+`
+
 function MainBtn(props) {
     const navigate = useNavigate();
-    const {mainText, subOnClick, subText, type, modalOnClick} = props;
+    const {mainText, subOnClick, subText, type, modalOnClick, menuOnClick} = props;
     // props.type : 버튼 타입  (default : "default" / disable : "disable" / dubble : "dubble")
     // props.mainText : 메인 버튼 내용
     // props.subText : 서브 버튼 내용
@@ -89,6 +102,14 @@ function MainBtn(props) {
         <BtnWrapperDefault onClick={modalOnClick}>
           <BtnText>{mainText}</BtnText>
         </BtnWrapperDefault>
+      </Wrapper>
+    );
+  } else if (type === "ghost") {
+    return (
+      <Wrapper>
+        <BtnWrapperGhost onClick={menuOnClick}>
+          <BtnTextGhost>{mainText}</BtnTextGhost>
+        </BtnWrapperGhost>
       </Wrapper>
     );
   }
