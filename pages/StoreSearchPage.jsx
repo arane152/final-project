@@ -80,6 +80,13 @@ function StoreSearchPage() {
     });
   }, []);
 
+  //모달창 내 카테고리 1개 선택된 상태 
+  useEffect(() => {
+    if (isModalOpen && !selectedCategory && categoryList.length > 0) {
+      setSelectedCategory(categoryList[0].id);
+    }
+  }, [isModalOpen, categoryList]);
+
   //검색하기
   const handleSearch = () => {
     const trimmedKeyword = searchText.trim().toLowerCase(); //공백 제거, 소문자
@@ -151,7 +158,7 @@ function StoreSearchPage() {
       onSearchSubmit={handleSearch}
     >
 
-      {/*검색어가 비어 있으면 에러메세지, 검색어가 있으면 필터링 */}
+      {/*검색어가 비어 있거나 검색값이 없으면 에러메세지, 검색값이 있으면 필터링 */}
       <SearchUI>
         {isSearchEmpty ? (
           <Message>검색어를 입력해주세요.</Message>
