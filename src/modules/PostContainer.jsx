@@ -90,7 +90,7 @@ function PostConatiner (props) {
                 <InfoBox title="선입금" content={props.accountNumber} badge={props.deposite}></InfoBox>
             </PostInfo>
             <PostContent>{props.postContent}</PostContent>
-            <StatusBar post={props.post}></StatusBar>
+            <StatusBar post={props.post} totalSum={props.totalSum}></StatusBar>
         </PostWrapper>
     )
 }
