@@ -7,10 +7,10 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
   // Firebase Timestamp 또는 일반 문자열을 Date 객체로 변환
   const dateObj = date?.toDate?.() ?? new Date(date);
 
-  // 날짜 출력 포맷
-  const displayDate = dateObj instanceof Date && !isNaN(dateObj)
-    ? `${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일 ${dateObj.getHours()}:${dateObj.getMinutes().toString().padStart(2, '0')}`
-    : "날짜 없음";
+// 넘길 timestamp 값
+const timestamp = dateObj instanceof Date && !isNaN(dateObj)
+  ? dateObj.getTime()  // 숫자로 변환
+  : null;
 
   // 전체 메뉴 가격 계산 (count가 없으면 1개로 간주)
   const totalPrice = menus.reduce(
@@ -20,7 +20,7 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
 
   return (
     <CardContainer>
-      <Profile name={name} date={displayDate} />
+      <Profile name={name} date={timestamp} />
       <MenuList>
         {menus.map((menu, idx) => (
           <MenuOutputitem

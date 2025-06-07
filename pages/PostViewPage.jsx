@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 // firebase db
 import { db } from '/src/firebase.js'
+import firebase from 'firebase/compat/app';
 
 import Modal from "../src/layouts/BottomModal";
 import ModalBg from "../src/layouts/BottomModalBg";
@@ -268,18 +269,10 @@ function PostViewPage(props) {
             return;
         }
         const participantData = {
-            userId: userId,
+            userId: Number(userId),
             menus: participantMenus,
             accept: false, // 참여 신청시에는 수락되지 않은 상태로 설정
-            date: new Date().toLocaleString("ko-KR", {
-                timeZone: "Asia/Seoul",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric"
-            }) + ' UTC+9'
+            date: firebase.firestore.Timestamp.fromDate(new Date())
         };
         db.collection('post').doc(postId).update({
             [`menuList.${userId}`]: participantData // menuList에 참여자 메뉴를 추가합니다.
