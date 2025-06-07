@@ -58,16 +58,31 @@ function PostViewPage(props) {
 
     // 메뉴 가격을 계산합니다.
     const handlePlusClick = (menuId) => {
-        setQuantities(prev => ({
-            ...prev,
-            [menuId]: (prev[menuId] || 1) + 1
-        }));
+        setQuantities(prev => {
+            const newQuantity = (prev[menuId] ?? 0) + 1;
+
+            // 메뉴 정보 추출
+            const menu = mergedMenus.find(m => m.menuId === menuId);
+            if (menu) {
+                // 메뉴 정보 출력
+                console.log("메뉴 정보:");
+                console.log("이름:", menu.name);
+                console.log("ID:", menu.menuId);
+                console.log("가격:", menu.menuPrice);
+                console.log("수량:", newQuantity);
+            }
+
+            return {
+                ...prev,
+                [menuId]: newQuantity
+            };
+        });
     };
-    // 메뉴 수량을 감소시키는 함수입니다. 최소 1개 이상으로 제한합니다.
+    // 메뉴 수량을 감소시키는 함수입니다.
     const handleMinusClick = (menuId) => {
         setQuantities(prev => {
-            const current = prev[menuId] || 1;
-            if (current > 1) {
+            const current = prev[menuId] ?? 0;
+            if (current > 0) {
                 return {
                     ...prev,
                     [menuId]: current - 1
@@ -188,28 +203,13 @@ function PostViewPage(props) {
 
     // 메뉴 수량을 증가시키는 함수입니다. 최소 1개 이상으로 제한합니다.
     useEffect(() => {
-        let total = 0;
-
-        if (Array.isArray(post.recruiterMenus)) {
-            total += post.recruiterMenus.reduce((sum, menu) => {
-                const quantity = quantities[menu.menuId] ?? 0;
-                return sum + (Number(menu.menuPrice || 0) * quantity);
-            }, 0);
-        }
-
-        if (post.menuList) {
-            const participantMenus = Object.values(post.menuList)
-                .filter(participant => participant.accept && Array.isArray(participant.menus))
-                .flatMap(participant => participant.menus);
-
-            total += participantMenus.reduce((sum, menu) => {
-                const quantity = quantities[menu.menuId] ?? 0;
-                return sum + (Number(menu.menuPrice || 0) * quantity);
-            }, 0);
-        }
-
+        let total = Object.entries(quantities).reduce((sum, [menuId, quantity]) => {
+            const menu = mergedMenus.find(m => m.menuId === menuId);
+            const price = Number(menu?.menuPrice || 0);
+            return sum + price * quantity;
+        }, 0);
         setSelectedTotal(total);
-    }, [quantities, post.recruiterMenus, post.menuList]);
+    }, [quantities, mergedMenus]);
 
 
     // localStorage에서 userId를 가져오고, post.writer?.[1]과 비교하여 같으면 props.userType을 "writer"로 설정합니다.
@@ -236,6 +236,60 @@ function PostViewPage(props) {
             setModalOpen(false);
         }).catch((error) => {
             console.error('Error updating document: ', error);
+        });
+    };
+
+    // 참여 신청 버튼 클릭 시 실행되는 함수
+    // postId에 해당하는 문서의 menuList 필드에 참여자의 메뉴를 추가합니다.
+    // menuList에 참여자 메뉴를 array로 저장하고, localStorage에 저장된 userId만 추가합니다.
+    // 참여자의 메뉴는 quantities 상태에서 가져옵니다.
+    // 참여자의 메뉴가 없으면 알림을 표시하고 함수를 종료합니다.
+    // 참여자의 메뉴가 있으면, postId에 해당하는 문서의 menuList 필드에 참여자의 메뉴를 추가합니다.
+    // 참여 시간을 현재 시간으로 설정합니다.
+    // 참여자의 메뉴를 추가한 후, 알림을 표시하고 모달을 닫습니다.
+    const handleApplyPost = () => {
+        const participantMenus = Object.entries(quantities)
+            .filter(([menuId, quantity]) => quantity > 0)
+            .map(([menuId, quantity]) => {
+                const menu = mergedMenus.find(m => m.menuId === menuId);
+                return {
+                    menuId: menu.menuId,
+                    name: menu.name,
+                    menuPrice: Number(menu.menuPrice || 0),
+                    menuQuantity: quantity
+                };
+            });
+        if (post.menuList?.[userId]) {
+            alert("이미 참여 신청하셨습니다.");
+            return;
+        }
+        if (participantMenus.length === 0) {
+            alert('참여할 메뉴를 선택해주세요.');
+            return;
+        }
+        const participantData = {
+            userId: userId,
+            menus: participantMenus,
+            accept: false, // 참여 신청시에는 수락되지 않은 상태로 설정
+            date: new Date().toLocaleString("ko-KR", {
+                timeZone: "Asia/Seoul",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            }) + ' UTC+9'
+        };
+        db.collection('post').doc(postId).update({
+            [`menuList.${userId}`]: participantData // menuList에 참여자 메뉴를 추가합니다.
+        }).then(() => {
+            console.log('Participant menu added successfully.');
+            alert('참여 신청이 완료되었습니다.');
+            setModalOpen(false); // 모달을 닫습니다.
+        }).catch((error) => {
+            console.error('Error adding participant menu: ', error);
+            alert('참여 신청에 실패했습니다. 다시 시도해주세요.');
         });
     };
 
@@ -278,7 +332,7 @@ function PostViewPage(props) {
             <Device content="함께먹기" headerType="" gnbType="btn" btnType={postRecuitment} btnMainText="신청하기" backPage="/" modalOnClick={() => setModalOpen(true)}>
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
-                        <Modal background="" modalText="주문확정" btnType="default" mainText="참여신청" modalOnClick={() => setModalOpen(false)}>
+                        <Modal background="" modalText="메뉴신청" btnType="default" mainText="참여신청" modalOnClick={handleApplyPost}>
                             {menuListDefault}
                             <TotalAmount title="총액" totalAmount={selectedTotal}></TotalAmount>
                         </Modal>
