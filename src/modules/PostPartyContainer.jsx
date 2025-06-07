@@ -55,6 +55,10 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
 
   const recruiter = users.find((user) => user.userId === post.userId);
 
+  //수락된 사람이 없는 경우 방어 코드
+  const accepted = Object.entries(post.menuList || {})
+    .filter(([, participant]) => participant.accept);
+
   return (
     <Wrapper>
       <Container>
@@ -85,36 +89,39 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
 
         <Divider />
 
-        {/* 수락된 참여자만 렌더링 */}
-        {Object.entries(post.menuList)
-          .filter(([, participant]) => participant.accept)
-          .map(([key, participant]) => {
+        {/*참여자 없는 경우 방어 코드 추가*/}
+        {accepted.length === 0 ? (
+          <ParticipantCard>
+            <TopRow>
+              <Profile name="참여자 없음" />
+            </TopRow>
+          </ParticipantCard>
+        ) : (
+          accepted.map(([key, participant]) => {
             const user = users.find((u) => u.userId === participant.userId);
             return (
               <ParticipantCard key={key}>
                 <TopRow>
-                  <Profile name={user?.name} />
+                  <Profile name={user?.name || "참여자"} />
                   <SubBtn
                     type="grey"
                     text="인원강퇴"
                     onClick={() => {
                       const newAccept = false;
 
-                      // Firestore 업데이트
                       db.collection("post")
                         .doc(postId)
                         .update({ [`menuList.${key}.accept`]: newAccept });
 
-                      // 로컬 상태 업데이트
                       setPost((prevPost) => ({
                         ...prevPost,
                         menuList: {
                           ...prevPost.menuList,
                           [key]: {
                             ...prevPost.menuList[key],
-                            accept: newAccept
-                          }
-                        }
+                            accept: newAccept,
+                          },
+                        },
                       }));
                     }}
                   />
@@ -130,7 +137,9 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
                 ))}
               </ParticipantCard>
             );
-          })}
+          })
+        )}
+
 
         <Divider />
 

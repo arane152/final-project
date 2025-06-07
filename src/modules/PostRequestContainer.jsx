@@ -3,7 +3,7 @@ import {db} from "../firebase.js"
 import UserAcceptCard from "./UserAcceptCard";
 
 const PostRequestContainer = ({ post, users, postId, setPost }) => {
-  const participants = Object.entries(post.menuList)
+  const participants = Object.entries(post.menuList || {})
     .filter(([, p]) => p.accept === false)
     .map(([key, data]) => {
       const user = users.find((u) => u.userId === data.userId);
@@ -24,37 +24,36 @@ const PostRequestContainer = ({ post, users, postId, setPost }) => {
     <Wrapper>
       <SectionTitle>신청자현황</SectionTitle>
       <CardList>
-        {participants.map((p, idx) => (
-          <UserAcceptCard
-            key={idx}
-            name={p.name}
-            date={p.date}
-            menus={p.menus}
+        {participants.length === 0 ? (
+          <NoApplicantMessage>신청자가 없습니다.</NoApplicantMessage>
+        ) : (
+          participants.map((p, idx) => (
+            <UserAcceptCard
+              key={idx}
+              name={p.name}
+              date={p.date}
+              menus={p.menus}
+              onAccept={() => {
+                const newAccept = true;
 
-            // 수락 버튼을 눌렀을 때 실행
-            onAccept={() => {
-              const newAccept = true;
-
-              db.collection("post")
-                .doc(postId)
-                .update({
-                  [`menuList.${p.key}.accept`]: newAccept
+                db.collection("post").doc(postId).update({
+                  [`menuList.${p.key}.accept`]: newAccept,
                 });
 
-              //* 수락 시 상태 변경 로드
-              setPost((prevPost) => ({
-                ...prevPost,
-                menuList: {
-                  ...prevPost.menuList,
-                  [p.key]: {
-                    ...prevPost.menuList[p.key],
-                    accept: newAccept
-                  }
-                }
-              }));
-            }}
-          />
-        ))}
+                setPost((prevPost) => ({
+                  ...prevPost,
+                  menuList: {
+                    ...prevPost.menuList,
+                    [p.key]: {
+                      ...prevPost.menuList[p.key],
+                      accept: newAccept,
+                    },
+                  },
+                }));
+              }}
+            />
+          ))
+        )}
       </CardList>
     </Wrapper>
   );
@@ -82,4 +81,11 @@ const CardList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+`;
+
+const NoApplicantMessage = styled.div`
+  font-size: 14px;
+  color: #999999;
+  text-align: center;
+  padding: 16px 0;
 `;
