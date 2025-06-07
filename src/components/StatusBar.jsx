@@ -169,10 +169,10 @@ function StatusBar(props) {
     const { storeData } = useStore();
 
     //스토어 컬렉션 불러오기
-    const matchedStore = storeData.find(store => store.id == post.storeId);
+    const matchedStore = storeData.find(store => store.id == post.store?.[0]);
 
     // 최소주문금액
-    const minPrice = matchedStore.minPrice;
+    const minPrice = matchedStore ? matchedStore.minPrice : 1;
 
     //퍼센트 계산
     const percentPrice = Math.floor((totalSum / minPrice) * 100);

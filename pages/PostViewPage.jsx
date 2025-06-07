@@ -55,40 +55,6 @@ function PostViewPage(props) {
         }
     }, [post.endPost]);
 
-    // 메뉴 가격을 계산하기 위한 변수
-    if (post.menuList) {
-        participants = Object.values(post.menuList);
-    }
-
-    // 메뉴 가격을 계산합니다.
-    if (post.menuList) {
-        participants = Object.values(post.menuList);
-        totalSum = participants.reduce((acc, item) => {
-            const price = parseInt(item.menuPrice || 0);
-            const qty = parseInt(item.menuQaunitiy || 0);
-            return acc + price * qty;
-        }, 0);
-    }
-
-    // participants의 갯수만큼 </MenuDefault>를 렌더링합니다.
-    const menuList = participants.map((participant, index) => (
-        <MenuDefault
-            type="info"
-            key={index}
-            name={participant.name}
-            price={Number(participant.menuPrice || 0)}
-            count={Number(participant.menuQaunitiy || 0)}
-        />
-    ));
-
-    // localStorage에서 userId를 가져오고, post.writer?.[1]과 비교하여 같으면 props.userType을 "writer"로 설정합니다.
-    let userType = "";
-    if (post.writer?.[0] === userId) {
-        userType = "writer";
-    } else {
-        userType = "";
-    }
-
     // 메뉴 가격을 계산합니다.
     const handlePlusClick = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -99,6 +65,58 @@ function PostViewPage(props) {
             setQuantity(prevQuantity => prevQuantity - 1);
         }
     };
+
+    // 메뉴 가격을 계산하기 위한 변수
+    if (post.menuList) {
+        participants = Object.values(post.menuList);
+        totalSum = participants.reduce((acc, participant) => {
+            if (participant.menus) {
+                const menus = Object.values(participant.menus);  // ← 중요
+                return acc + menus.reduce((menuSum, menu) => {
+                    const price = parseInt(menu.menuPrice || 0);
+                    const qty = parseInt(menu.menuQuantity || 0);
+                    return menuSum + price * qty;
+                }, 0);
+            }
+            return acc;
+        }, 0);
+    }
+
+    // participants의 갯수만큼 </MenuDefault>를 렌더링합니다.
+    const menuList = participants.flatMap((participant, index) => (
+        participant.menus ? Object.values(participant.menus).map((menu, idx) => (
+            <MenuDefault
+                type="info"
+                key={`${index}-${idx}`}
+                name={menu.name}
+                price={Number(menu.menuPrice || 0)}
+                count={Number(menu.menuQuantity || 0)}
+            />
+        )) : []
+    ));
+
+    // participants의 갯수만큼 </MenuDefault>의 type을 "default"로 설정하여 렌더링합니다.
+    const menuListDefault = participants.flatMap((participant, index) => (
+        participant.menus ? participant.menus.map((menu, idx) => (
+            <MenuDefault
+                type="default"
+                key={`${index}-${idx}`}
+                name={menu.name}
+                price={Number(menu.menuPrice || 0)}
+                count={Number(menu.menuQuantity || 0)}
+                onPlusClick={handlePlusClick}
+                onMinusClick={handleMinusClick}
+            />
+        )) : []
+    ));
+
+    // localStorage에서 userId를 가져오고, post.writer?.[1]과 비교하여 같으면 props.userType을 "writer"로 설정합니다.
+    let userType = "";
+    if (post.writer?.[0] === userId) {
+        userType = "writer";
+    } else {
+        userType = "";
+    }
 
     // 모집 종료 버튼 클릭 시 실행되는 함수
     // postId에 해당하는 문서의 endPost 필드를 true로 업데이트하고, 알림을 보냅니다.
@@ -118,7 +136,6 @@ function PostViewPage(props) {
             console.error('Error updating document: ', error);
         });
     };
-
 
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (userType == "writer") {
@@ -147,6 +164,7 @@ function PostViewPage(props) {
                         accountNumber={post.writer?.[3]}
                         deposite={post.deposite}
                         storeId={post.storeId}
+                        totalSum={totalSum || 0}
                     />
                 )}
                 <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuList}</PostMenuContainer>
@@ -159,7 +177,7 @@ function PostViewPage(props) {
                 {modalOpen && ( /* 모달이 열렸을 때, 이 부분이 렌더링 됩니다. 다시 닫을 때는 modalOnClick을 false로 설정합니다. */
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="참여신청" modalOnClick={() => setModalOpen(false)}>
-                            {menuList}
+                            {menuListDefault}
                             <TotalAmount title="총액" totalAmount={totalSum}></TotalAmount>
                         </Modal>
                         <ModalBg />
@@ -179,7 +197,7 @@ function PostViewPage(props) {
                         storeId={post.storeId}
                     />
                 )}
-                <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuList}</PostMenuContainer>
+                <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuListDefault}</PostMenuContainer>
             </Device>
         )
     }
