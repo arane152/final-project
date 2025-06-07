@@ -51,11 +51,11 @@ function TextInput(props){
   //value: textarea value, 추후 파이어베이스 연동할 함수에 사용
   //onChange : 추후 파이어베이스 연동할 함수에 사용
   //placeholder : 안내문구 있다면 기입
-  const {height, value, onChange, placeholder, onClick} = props
+  const {height, value, onChange, placeholder, onClick, readOnly} = props
 
   return <>{!height ? 
-  <StyledALineInput onClick={onClick} value={value} onChange={onChange} placeholder={placeholder || "양식을 작성해주세요"}></StyledALineInput> : 
-  <StyledLinesInput onClick={onClick} height={height} value={value} onChange={onChange} placeholder={placeholder || "양식을 작성해주세요"}></StyledLinesInput>}
+  <StyledALineInput onClick={onClick} value={value} onChange={onChange} placeholder={placeholder || "양식을 작성해주세요"} {...(readOnly ? { readOnly: true } : {})}></StyledALineInput> : 
+  <StyledLinesInput onClick={onClick} height={height} value={value} onChange={onChange} placeholder={placeholder || "양식을 작성해주세요"} {...(readOnly ? { readOnly: true } : {})}></StyledLinesInput>}
   </> 
 }
 

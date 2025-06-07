@@ -89,9 +89,8 @@ function OderMenuArea(props) {
     //menuList 변화에 따른 실시간 메뉴총액 계산 useEffect
     useEffect(() => {
         const total = menuList.reduce((acc, item) => {
-        return acc + (item.menuQaunitiy * item.menuPrice);
+        return acc + (item.menuQuantity * item.menuPrice);
         }, 0);
-        console.log(totalAmount)
         setTotalAmount(total);
     }, [menuList])
     
@@ -101,7 +100,7 @@ function OderMenuArea(props) {
             prevList =>
             prevList.map(item =>
                 (item.name === name)
-                    ? { ...item, menuQaunitiy: item.menuQaunitiy + 1 }
+                    ? { ...item, menuQuantity: item.menuQuantity + 1 }
                     : item
             )
         );
@@ -112,9 +111,9 @@ function OderMenuArea(props) {
             prevList =>
             prevList.map(item =>
                 (item.name === name)
-                    ? { ...item, menuQaunitiy: item.menuQaunitiy - 1 }
+                    ? { ...item, menuQuantity: item.menuQuantity - 1 }
                     : item
-            ).filter(item => item.menuQaunitiy > 0)
+            ).filter(item => item.menuQuantity > 0)
             //수량값이 0이 될 시 해당 item 삭제하는 필터
         );
     };
@@ -147,7 +146,7 @@ function OderMenuArea(props) {
                 return[...prevList, {
                     name: name,
                     menuPrice: parseInt(menuPrice),
-                    menuQaunitiy: 1,
+                    menuQuantity: 1,
                     userId: userId,
                 }]
                 
@@ -163,7 +162,7 @@ function OderMenuArea(props) {
                     key={item.name}
                     name={item.name}
                     price={item.menuPrice}
-                    count={item.menuQaunitiy}
+                    count={item.menuQuantity}
                     onPlusClick={() => menuPlusClick(item.name)}
                     onMinusClick={() => menuMinusClick(item.name)}>
                 </MenuDefault>

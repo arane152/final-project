@@ -93,7 +93,6 @@ function MainPage(props){
     }
   )
 
-
   return (
     <Device headerType="main" gnbType="gnb">
       <ContentBox>

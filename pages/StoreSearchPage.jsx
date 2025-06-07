@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { db } from "../src/firebase";
 import { useNavigate } from "react-router-dom";
 
+import { useCategory } from "../context/CategoryContext";
+import { useStore } from '../context/StoreContext';
+
 import Device from "../src/layouts/Device";
 import BottomModal from "../src/layouts/BottomModal";
 import BottomModalBg from "../src/layouts/BottomModalBg";
@@ -53,6 +56,9 @@ const CategoryBtnWrapper = styled.div`
 `;
 
 function StoreSearchPage() {
+  const {categoryData} = useCategory();//카테고리데이터터
+  const {storeData} = useStore();//스토어데이터
+
   const [isModalOpen, setIsModalOpen] = useState(false); //모달 여닫기
   const [storeName, setStoreName] = useState(""); //가게 이름
   const [minPrice, setMinPrice] = useState(""); //최소주문금액
@@ -69,15 +75,17 @@ function StoreSearchPage() {
 
   //가게, 카테고리 컬렉션 받아오기기
   useEffect(() => {
-    db.collection("store").get().then((storeSnap) => {
-      const stores = storeSnap.docs.map((doc) => doc.data());
-      setStoreList(stores);
-    });
+    // db.collection("store").get().then((storeSnap) => {
+    //   const stores = storeSnap.docs.map((doc) => doc.data());
+    //   setStoreList(stores);
+    // });
 
-    db.collection("category").get().then((categorySnap) => {
-      const categories = categorySnap.docs.map((doc) => doc.data());
-      setCategoryList(categories);
-    });
+    // db.collection("category").get().then((categorySnap) => {
+    //   const categories = categorySnap.docs.map((doc) => doc.data());
+    //   setCategoryList(categories);
+    // });
+    setStoreList(storeData);
+    setCategoryList(categoryData);
   }, []);
 
   //모달창 내 카테고리 1개 선택된 상태 
@@ -122,7 +130,7 @@ function StoreSearchPage() {
       return;
     }
 
-    const newId = Date.now(); // 음식점 아이디 난수로 생성성
+    const newId = Date.now(); // 음식점 아이디 난수로 생성
     const newStore = {
       id: newId,
       name: storeName,
@@ -130,7 +138,7 @@ function StoreSearchPage() {
       categoryId: selectedCategory
     };
 
-    //새로 만든 음식점 정보를 로컬스토리지로, PostWritePage와 연동동
+    //새로 만든 음식점 정보를 로컬스토리지로, PostWritePage와 연동
     db.collection("store").doc(String(newId)).set(newStore).then(() => {
       localStorage.setItem("selectedStoreName", newStore.name);
       localStorage.setItem("selectedMinPrice", newStore.minPrice);
@@ -179,6 +187,7 @@ function StoreSearchPage() {
                 onClick={() => {
                   localStorage.setItem("selectedStoreName", store.name);
                   localStorage.setItem("selectedMinPrice", String(store.minPrice));
+                  localStorage.setItem("selectedStoreId", store.id);
                   sessionStorage.setItem("fromSearch", "true");
                   navigate("/write");
                 }}

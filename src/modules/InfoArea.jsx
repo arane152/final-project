@@ -82,8 +82,8 @@ function InfoArea(props) {
         title, onTitleChange,
         content, onContentChange,
         receiptLocation, onReceiptLocationChange,
-        deposite, onDepositeChange,
-        image, onImageChange,
+        deposite, onDepositeChange, location,
+        image, onImageChange, accountNumber
         } = props
 
     const handleToggleClick = (selectedToggle) => {
@@ -93,9 +93,28 @@ function InfoArea(props) {
     return(
     <StyledWrapper>
         <Container>
-            <InfoBox title="제목"><TextInput placeholder="제목을 입력해주세요." value={title} onChange={onTitleChange}></TextInput></InfoBox>
-            <InfoBox title="수령장소"><TextInput placeholder="수령장소를 입력해주세요." value={receiptLocation} onChange={onReceiptLocationChange}></TextInput></InfoBox>
-            <InfoBox title="내용"><TextInput height={"108px"} placeholder="내용을 입력해주세요." value={content} onChange={onContentChange}></TextInput></InfoBox>
+            <InfoBox title="제목">
+                <TextInput 
+                    placeholder="제목을 입력해주세요." 
+                    value={title} 
+                    onChange={onTitleChange}>
+                </TextInput>
+            </InfoBox>
+            <InfoBox title="수령장소">
+                <TextInput 
+                    value={location}
+                    readOnly> 
+                    {/*onChange={onReceiptLocationChange}*/}
+                </TextInput>
+            </InfoBox>
+            <InfoBox title="내용">
+                <TextInput 
+                    height={"108px"} 
+                    placeholder="내용을 입력해주세요." 
+                    value={content} 
+                    onChange={onContentChange}>
+                </TextInput>
+            </InfoBox>
 
             <InfoBox title="메뉴사진">
                 <StyledFileWrapper>
@@ -107,7 +126,7 @@ function InfoArea(props) {
                 </StyledFileWrapper>
             </InfoBox>
 
-            <InfoBox title="계좌번호"><TextInput placeholder="계좌번호를 입력해주세요."></TextInput></InfoBox>
+            <InfoBox title="계좌번호"><TextInput value={accountNumber} readOnly></TextInput></InfoBox>
 
             <InfoBox title={<>선입금<br />필수여부</>}>
                 <ToggleBtn width='142' text="자유"
