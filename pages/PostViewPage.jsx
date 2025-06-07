@@ -23,12 +23,12 @@ function PostViewPage(props) {
     const [post, setPost] = useState([]) // firebase에서 가져온 post 데이터를 저장할 상태 변수
     const [modalOpen, setModalOpen] = useState(false);
     const { id: postId } = useParams(); // /post/:id에서 id 파라미터를 추출 // URL에서 postId를 가져옵니다.
-    const [quantity, setQuantity] = useState(1); // 주문 수량 상태
+    const [quantities, setQuantities] = useState({}); // 주문 수량 상태 // 주문 수량 상태
     const [recruitment, setRecruitment] = useState(""); // 모집 상태
     const [postRecruitmentWriter, setPostRecruitmentWriter] = useState(""); // 모집 상태 (Writer용)
     const [postRecuitment, setPostRecuitment] = useState(""); // 모집 상태 (일반 참여자용)
     const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 userId를 가져옵니다.
-    let participants = []; // 참여자 목록을 저장할 배열
+    const [selectedTotal, setSelectedTotal] = useState(0); // 선택된 메뉴의 총액 상태
 
     // firebase postId에 해당하는 데이터 가져오기
     useEffect(() => {
@@ -54,15 +54,27 @@ function PostViewPage(props) {
         }
     }, [post.endPost]);
 
+
+
     // 메뉴 가격을 계산합니다.
-    const handlePlusClick = () => {
-        setQuantity(prevQuantity => prevQuantity + 1);
+    const handlePlusClick = (menuId) => {
+        setQuantities(prev => ({
+            ...prev,
+            [menuId]: (prev[menuId] || 1) + 1
+        }));
     };
     // 메뉴 수량을 감소시키는 함수입니다. 최소 1개 이상으로 제한합니다.
-    const handleMinusClick = () => {
-        if (quantity > 1) {
-            setQuantity(prevQuantity => prevQuantity - 1);
-        }
+    const handleMinusClick = (menuId) => {
+        setQuantities(prev => {
+            const current = prev[menuId] || 1;
+            if (current > 1) {
+                return {
+                    ...prev,
+                    [menuId]: current - 1
+                };
+            }
+            return prev;
+        });
     };
 
     // post.recruiterMenus가 배열인지 확인하고, 각 메뉴의 가격과 수량을 곱하여 총합을 계산합니다.
@@ -136,20 +148,69 @@ function PostViewPage(props) {
     }
 
 
-    // participants의 갯수만큼 </MenuDefault>의 type을 "default"로 설정하여 렌더링합니다.
-    const menuListDefault = participants.flatMap((participant, index) => (
-        participant.menus ? participant.menus.map((menu, idx) => (
-            <MenuDefault
-                type="default"
-                key={`${index}-${idx}`}
-                name={menu.name}
-                price={Number(menu.menuPrice || 0)}
-                count={Number(menu.menuQuantity || 0)}
-                onPlusClick={handlePlusClick}
-                onMinusClick={handleMinusClick}
-            />
-        )) : []
+    // 참여자 메뉴와 모집자 메뉴를 합쳐서, type="default"로 렌더링합니다.
+    let mergedMenus = [];
+
+    if (post.menuList) {
+        mergedMenus = Object.values(post.menuList)
+            .filter((participant) => participant.accept && Array.isArray(participant.menus))
+            .flatMap((participant) => participant.menus);
+    }
+    if (Array.isArray(post.recruiterMenus)) {
+        mergedMenus = [...mergedMenus, ...post.recruiterMenus];
+    }
+
+    const menuListDefault = mergedMenus.reduce((acc, menu) => {
+        const id = menu.menuId;
+        const existing = acc.find((m) => m.menuId === id);
+        if (existing) {
+            existing.menuQuantity += Number(menu.menuQuantity || 0);
+        } else {
+            acc.push({
+                menuId: menu.menuId,
+                name: menu.name,
+                menuPrice: Number(menu.menuPrice || 0),
+                menuQuantity: Number(menu.menuQuantity || 0),
+            });
+        }
+        return acc;
+    }, []).map((menu, idx) => (
+        <MenuDefault
+            type="default"
+            key={`merged-default-${idx}`}
+            name={menu.name}
+            price={menu.menuPrice}
+            count={quantities[menu.menuId] ?? 0}
+            onPlusClick={() => handlePlusClick(menu.menuId)}
+            onMinusClick={() => handleMinusClick(menu.menuId)}
+        />
     ));
+
+    // 메뉴 수량을 증가시키는 함수입니다. 최소 1개 이상으로 제한합니다.
+    useEffect(() => {
+        let total = 0;
+
+        if (Array.isArray(post.recruiterMenus)) {
+            total += post.recruiterMenus.reduce((sum, menu) => {
+                const quantity = quantities[menu.menuId] ?? 0;
+                return sum + (Number(menu.menuPrice || 0) * quantity);
+            }, 0);
+        }
+
+        if (post.menuList) {
+            const participantMenus = Object.values(post.menuList)
+                .filter(participant => participant.accept && Array.isArray(participant.menus))
+                .flatMap(participant => participant.menus);
+
+            total += participantMenus.reduce((sum, menu) => {
+                const quantity = quantities[menu.menuId] ?? 0;
+                return sum + (Number(menu.menuPrice || 0) * quantity);
+            }, 0);
+        }
+
+        setSelectedTotal(total);
+    }, [quantities, post.recruiterMenus, post.menuList]);
+
 
     // localStorage에서 userId를 가져오고, post.writer?.[1]과 비교하여 같으면 props.userType을 "writer"로 설정합니다.
     let userType = "";
@@ -219,7 +280,7 @@ function PostViewPage(props) {
                     <>
                         <Modal background="" modalText="주문확정" btnType="default" mainText="참여신청" modalOnClick={() => setModalOpen(false)}>
                             {menuListDefault}
-                            <TotalAmount title="총액" totalAmount={totalSum}></TotalAmount>
+                            <TotalAmount title="총액" totalAmount={selectedTotal}></TotalAmount>
                         </Modal>
                         <ModalBg />
                     </>
@@ -239,7 +300,7 @@ function PostViewPage(props) {
                         totalSum={totalSum || 0}
                     />
                 )}
-                <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuListDefault}</PostMenuContainer>
+                <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuList}</PostMenuContainer>
             </Device>
         )
     }
