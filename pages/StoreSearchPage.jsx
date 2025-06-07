@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../src/firebase";
+import { useNavigate } from "react-router-dom";
 
 import Device from "../src/layouts/Device";
 import BottomModal from "../src/layouts/BottomModal";
@@ -63,6 +64,8 @@ function StoreSearchPage() {
   const [searchText, setSearchText] = useState(""); //검색어
   const [filteredList, setFilteredList] = useState([]); //검색값
   const [errorMsg, setErrorMsg] = useState(""); //에러 메세지
+
+  const navigate = useNavigate();
 
   //가게, 카테고리 컬렉션 받아오기기
   useEffect(() => {
@@ -144,7 +147,7 @@ function StoreSearchPage() {
                   localStorage.setItem("selectedStoreName", store.name);
                   localStorage.setItem("selectedMinPrice", String(store.minPrice));
                   sessionStorage.setItem("fromSearch", "true");
-                  window.location.href = "/write";
+                  navigate("/write");
                 }}
               />
             );
