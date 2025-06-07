@@ -4,72 +4,108 @@ import MenuOutputItem from "../components/MenuOutputitem";
 import StatusBar from "../components/StatusBar";
 import StoreName from "./StoreName";
 import SubBtn from "../components/SubBtn";
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
 
-const PostPartyContainer = ({
-  recruiter = { onDeleteMenu: () => {} },
-  goalAmount = 20000,
-  }) => {
-    const recruiterMenus = [
-      { name: "김밥", price: 3000, count: 2 },
-      { name: "떡볶이", price: 4000, count: 1 },
-    ];
+const PostPartyContainer = ({ post }) => {
+  const [users, setUsers] = useState([]);
+  const [storeName, setStoreName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
 
-    const participantMenus = [
-      { name: "라면", price: 5000, count: 1 },
-      { name: "튀김", price: 2000, count: 2 },
-    ];
+  if (!post) return null;
 
-  const recruiterTotal = recruiterMenus.reduce(
-    (sum, m) => sum + m.price * m.count,
-    0
-  );
-  const participantsTotal = participantMenus.reduce(
-    (sum, m) => sum + m.price * m.count,
-    0
-  );
-  const totalAmount = recruiterTotal + participantsTotal;
-  const percent =
-    goalAmount > 0
-      ? Math.min(100, Math.round((totalAmount / goalAmount) * 100))
-      : 0;
+  //  유저 전체 불러오기
+  useEffect(() => {
+    db.collection("user")
+      .get()
+      .then((snapshot) => {
+        const userList = snapshot.docs.map((doc) => doc.data());
+        setUsers(userList);
+      });
+  }, []);
+
+  // store, category 이름 불러오기
+  useEffect(() => {
+    db.collection("store")
+      .doc(String(post.storeId))
+      .get()
+      .then((doc) => {
+        const store = doc.data();
+        setStoreName(store.name);
+        return store.categoryId;
+      })
+      .then((categoryId) => {
+        return db.collection("category").doc(String(categoryId)).get();
+      })
+      .then((doc) => {
+        const category = doc.data();
+        setCategoryName(category.name);
+      });
+  }, [post.storeId]);
+
+  const recruiter = users.find((user) => user.userId === post.userId);
 
   return (
     <Wrapper>
       <Container>
         <HeaderRow>
-          <StoreName category="카테고리" storeName="가게이름">
+          {/* 가게 이름 + 카테고리명 */}
+          <StoreName category={categoryName} storeName={storeName}>
             참여자현황
           </StoreName>
         </HeaderRow>
         <Divider />
 
+        {/* 모집자 메뉴 블럭 */}
         <RecruiterBlock>
           <TopRow>
-            <Profile name="홍길동" badge="모집자" />
-            <DeleteButton onClick={recruiter.onDeleteMenu}>메뉴삭제</DeleteButton>
+            <Profile name={recruiter?.name} badge="모집자" />
+            <DeleteButton onClick={() => {}}>메뉴삭제</DeleteButton>
           </TopRow>
-          <MenuOutputItem type="default" name="김밥" count={2} price={3000} />
-          <MenuOutputItem type="default" name="떡볶이" count={1} price={4000} />
+          {(post.recruiterMenus || []).map((menu, i) => (
+            <MenuOutputItem
+              key={i}
+              type="default"
+              name={menu.name}
+              count={parseInt(menu.menuQuantity)}
+              price={parseInt(menu.menuPrice)}
+            />
+          ))}
         </RecruiterBlock>
         <Divider />
 
-        <ParticipantCard>
-          <TopRow>
-            <Profile name="홍길동동" />
-            <SubBtn type="grey" text="인원강퇴" />
-          </TopRow>
-          <MenuOutputItem type="default" name="라면" count={1} price={5000} />
-          <MenuOutputItem type="default" name="튀김" count={2} price={2000} />
-        </ParticipantCard>
+        {/* 참여자들 반복 렌더링 */}
+        {Object.entries(post.menuList || {}).map(([key, participant]) => {
+          const user = users.find((u) => String(u.userId) === String(participant.userId));
+          return (
+            <ParticipantCard key={key}>
+              <TopRow>
+                <Profile name={user?.name || "참여자"} />
+                <SubBtn type="grey" text="인원강퇴" />
+              </TopRow>
+              {participant.menus.map((menu, i) => (
+                <MenuOutputItem
+                  key={i}
+                  type="default"
+                  name={menu.name}
+                  count={parseInt(menu.menuQuantity)}
+                  price={parseInt(menu.menuPrice)}
+                />
+              ))}
+            </ParticipantCard>
+          );
+        })}
+
         <Divider />
 
+        {/* 총액 및 진행률 */}
         <TotalBox>
           <TotalRow>
             <TotalLabel>총액</TotalLabel>
-            <TotalAmount>{totalAmount.toLocaleString()}원</TotalAmount>
+            <TotalAmount>자동계산</TotalAmount>
           </TotalRow>
           <ProgressRow>
-            <StatusBar type="simple" totalPercent={percent} />
+            <StatusBar type="simple" post={post} />
           </ProgressRow>
         </TotalBox>
       </Container>
@@ -78,6 +114,9 @@ const PostPartyContainer = ({
 };
 
 export default PostPartyContainer;
+
+
+
 
 const Wrapper = styled.div`
   width: 393px;
