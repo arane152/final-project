@@ -385,7 +385,7 @@ function PostViewPage(props) {
                         post={post}
                         postTitle={post.title}
                         postContent={post.content}
-                        date={post.date}
+                        date={post.postId}
                         name={post.writer?.[1]}
                         receiptLocation={post.receiptLocation}
                         accountNumber={post.writer?.[3]}
@@ -430,7 +430,7 @@ function PostViewPage(props) {
                             post={post}
                             postTitle={post.title}
                             postContent={post.content}
-                            date={post.date}
+                            date={post.postId}
                             name={post.writer?.[1]}
                             receiptLocation={post.receiptLocation}
                             accountNumber={post.writer?.[3]}
@@ -500,7 +500,7 @@ function PostViewPage(props) {
                             post={post}
                             postTitle={post.title}
                             postContent={post.content}
-                            date={post.date}
+                            date={post.postId}
                             name={post.writer?.[1]}
                             receiptLocation={post.receiptLocation}
                             accountNumber={post.writer?.[3]}
