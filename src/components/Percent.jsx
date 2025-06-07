@@ -22,6 +22,8 @@ function Percent(props){
     const price = parseInt(item.menuPrice);
     const qty = parseInt(item.menuQaunitiy);
     if(isNaN(price) || isNaN(qty)){
+      if (!item.accept) return acc;
+      
       const totalSumParty = Object.values(item.menus).reduce((acc2, item2) => {
         const price2 = parseInt(item2.menuPrice);
         const qty2 = parseInt(item2.menuQuantity);

@@ -37,7 +37,12 @@ function PostWritePage(props) {
     useEffect(() => {
         const selectedStoreName = localStorage.getItem("selectedStoreName");
         const selectedMinPrice = localStorage.getItem("selectedMinPrice");
-
+        const selectedStoreId = localStorage.getItem("selectedStoreId");
+        setStoreId(selectedStoreId);
+        if (selectedStoreId) {
+            setStoreId(selectedStoreId);
+            localStorage.removeItem("selectedStoreId");
+        }
         if (selectedStoreName) {
             setStoreName(selectedStoreName);
             localStorage.removeItem("selectedStoreName");
@@ -55,6 +60,7 @@ function PostWritePage(props) {
     const [deposite, setDeposite] = useState(localStorage.getItem('deposite') || '자유')
 
     // 음식점 정보 state 추가
+    const [storeId, setStoreId] = useState('');
     const [storeName, setStoreName] = useState('');
     const [minPrice, setMinPrice] = useState('');
 
@@ -93,13 +99,14 @@ function PostWritePage(props) {
             writer: [userId, userName, location, accountNumber],
             // 메뉴리스트를 배열로 저장
             menuList: menuList,
-            storeId: storeName
+            storeId: parseInt(storeId),
+
         }).then(() => {
             navigate('/')
             // 로컬 스토리지 초기화
             localStorage.removeItem('title');
             localStorage.removeItem('content');
-            localStorage.removeItem('receiptLocation');
+            // localStorage.removeItem('receiptLocation');
             localStorage.removeItem('image');
             localStorage.removeItem('deposite');
         })
@@ -127,10 +134,11 @@ function PostWritePage(props) {
             onClick={writePost}>
             {/*로컬 스토리지에 저장할 값이 있으면 해당 기능 검수자 '김예준'에게 문의해주세요.*/}
             <InfoArea
+                accountNumber={accountNumber} location={location}     
                 title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); /* 로컬 스토리지에 제목 저장 */ }}
                 content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); /* 로컬 스토리지에 내용 저장 */ }}
                 image={image} onImageChange={(e) => handleImage(e)}
-                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
+                // receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
                 deposite={deposite} onDepositeChange={handleDepositeChange}>
             </InfoArea>
 
