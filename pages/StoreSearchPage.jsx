@@ -188,7 +188,6 @@ function StoreSearchPage() {
                   localStorage.setItem("selectedStoreName", store.name);
                   localStorage.setItem("selectedMinPrice", String(store.minPrice));
                   localStorage.setItem("selectedStoreId", store.id);
-                  console.log(store.id);
                   sessionStorage.setItem("fromSearch", "true");
                   navigate("/write");
                 }}
