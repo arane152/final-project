@@ -195,7 +195,7 @@ function StoreSearchPage() {
             modalText="음식점 추가"
             btnType="default"
             mainText="확인"
-            modalOnClick={() => setIsModalOpen(false)}
+            modalOnClick={handleAddStore}
             background="white"
           >
             <ModalContentWrapper>
