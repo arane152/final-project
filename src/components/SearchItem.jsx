@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import StateBadge from "./StateBadge";
 
-const SearchItem = ({ category, storeName, minPrice }) => {
+const SearchItem = ({ category, storeName, minPrice, onClick }) => {
   return (
-    <ItemWrapper>
+    <ItemWrapper onClick={onClick}>
       <IconBox />
       <StoreNameBox>
         <StateBadge>{category}</StateBadge>

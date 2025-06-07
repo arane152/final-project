@@ -18,7 +18,7 @@ const Message = styled.li`
   justify-content: center;
 `;
 
-const SearchUI = styled.ul`
+const SearchUI = styled.div`
   margin: 0;
   padding: 12px 20px;
   display: flex;
@@ -52,53 +52,57 @@ const CategoryBtnWrapper = styled.div`
 `;
 
 function StoreSearchPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [storeName, setStoreName] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false); //모달 여닫기
+  const [storeName, setStoreName] = useState(""); //가게 이름
+  const [minPrice, setMinPrice] = useState(""); //최소주문금액
+  const [selectedCategory, setSelectedCategory] = useState(""); //카테고리
 
-  const [storeList, setStoreList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
+  const [storeList, setStoreList] = useState([]); //가게 리스트
+  const [categoryList, setCategoryList] = useState([]); //카테고리 리스트
 
-  const [searchText, setSearchText] = useState("");
-  const [filteredList, setFilteredList] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [searchText, setSearchText] = useState(""); //검색어
+  const [filteredList, setFilteredList] = useState([]); //검색값
+  const [errorMsg, setErrorMsg] = useState(""); //에러 메세지
 
+  //가게, 카테고리 컬렉션 받아오기기
   useEffect(() => {
-    db.collection("store")
-      .get()
-      .then((storeSnap) => {
-        const stores = storeSnap.docs.map((doc) => doc.data());
-        setStoreList(stores);
-      });
+    db.collection("store").get().then((storeSnap) => {
+      const stores = storeSnap.docs.map((doc) => doc.data());
+      setStoreList(stores);
+    });
 
-    db.collection("category")
-      .get()
-      .then((categorySnap) => {
-        const categories = categorySnap.docs.map((doc) => doc.data());
-        setCategoryList(categories);
-      });
+    db.collection("category").get().then((categorySnap) => {
+      const categories = categorySnap.docs.map((doc) => doc.data());
+      setCategoryList(categories);
+    });
   }, []);
 
+  //검색하기
   const handleSearch = () => {
-    const trimmedKeyword = searchText.trim().toLowerCase();
-    if (trimmedKeyword === "") {
+    const trimmedKeyword = searchText.trim().toLowerCase(); //공백 제거, 소문자
+    if (trimmedKeyword === "") { //검색어가 없으면 검색어를 입력해달라고 요청 메세지 띄우기기
       setFilteredList([]);
       setErrorMsg("검색어를 입력해주세요.");
       return;
     }
 
+    //검색 결과 있는 경우
     const results = storeList.filter((store) => {
+      //가게 이름은 문자열로 바꾸고 소문자화
+      const storeName = String(store.name || "").toLowerCase();
+      //카테고리는 id를 기준으로 검색
       const category = categoryList.find((cat) => cat.id === store.categoryId);
-      const categoryName = category?.name?.toLowerCase() || "";
+      //카테고리 이름이 존재하면 문자열로 변환 
+      const categoryName = String(category?.name || "").toLowerCase();
+
+      //검색어에 가게 이름이나 카테고리를 포함한 것것 
       return (
-        store.name.toLowerCase().includes(trimmedKeyword) ||
+        storeName.includes(trimmedKeyword) ||
         categoryName.includes(trimmedKeyword)
       );
     });
-
     setFilteredList(results);
-    setErrorMsg(results.length === 0 ? "아래의 음식점 추가하기 기능을 이용해주세요." : "");
+    setErrorMsg(results.length === 0 ? "아래의 음식점 추가하기 기능을 이용해주세요." : ""); //검색어가 없으면 음식점 추가하기 기능 사용 유도
   };
 
   const isSearchEmpty = searchText.trim() === "";
@@ -136,6 +140,12 @@ function StoreSearchPage() {
                 category={categoryName}
                 storeName={store.name}
                 minPrice={store.minPrice}
+                onClick={() => {
+                  localStorage.setItem("selectedStoreName", store.name);
+                  localStorage.setItem("selectedMinPrice", String(store.minPrice));
+                  sessionStorage.setItem("fromSearch", "true");
+                  window.location.href = "/write";
+                }}
               />
             );
           })
