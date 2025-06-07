@@ -21,11 +21,27 @@ function Percent(props){
   const totalSum = Object.values(post.menuList).reduce((acc, item) => {
     const price = parseInt(item.menuPrice);
     const qty = parseInt(item.menuQaunitiy);
+    if(isNaN(price) || isNaN(qty)){
+      const totalSumParty = Object.values(item.menus).reduce((acc2, item2) => {
+        const price2 = parseInt(item2.menuPrice);
+        const qty2 = parseInt(item2.menuQuantity);
+        return acc2 + price2 * qty2;
+      }, 0);
+      return acc + totalSumParty;
+    }
     return acc + price * qty;
   }, 0);
+  let totalSumRecruiter
+  if (post.recruiterMenus) {
+    totalSumRecruiter = Object.values(post.recruiterMenus).reduce((acc3, item3) => {
+        const price3 = parseInt(item3.menuPrice);
+        const qty3 = parseInt(item3.menuQuantity);
+        return acc3 + price3 * qty3;
+    }, 0);
+}
 
   //최소주문금액 대비 모인 금액 퍼센트 계산
-  const percentPrice = Math.floor(totalSum/minPrice*100)
+  const percentPrice = (post.recruiterMenus ? Math.floor((totalSum + totalSumRecruiter)/minPrice*100) : Math.floor((totalSum)/minPrice*100))
 
   //출력
   return (

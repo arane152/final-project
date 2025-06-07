@@ -4,6 +4,7 @@ import LikeBtn from "../components/LikeBtn";
 import Profile from "../components/Profile";
 import StateBadge from "../components/StateBadge";
 import Percent from "../components/percent";
+import PostImage from "../components/PostImage"
 
 const ItemHead = styled.div`
 padding: 0 20px;
@@ -60,12 +61,29 @@ gap: 10px;
 margin: 0;
 padding: 0 20px;
 
-  & > img{
+  & > div{
   background-color: #f8f8f8;
   min-width: 353px;
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
+  }
+
+  & > div > img{
+  background-color: #f8f8f8;
+  min-width: 353px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  }
+
+  & > div > div {
+  background-color: #f8f8f8;
+  max-width: 353px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  overflow: hidden;
   }
 
   &::after {
@@ -82,6 +100,7 @@ position: relative;
 text-align: right;
 right: 30px;
 bottom: 44px;
+z-index: 2;
 `
 
 //Mainpage 컨테이너 모듈
@@ -99,14 +118,14 @@ function PostItem(props){
       <p onClick={onClick}>{post.content}</p>
 
       <ImgUlBox onClick={onClick}> 
-        <ImgUl><img src={post.image || "./PostImgBasic.svg"}></img></ImgUl>
+        <ImgUl>{<PostImage postRecruitment={post.endPost && "closed"} postImage={post.image || "./PostImgBasic.svg"}></PostImage>}</ImgUl>
       </ImgUlBox>
       
-      <StyledBadge>
+      {!post.endPost && <StyledBadge>
         <StateBadge type="TotalAcount">
           <Percent post={post} ></Percent>
         </StateBadge>
-      </StyledBadge>
+      </StyledBadge>}
 
       <ItemBotton>
         <Profile 
