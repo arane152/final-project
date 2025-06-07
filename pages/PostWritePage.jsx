@@ -77,13 +77,13 @@ function PostWritePage(props) {
     const location = localStorage.getItem('location');
 
     //메뉴목록 저장용 빈배열생성
-    const [ menuList, setMenuList ] = useState([])
-    
+    const [menuList, setMenuList] = useState([])
+
     //데이터 저장
     const writePost = () => {
         let timestamp = new Date().getTime().toString()
 
-        if (!title || !content  || !menuList) {
+        if (!title || !content || !menuList) {
             alert('필수 정보를 모두 입력해주세요.');
             return;
         }
@@ -98,7 +98,13 @@ function PostWritePage(props) {
             // 작성자 정보를 write {array}로 저장
             writer: [userId, userName, location, accountNumber],
             // 메뉴리스트를 배열로 저장
-            recruiterMenus: menuList,
+            // 메뉴리스트를 배열로 저장, 각 값은 string으로 변환
+            recruiterMenus: menuList.map(menu => ({
+                menuId: String(menu.menuId),
+                menuPrice: String(menu.menuPrice),
+                menuQuantity: String(menu.menuQuantity),
+                name: menu.name
+            })),
             storeId: parseInt(storeId),
 
         }).then(() => {
@@ -134,7 +140,7 @@ function PostWritePage(props) {
             onClick={writePost}>
             {/*로컬 스토리지에 저장할 값이 있으면 해당 기능 검수자 '김예준'에게 문의해주세요.*/}
             <InfoArea
-                accountNumber={accountNumber} location={location}     
+                accountNumber={accountNumber} location={location}
                 title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); /* 로컬 스토리지에 제목 저장 */ }}
                 content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); /* 로컬 스토리지에 내용 저장 */ }}
                 image={image} onImageChange={(e) => handleImage(e)}
@@ -146,11 +152,11 @@ function PostWritePage(props) {
                 storeName={storeName}
                 minPrice={minPrice}
                 /*메뉴 리스트 조작을 위한 State 전달*/
-                menuList = {menuList}
-                setMenuList = {setMenuList}
+                menuList={menuList}
+                setMenuList={setMenuList}
 
                 /* 메뉴 신청자 정보저장을 위한 Id전달*/
-                userId = {userId}
+                userId={userId}
             >
             </OderMenuArea>
         </Device>
