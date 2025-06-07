@@ -108,6 +108,30 @@ function StoreSearchPage() {
     setErrorMsg(results.length === 0 ? "아래의 음식점 추가하기 기능을 이용해주세요." : ""); //검색어가 없으면 음식점 추가하기 기능 사용 유도
   };
 
+  //음식점 추가하기, 하나라도 선택 안하면 경고창 
+  const handleAddStore = () => {
+    if (!storeName || !minPrice || !selectedCategory) {
+      alert("모든 값을 입력해주세요.");
+      return;
+    }
+
+    const newId = Date.now(); // 음식점 아이디 난수로 생성성
+    const newStore = {
+      id: newId,
+      name: storeName,
+      minPrice: minPrice,
+      categoryId: selectedCategory
+    };
+
+    //새로 만든 음식점 정보를 로컬스토리지로, PostWritePage와 연동동
+    db.collection("store").doc(String(newId)).set(newStore).then(() => {
+      localStorage.setItem("selectedStoreName", newStore.name);
+      localStorage.setItem("selectedMinPrice", newStore.minPrice);
+      sessionStorage.setItem("fromSearch", "true");
+      navigate("/write");
+    });
+  }
+
   const isSearchEmpty = searchText.trim() === "";
 
   return (
@@ -119,13 +143,15 @@ function StoreSearchPage() {
       btnMainText="음식점 추가하기"
       backPage={() => {
         sessionStorage.setItem("fromSearch", "true");
-        window.location.href = "/write";
+        navigate("/write");
       }}
       modalOnClick={() => setIsModalOpen(true)}
       searchValue={searchText}
       onSearchChange={(e) => setSearchText(e.target.value)}
       onSearchSubmit={handleSearch}
     >
+
+      {/*검색어가 비어 있으면 에러메세지, 검색어가 있으면 필터링 */}
       <SearchUI>
         {isSearchEmpty ? (
           <Message>검색어를 입력해주세요.</Message>
@@ -155,6 +181,7 @@ function StoreSearchPage() {
         )}
       </SearchUI>
 
+      {/*모달이 열려있는 상태에서, 각각 정보 입력*/}
       {isModalOpen && (
         <>
           <BottomModal
