@@ -68,15 +68,6 @@ function PostViewPage(props) {
 
             // 메뉴 정보 추출
             const menu = mergedMenus.find(m => m.menuId === menuId);
-            if (menu) {
-                // 메뉴 정보 출력
-                console.log("메뉴 정보:");
-                console.log("이름:", menu.name);
-                console.log("ID:", menu.menuId);
-                console.log("가격:", menu.menuPrice);
-                console.log("수량:", newQuantity);
-            }
-
             return {
                 ...prev,
                 [menuId]: newQuantity
@@ -261,7 +252,6 @@ function PostViewPage(props) {
         db.collection('post').doc(postId).update({
             endPost: true
         }).then(() => {
-            console.log('Post marked as ended.');
             alert('모집이 종료되었습니다.');
             setRecruitment("closed");
             setPostRecruitmentWriter("disable");
@@ -305,7 +295,6 @@ function PostViewPage(props) {
         db.collection('post').doc(postId).update({
             [`menuList.${userId}`]: participantData // menuList에 참여자 메뉴를 추가합니다.
         }).then(() => {
-            console.log('Participant menu added successfully.');
             alert('참여 신청이 완료되었습니다.');
             setModalOpen(false); // 모달을 닫습니다.
             db.collection('post').doc(postId).get().then((doc) => {
