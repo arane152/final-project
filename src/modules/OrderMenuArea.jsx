@@ -6,6 +6,9 @@ import MenuAdd from "../components/MenuAdd";
 import MenuSetting from "../components/MenuSetting";
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import ToggleBtn from "../components/ToggleBtn";
 // #202020
 const StyledWrapper = styled.div`
     width: 393px;
@@ -15,6 +18,7 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    padding-bottom: 20px;
 `
 
 const Subtitle = styled.h2`
@@ -48,14 +52,28 @@ const ComonentWrapper = styled.div`
     flex-direction: column; 
     gap: 12px;
 `
-//
+
+const Container = styled.div`
+    width: 313px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; 
+    gap: 12px;
+`
 
 
 function OderMenuArea(props) {
+    const navigate = useNavigate();
+
     const {
         //메뉴목록 전달을 위한 props
         menuList, 
         setMenuList,
+        //음식점 설정 페이지에서 선택한 후 정보 전달을 위한 props
+        storeName, 
+        minPrice,
 
         //메뉴목록 - 아이템 - 신청자Id 저장을 위한 props
         userId
@@ -151,6 +169,9 @@ function OderMenuArea(props) {
             )
         }
     ) 
+
+    const isStoreSelected = !!storeName;
+
     return(
     <StyledWrapper>
         <MaintitleWrapper>
@@ -158,18 +179,33 @@ function OderMenuArea(props) {
         </MaintitleWrapper>
 
         <ComonentWrapper>
-            {/* 음식점설정카드 */}
-            <MenuSetting></MenuSetting>
-            {/* menuList 존재할때만 출력 */}
-            {menuList && MenuListArea}
-            {/* 메뉴추가란 */}
-            <MenuAdd
-                addMenuGo = {addMenuGo}
-                name={name} onNameChange={(e) => { setName(e.target.value);}} 
-                menuPrice={menuPrice} onPriceChange={(e) => { setPrice(e.target.value);}} >
-            </MenuAdd>
-            {/* 메뉴총액란 */}
-            <TotalAmount title="메뉴총액" totalAmount={totalAmount}></TotalAmount>
+            {/*음식점 선택 버튼 + 버튼 선택 이후 나오는 컴포넌트 구성*/}
+            {!isStoreSelected && (
+                <Container>
+                    <Subtitle>음식점 설정</Subtitle>
+                    <ToggleBtn text="음식점 선택" width="313" onClick={()=>navigate(`/store`)}></ToggleBtn>
+                </Container>
+            )}
+
+            {isStoreSelected && (
+                <>  
+                    {/* 음식점설정카드 */}
+                    <MenuSetting storeName={storeName} minPrice={minPrice}></MenuSetting>
+
+                    {/* menuList 존재할때만 출력 */}
+                    {menuList && menuList.length > 0 && MenuListArea}
+
+                    {/* 메뉴추가란 */}
+                    <MenuAdd
+                        addMenuGo = {addMenuGo}
+                        name={name} onNameChange={(e) => { setName(e.target.value);}}
+                        menuPrice={menuPrice} onPriceChange={(e) => { setPrice(e.target.value);}} >
+                    </MenuAdd>
+
+                    {/* 메뉴총액란 */}
+                    <TotalAmount title="메뉴총액" totalAmount={totalAmount}></TotalAmount>
+                </>
+            )}
         </ComonentWrapper>
     </StyledWrapper>
     )
