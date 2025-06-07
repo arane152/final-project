@@ -67,33 +67,27 @@ function PostViewPage(props) {
     };
 
     // 메뉴 가격을 계산하기 위한 변수
-    if (post.menuList) {
-        participants = Object.values(post.menuList);
-        totalSum = participants.reduce((acc, participant) => {
-            if (participant.menus) {
-                const menus = Object.values(participant.menus);  // ← 중요
-                return acc + menus.reduce((menuSum, menu) => {
-                    const price = parseInt(menu.menuPrice || 0);
-                    const qty = parseInt(menu.menuQuantity || 0);
-                    return menuSum + price * qty;
-                }, 0);
-            }
-            return acc;
+    if (post.recruiterMenus) {
+        const menus = Object.values(post.recruiterMenus);
+        totalSum = menus.reduce((acc, menu) => {
+            const price = parseInt(menu.menuPrice || 0);
+            const qty = parseInt(menu.menuQuantity || 0);
+            return acc + price * qty;
         }, 0);
     }
 
     // participants의 갯수만큼 </MenuDefault>를 렌더링합니다.
-    const menuList = participants.flatMap((participant, index) => (
-        participant.menus ? Object.values(participant.menus).map((menu, idx) => (
+    const menuList = post.recruiterMenus
+        ? Object.values(post.recruiterMenus).map((menu, idx) => (
             <MenuDefault
                 type="info"
-                key={`${index}-${idx}`}
+                key={`recruiter-${idx}`}
                 name={menu.name}
                 price={Number(menu.menuPrice || 0)}
                 count={Number(menu.menuQuantity || 0)}
             />
-        )) : []
-    ));
+        ))
+        : [];
 
     // participants의 갯수만큼 </MenuDefault>의 type을 "default"로 설정하여 렌더링합니다.
     const menuListDefault = participants.flatMap((participant, index) => (
@@ -195,6 +189,7 @@ function PostViewPage(props) {
                         accountNumber={post.writer?.[3]}
                         deposite={post.deposite}
                         storeId={post.storeId}
+                        totalSum={totalSum || 0}
                     />
                 )}
                 <PostMenuContainer userType={props.userType} totalAmount={totalSum}>{menuListDefault}</PostMenuContainer>
