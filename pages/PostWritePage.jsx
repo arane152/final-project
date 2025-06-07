@@ -83,7 +83,7 @@ function PostWritePage(props) {
     const writePost = () => {
         let timestamp = new Date().getTime().toString()
 
-        if (!title || !content || !receiptLocation || !menuList) {
+        if (!title || !content  || !menuList) {
             alert('필수 정보를 모두 입력해주세요.');
             return;
         }
@@ -92,13 +92,13 @@ function PostWritePage(props) {
             postId: timestamp,
             title: title,
             content: content,
-            receiptLocation: receiptLocation,
+            receiptLocation: location,
             image: image,
             deposite: deposite,
             // 작성자 정보를 write {array}로 저장
             writer: [userId, userName, location, accountNumber],
             // 메뉴리스트를 배열로 저장
-            menuList: menuList,
+            recruiterMenus: menuList,
             storeId: parseInt(storeId),
 
         }).then(() => {
