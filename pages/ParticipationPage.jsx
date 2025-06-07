@@ -1,34 +1,41 @@
 import Device from "../src/layouts/Device";
 import PostPartyContainer from "../src/modules/PostPartyContainer";
 import PostRequestContainer from "../src/modules/PostRequestContainer";
-
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { db } from "../src/firebase";
 
 function ParticipationPage() {
-  const { id } = useParams(); // URL에서 postId를 가져옵니다.
+  const [post, setPost] = useState(null);
+  const [users, setUsers] = useState([]);
+  const { id: postId } = useParams();
 
-  const dummyApplicants = [
-    {
-      name: "홍길동",
-      date: "2025-05-26",
-      menus: [
-        { name: "라면", price: 5000, count: 1 },
-        { name: "김밥", price: 3000, count: 2 }
-      ]
-    },
-    {
-      name: "홍길둉",
-      date: "2025-05-26",
-      menus: [
-        { name: "떡볶이", price: 4000, count: 1 }
-      ]
-    }
-  ];
+  useEffect(() => {
+    db.collection("post").doc(postId).get().then((doc) => {
+      const postData = doc.data();
+      setPost(postData);
+    });
+  }, [postId]);
+
+  useEffect(() => {
+    db.collection("user").get().then((snapshot) => {
+      const userList = snapshot.docs.map((doc) => doc.data());
+      setUsers(userList);
+    });
+  }, []);
+
+  if (!post || users.length === 0) return null;
 
   return (
-    <Device content="참여현황" headerType="" gnbType="none" btnType="" backPage={`/post/${id}`}>
-      <PostPartyContainer />
-      <PostRequestContainer applicants={dummyApplicants} />
+    <Device
+      content="참여현황"
+      headerType=""
+      gnbType="none"
+      btnType=""
+      backPage={`/post/${postId}`}
+    >
+      <PostPartyContainer post={post} postId={postId} setPost={setPost} />
+      <PostRequestContainer post={post} users={users} postId={postId} setPost={setPost} />
     </Device>
   );
 }

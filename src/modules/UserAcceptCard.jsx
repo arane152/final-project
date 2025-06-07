@@ -1,9 +1,18 @@
-import styled from "styled-components";
-import Profile from "../components/Profile.jsx";
-import MenuOutputitem from "../components/MenuOutputitem.jsx";
-import SubBtn from "../components/SubBtn.jsx";
+import Profile from "../components/Profile";
+import MenuOutputitem from "../components/MenuOutputitem";
+import SubBtn from "../components/SubBtn";
+import styled from 'styled-components'
 
 const UserAcceptCard = ({ name, date, menus, onAccept }) => {
+  // Firebase Timestamp 또는 일반 문자열을 Date 객체로 변환
+  const dateObj = date?.toDate?.() ?? new Date(date);
+
+  // 날짜 출력 포맷
+  const displayDate = dateObj instanceof Date && !isNaN(dateObj)
+    ? `${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일 ${dateObj.getHours()}:${dateObj.getMinutes().toString().padStart(2, '0')}`
+    : "날짜 없음";
+
+  // 전체 메뉴 가격 계산 (count가 없으면 1개로 간주)
   const totalPrice = menus.reduce(
     (sum, menu) => sum + menu.price * (menu.count || 1),
     0
@@ -11,29 +20,29 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
 
   return (
     <CardContainer>
-      <Profile name={name} date={date} />
-
+      <Profile name={name} date={displayDate} />
       <MenuList>
         {menus.map((menu, idx) => (
           <MenuOutputitem
-            type="default"
             key={idx}
             name={menu.name}
             count={menu.count}
             price={menu.price}
+            type="default"
           />
         ))}
       </MenuList>
-
       <BottomRow>
         <TotalPrice>총 {totalPrice.toLocaleString()}원</TotalPrice>
-        <SubBtn type="stroke" text="신청수락"></SubBtn>
+        <SubBtn type="stroke" text="신청수락" onClick={onAccept} />
       </BottomRow>
     </CardContainer>
   );
 };
 
+
 export default UserAcceptCard;
+
 
 const CardContainer = styled.div`
   width: 329px;
@@ -74,15 +83,4 @@ const BottomRow = styled.div`
 const TotalPrice = styled.div`
   font-size: 14px;
   color: #666;
-`;
-
-const AcceptButton = styled.button`
-  padding: 6px 12px;
-  background: #ff6232;
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
 `;

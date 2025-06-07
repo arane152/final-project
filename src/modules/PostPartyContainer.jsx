@@ -1,20 +1,35 @@
-import styled from "styled-components";
+import styled from 'styled-components'
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
 import Profile from "../components/Profile";
+import SubBtn from "../components/SubBtn";
 import MenuOutputItem from "../components/MenuOutputitem";
 import StatusBar from "../components/StatusBar";
 import StoreName from "./StoreName";
-import SubBtn from "../components/SubBtn";
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
 
-const PostPartyContainer = ({ post }) => {
+const PostPartyContainer = ({ post, setPost, postId }) => {
   const [users, setUsers] = useState([]);
   const [storeName, setStoreName] = useState("");
   const [categoryName, setCategoryName] = useState("");
 
-  if (!post) return null;
+  // 모집자 메뉴 총합 계산
+  const recruiterTotal = post.recruiterMenus.reduce((sum, menu) => {
+    return sum + menu.menuPrice * menu.menuQuantity;
+  }, 0);
 
-  //  유저 전체 불러오기
+  // 수락된 참여자 메뉴 총합 계산
+  const participantTotal = Object.values(post.menuList)
+    .filter((p) => p.accept)
+    .reduce((sum, participant) => {
+      return sum + participant.menus.reduce((menuSum, menu) => {
+        return menuSum + menu.menuPrice * menu.menuQuantity;
+      }, 0);
+    }, 0);
+
+  // 모집자 총합 + 수락된 참여자 총합 계산
+  const totalSum = recruiterTotal + participantTotal;
+
+  // 사용자 목록 불러오기
   useEffect(() => {
     db.collection("user")
       .get()
@@ -24,23 +39,18 @@ const PostPartyContainer = ({ post }) => {
       });
   }, []);
 
-  // store, category 이름 불러오기
+  // store 및 category 정보 불러오기
   useEffect(() => {
-    db.collection("store")
-      .doc(String(post.storeId))
-      .get()
-      .then((doc) => {
-        const store = doc.data();
-        setStoreName(store.name);
-        return store.categoryId;
-      })
-      .then((categoryId) => {
-        return db.collection("category").doc(String(categoryId)).get();
-      })
-      .then((doc) => {
-        const category = doc.data();
-        setCategoryName(category.name);
-      });
+    db.collection("store").doc(String(post.storeId)).get().then((doc) => {
+      const store = doc.data();
+      setStoreName(store.name);
+      return store.categoryId;
+    }).then((categoryId) => {
+      return db.collection("category").doc(String(categoryId)).get();
+    }).then((doc) => {
+      const category = doc.data();
+      setCategoryName(category.name);
+    });
   }, [post.storeId]);
 
   const recruiter = users.find((user) => user.userId === post.userId);
@@ -49,63 +59,89 @@ const PostPartyContainer = ({ post }) => {
     <Wrapper>
       <Container>
         <HeaderRow>
-          {/* 가게 이름 + 카테고리명 */}
           <StoreName category={categoryName} storeName={storeName}>
             참여자현황
           </StoreName>
         </HeaderRow>
+
         <Divider />
 
-        {/* 모집자 메뉴 블럭 */}
+        {/* 모집자 정보 */}
         <RecruiterBlock>
           <TopRow>
             <Profile name={recruiter?.name} badge="모집자" />
-            <DeleteButton onClick={() => {}}>메뉴삭제</DeleteButton>
+            <DeleteButton>메뉴삭제</DeleteButton>
           </TopRow>
-          {(post.recruiterMenus || []).map((menu, i) => (
+          {post.recruiterMenus.map((menu, i) => (
             <MenuOutputItem
               key={i}
               type="default"
               name={menu.name}
-              count={parseInt(menu.menuQuantity)}
-              price={parseInt(menu.menuPrice)}
+              count={menu.menuQuantity}
+              price={menu.menuPrice}
             />
           ))}
         </RecruiterBlock>
-        <Divider />
-
-        {/* 참여자들 반복 렌더링 */}
-        {Object.entries(post.menuList || {}).map(([key, participant]) => {
-          const user = users.find((u) => String(u.userId) === String(participant.userId));
-          return (
-            <ParticipantCard key={key}>
-              <TopRow>
-                <Profile name={user?.name || "참여자"} />
-                <SubBtn type="grey" text="인원강퇴" />
-              </TopRow>
-              {participant.menus.map((menu, i) => (
-                <MenuOutputItem
-                  key={i}
-                  type="default"
-                  name={menu.name}
-                  count={parseInt(menu.menuQuantity)}
-                  price={parseInt(menu.menuPrice)}
-                />
-              ))}
-            </ParticipantCard>
-          );
-        })}
 
         <Divider />
 
-        {/* 총액 및 진행률 */}
+        {/* 수락된 참여자만 렌더링 */}
+        {Object.entries(post.menuList)
+          .filter(([, participant]) => participant.accept)
+          .map(([key, participant]) => {
+            const user = users.find((u) => u.userId === participant.userId);
+            return (
+              <ParticipantCard key={key}>
+                <TopRow>
+                  <Profile name={user?.name} />
+                  <SubBtn
+                    type="grey"
+                    text="인원강퇴"
+                    onClick={() => {
+                      const newAccept = false;
+
+                      // Firestore 업데이트
+                      db.collection("post")
+                        .doc(postId)
+                        .update({ [`menuList.${key}.accept`]: newAccept });
+
+                      // 로컬 상태 업데이트
+                      setPost((prevPost) => ({
+                        ...prevPost,
+                        menuList: {
+                          ...prevPost.menuList,
+                          [key]: {
+                            ...prevPost.menuList[key],
+                            accept: newAccept
+                          }
+                        }
+                      }));
+                    }}
+                  />
+                </TopRow>
+                {participant.menus.map((menu, i) => (
+                  <MenuOutputItem
+                    key={i}
+                    type="default"
+                    name={menu.name}
+                    count={menu.menuQuantity}
+                    price={menu.menuPrice}
+                  />
+                ))}
+              </ParticipantCard>
+            );
+          })}
+
+        <Divider />
+
+        {/* 총액 */} 
         <TotalBox>
           <TotalRow>
             <TotalLabel>총액</TotalLabel>
-            <TotalAmount>자동계산</TotalAmount>
+            <TotalAmount>{totalSum}원</TotalAmount>
           </TotalRow>
           <ProgressRow>
-            <StatusBar type="simple" post={post} />
+            <StatusBar type="simple" post={post} totalSum={totalSum} />
           </ProgressRow>
         </TotalBox>
       </Container>
@@ -114,6 +150,8 @@ const PostPartyContainer = ({ post }) => {
 };
 
 export default PostPartyContainer;
+
+
 
 
 

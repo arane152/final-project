@@ -165,40 +165,17 @@ const ProgressBarflex = styled.div`
 `
 function StatusBar(props) {
     //데이터
-    const { post } = props
+    const { post, totalSum } = props;
     const { storeData } = useStore();
 
-    let percentPrice = 0;
-    let totalSum = 0;
-    let minPrice = 0;
+    //스토어 컬렉션 불러오기
+    const matchedStore = storeData.find(store => store.id == post.storeId);
 
+    // 최소주문금액
+    const minPrice = matchedStore.minPrice;
 
-    const totalPercent = minPrice === 0 ? 0 : Math.min(Math.round((totalSum / minPrice) * 100), 100);
-    const matchedStore = post && post.storeId ? storeData.find((store) => store.id == post.storeId) : null;
-
-    //달성률계산
-    if (post && post.menuList && matchedStore?.minPrice) {
-        // post에서 storeid -> 해당 id의 store에서 mimPrice 추출출
-        minPrice = parseInt(matchedStore?.minPrice);
-        //필요한 데이터 없을시 기본값 출력
-        if (!post?.menuList || !matchedStore?.minPrice) {
-            percentPrice = 0;
-        }
-
-        //menuList의 각 메뉴별 가격*수량 합산
-        totalSum = Object.values(post.menuList).reduce((acc, item) => {
-            const price = parseInt(item.menuPrice);
-            const qty = parseInt(item.menuQaunitiy);
-            return acc + price * qty;
-        }, 0);
-        // (합산결과/최소금액*100)으로 달성률퍼센트 계산
-        percentPrice = Math.floor((totalSum / minPrice) * 100)
-    } else {
-        //post값 없으면 달성률 0 출력
-        percentPrice = (0);
-    }
-
-
+    //퍼센트 계산
+    const percentPrice = Math.floor((totalSum / minPrice) * 100);
 
     if (props.type == "alarm") {
         return (
@@ -231,7 +208,7 @@ function StatusBar(props) {
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackgroundSimple>
                 </StatusBarWrapper>
-                <StatusText>{totalPercent}%</StatusText>
+                <StatusText>{percentPrice}%</StatusText>
             </WrapperSimple>
         )
     }
