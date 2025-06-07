@@ -29,7 +29,6 @@ function PostViewPage(props) {
     const [postRecuitment, setPostRecuitment] = useState(""); // 모집 상태 (일반 참여자용)
     const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 userId를 가져옵니다.
     let participants = []; // 참여자 목록을 저장할 배열
-    let totalSum = 0;   // 총 금액을 저장할 변수
 
     // firebase postId에 해당하는 데이터 가져오기
     useEffect(() => {
@@ -66,19 +65,65 @@ function PostViewPage(props) {
         }
     };
 
-    // 메뉴 가격을 계산하기 위한 변수
-    if (post.recruiterMenus) {
-        const menus = Object.values(post.recruiterMenus);
-        totalSum = menus.reduce((acc, menu) => {
-            const price = parseInt(menu.menuPrice || 0);
-            const qty = parseInt(menu.menuQuantity || 0);
-            return acc + price * qty;
-        }, 0);
-    }
+    // post.recruiterMenus가 배열인지 확인하고, 각 메뉴의 가격과 수량을 곱하여 총합을 계산합니다.
+    const recruiterTotal = Array.isArray(post.recruiterMenus)
+        ? post.recruiterMenus.reduce((sum, menu) => {
+            return sum + menu.menuPrice * menu.menuQuantity;
+        }, 0)
+        : 0;
 
-    // participants의 갯수만큼 </MenuDefault>를 렌더링합니다.
-    const menuList = post.recruiterMenus
-        ? Object.values(post.recruiterMenus).map((menu, idx) => (
+    // post.menuList가 존재하는 경우, 참여자들의 메뉴 총합을 계산합니다.
+    // 참여자 목록에서 수락된 참여자만 필터링하고, 각 참여자의 메뉴 가격과 수량을 곱하여 총합을 계산합니다.
+    const participantTotal = post.menuList
+        ? Object.values(post.menuList)
+            .filter((p) => p.accept && Array.isArray(p.menus))
+            .reduce((sum, participant) => {
+                return sum + participant.menus.reduce((menuSum, menu) => {
+                    return menuSum + menu.menuPrice * menu.menuQuantity;
+                }, 0);
+            }, 0)
+        : 0;
+
+
+    // 모집자 총합 + 수락된 참여자 총합 계산
+    const totalSum = recruiterTotal + participantTotal;
+
+    // post.menuList가 존재하는 경우, 참여자들의 메뉴 목록을 가져옵니다.
+    // 참여자 목록에서 수락된 참여자만 필터링하고, 각 참여자의 메뉴를 <MenuDefault> 컴포넌트로 렌더링합니다.
+    // post.recruiterMenus가 존재하는 경우, 모집자의 메뉴 목록도 같이 
+    const menuList = post.menuList
+        ? Object.values(post.menuList)
+            .filter((participant) => participant.accept && Array.isArray(participant.menus))
+            .flatMap((participant) => participant.menus)
+            .reduce((acc, menu) => {
+                const id = menu.menuId;
+                const existing = acc.find((m) => m.menuId === id);
+                if (existing) {
+                    existing.menuQuantity += Number(menu.menuQuantity || 0);
+                } else {
+                    acc.push({
+                        menuId: menu.menuId,
+                        name: menu.name,
+                        menuPrice: Number(menu.menuPrice || 0),
+                        menuQuantity: Number(menu.menuQuantity || 0),
+                    });
+                }
+                return acc;
+            }, [])
+            .map((menu, idx) => (
+                <MenuDefault
+                    type="info"
+                    key={`merged-${idx}`}
+                    name={menu.name}
+                    price={menu.menuPrice}
+                    count={menu.menuQuantity}
+                />
+            ))
+        : [];
+
+    // 모집자의 메뉴도 함께 렌더링합니다.
+    if (Array.isArray(post.recruiterMenus)) {
+        const recruiterMenus = post.recruiterMenus.map((menu, idx) => (
             <MenuDefault
                 type="info"
                 key={`recruiter-${idx}`}
@@ -86,8 +131,10 @@ function PostViewPage(props) {
                 price={Number(menu.menuPrice || 0)}
                 count={Number(menu.menuQuantity || 0)}
             />
-        ))
-        : [];
+        ));
+        menuList.unshift(...recruiterMenus);
+    }
+
 
     // participants의 갯수만큼 </MenuDefault>의 type을 "default"로 설정하여 렌더링합니다.
     const menuListDefault = participants.flatMap((participant, index) => (
