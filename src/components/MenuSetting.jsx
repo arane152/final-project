@@ -5,8 +5,6 @@ import InfoBox from "../components/InfoBox";
 import TextInput from "../components/TextInput";
 import ToggleBtn from "../components/ToggleBtn";
 
-import { useNavigate } from "react-router-dom";
-
 // #202020
 const Subtitle = styled.h2`
     color: #202020;
@@ -27,19 +25,21 @@ const Container = styled.div`
 `
 
 function MenuSetting(props) {
-    const navigate = useNavigate();
-
+    const {storeName, minPrice} = props
     const [toggle, setToggle] = useState('허용')
 
     const handleToggleClick = (selectedToggle) => {
-        setToggle(selectedToggle);
-    };
+        setToggle(selectedToggle)
+    }
 
     return(
         <Container>
             <Subtitle>음식점 설정</Subtitle>
-            <InfoBox title="음식점명"><TextInput placeholder="음식점명을 입력해주세요." onClick={()=>navigate(`/store`)}></TextInput></InfoBox>
-            <InfoBox title="최소금액"><TextInput placeholder="최소금액을 입력해주세요."></TextInput></InfoBox>
+             <InfoBox title="음식점명">
+                <TextInput value={storeName} readOnly/></InfoBox>
+            <InfoBox title="최소금액">
+                <TextInput value={minPrice} readOnly/>
+            </InfoBox>
             <InfoBox title={<>신청자<br />메뉴추가</>}>
                 <ToggleBtn width='122' text="허용"
                 onClick={() => handleToggleClick('허용')} isSelected={toggle === '허용'}></ToggleBtn>

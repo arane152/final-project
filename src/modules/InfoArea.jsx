@@ -84,12 +84,12 @@ function InfoArea(props) {
         title, onTitleChange,
         content, onContentChange,
         receiptLocation, onReceiptLocationChange,
-        addMenuPossible, onAddMenuPossibleChange,
+        deposite,
         image, onImageChange,
         } = props
 
     const handleToggleClick = (selectedToggle) => {
-        onAddMenuPossibleChange(selectedToggle)
+        onepositeChange(selectedToggle)
     }
 
     return(
@@ -113,9 +113,9 @@ function InfoArea(props) {
 
             <InfoBox title={<>선입금<br />필수여부</>}>
                 <ToggleBtn width='142' text="자유"
-                onClick={() => handleToggleClick('자유')} isSelected={addMenuPossible === '자유'} ></ToggleBtn>
+                onClick={() => handleToggleClick('자유')} isSelected={deposite === '자유'} ></ToggleBtn>
                 <ToggleBtn width='142'text="필수"
-                onClick={() => handleToggleClick('필수')} isSelected={addMenuPossible === '필수'}></ToggleBtn>
+                onClick={() => handleToggleClick('필수')} isSelected={deposite === '필수'}></ToggleBtn>
             </InfoBox>
         </Container>
     </StyledWrapper>

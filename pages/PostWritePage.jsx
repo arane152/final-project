@@ -13,8 +13,6 @@ function PostWritePage(props) {
     const navigate = useNavigate();
     // 현재 postWritePage에서 storeSearchPage로 넘어갔을때, write page에 적어두었던 모든 정보들이 사라지는 문제가 있습니다. 추후 해결할 예정입니다.
 
-    const [quantity, setQuantity] = useState(1);
-
     // 만약 세션 스토리지에서 "fromSearch"가 "true"가 아니라면, 로컬 스토리지의 값을 초기화합니다.
     useEffect(() => {
         if (sessionStorage.getItem("fromSearch") !== "true") {
@@ -22,29 +20,48 @@ function PostWritePage(props) {
             localStorage.removeItem("title");
             localStorage.removeItem("content");
             localStorage.removeItem("receiptLocation");
-            localStorage.removeItem("addMenuPossible");
+            localStorage.removeItem("deposite");
             localStorage.removeItem("image");
 
             // 상태값도 초기화
             setTitle('');
             setContent('');
             setReceiptLocation('');
-            setAddMenuPossible('자유');
+            setDeposite('자유');
             setImage(null);
         }
         sessionStorage.removeItem("fromSearch");
+    }, []);
+
+    //음식점 설정 할 때 로컬스토리지에서 불러오는 역할
+    useEffect(() => {
+        const selectedStoreName = localStorage.getItem("selectedStoreName");
+        const selectedMinPrice = localStorage.getItem("selectedMinPrice");
+
+        if (selectedStoreName) {
+            setStoreName(selectedStoreName);
+            localStorage.removeItem("selectedStoreName");
+        }
+        if (selectedMinPrice) {
+            setMinPrice(selectedMinPrice);
+            localStorage.removeItem("selectedMinPrice");
+        }
     }, []);
 
     const [title, setTitle] = useState(localStorage.getItem('title') || '');
     const [content, setContent] = useState(localStorage.getItem('content') || '');
     const [receiptLocation, setReceiptLocation] = useState(localStorage.getItem('receiptLocation') || '');
     const [image, setImage] = useState(localStorage.getItem('image') || null);
-    const [addMenuPossible, setAddMenuPossible] = useState(localStorage.getItem('addMenuPossible') || '자유')
+    const [deposite, setDeposite] = useState(localStorage.getItem('deposite') || '자유')
 
-    const handleAddMenuPossibleChange = (selectedToggle) => {
-        setAddMenuPossible(selectedToggle);
+    // 음식점 정보 state 추가
+    const [storeName, setStoreName] = useState('');
+    const [minPrice, setMinPrice] = useState('');
+
+    const handleDepositeChange = (selectedToggle) => {
+        setDeposite(selectedToggle);
         // 로컬 스토리지에 선택된 값을 저장합니다.
-        localStorage.setItem('addMenuPossible', selectedToggle);
+        localStorage.setItem('deposite', selectedToggle);
     };
 
     //메인 페이지에서 설정하였던 유저 정보 가져오기
@@ -71,11 +88,12 @@ function PostWritePage(props) {
             content: content,
             receiptLocation: receiptLocation,
             image: image,
-            addMenuPossible: addMenuPossible,
+            deposite: deposite,
             // 작성자 정보를 write {array}로 저장
             writer: [userId, userName, location, accountNumber],
             // 메뉴리스트를 배열로 저장
             menuList: menuList,
+            storeId: storeName
         }).then(() => {
             navigate('/')
             // 로컬 스토리지 초기화
@@ -83,7 +101,7 @@ function PostWritePage(props) {
             localStorage.removeItem('content');
             localStorage.removeItem('receiptLocation');
             localStorage.removeItem('image');
-            localStorage.removeItem('addMenuPossible');
+            localStorage.removeItem('deposite');
         })
     };
 
@@ -113,10 +131,12 @@ function PostWritePage(props) {
                 content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); /* 로컬 스토리지에 내용 저장 */ }}
                 image={image} onImageChange={(e) => handleImage(e)}
                 receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
-                addMenuPossible={addMenuPossible} onAddMenuPossibleChange={handleAddMenuPossibleChange}>
+                deposite={deposite} onDepositeChange={handleDepositeChange}>
             </InfoArea>
 
             <OderMenuArea
+                storeName={storeName}
+                minPrice={minPrice}
                 /*메뉴 리스트 조작을 위한 State 전달*/
                 menuList = {menuList}
                 setMenuList = {setMenuList}
