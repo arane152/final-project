@@ -12,6 +12,14 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
   const [storeName, setStoreName] = useState("");
   const [categoryName, setCategoryName] = useState("");
 
+  const formatPrice = (price) => {
+    const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
+    if (typeof parsed !== 'number' || isNaN(parsed)) {
+      return '0';
+    }
+    return parsed.toLocaleString('ko-KR');
+  };
+
   // 모집자 메뉴 총합 계산
   const recruiterTotal = post.recruiterMenus.reduce((sum, menu) => {
     return sum + menu.menuPrice * menu.menuQuantity;
@@ -82,7 +90,7 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
               type="default"
               name={menu.name}
               count={menu.menuQuantity}
-              price={menu.menuPrice}
+              price={formatPrice(menu.menuPrice)}
             />
           ))}
         </RecruiterBlock>
@@ -132,7 +140,7 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
                     type="default"
                     name={menu.name}
                     count={menu.menuQuantity}
-                    price={menu.menuPrice}
+                    price={formatPrice(menu.menuPrice)}
                   />
                 ))}
               </ParticipantCard>
@@ -147,7 +155,7 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
         <TotalBox>
           <TotalRow>
             <TotalLabel>총액</TotalLabel>
-            <TotalAmount>{totalSum}원</TotalAmount>
+            <TotalAmount>{formatPrice(totalSum)}원</TotalAmount>
           </TotalRow>
           <ProgressRow>
             <StatusBar type="simple" post={post} totalSum={totalSum} />

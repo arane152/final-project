@@ -3,7 +3,16 @@ import MenuOutputitem from "../components/MenuOutputitem";
 import SubBtn from "../components/SubBtn";
 import styled from 'styled-components'
 
+const formatPrice = (price) => {
+  const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
+  if (typeof parsed !== 'number' || isNaN(parsed)) {
+    return '0';
+  }
+  return parsed.toLocaleString('ko-KR');
+};
+
 const UserAcceptCard = ({ name, date, menus, onAccept }) => {
+  
   // Firebase Timestamp 또는 일반 문자열을 Date 객체로 변환
   const dateObj = date?.toDate?.() ?? new Date(date);
 
@@ -27,13 +36,13 @@ const timestamp = dateObj instanceof Date && !isNaN(dateObj)
             key={idx}
             name={menu.name}
             count={menu.count}
-            price={menu.price}
+            price={formatPrice(menu.price)}
             type="default"
           />
         ))}
       </MenuList>
       <BottomRow>
-        <TotalPrice>총 {totalPrice.toLocaleString()}원</TotalPrice>
+        <TotalPrice>총 {formatPrice(totalPrice)}원</TotalPrice>
         <SubBtn type="stroke" text="신청수락" onClick={onAccept} />
       </BottomRow>
     </CardContainer>

@@ -2,6 +2,14 @@ import styled from "styled-components";
 import StateBadge from "./StateBadge";
 
 const SearchItem = ({ category, storeName, minPrice, onClick }) => {
+  const formatPrice = (price) => {
+    const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
+    if (typeof parsed !== 'number' || isNaN(parsed)) {
+      return '0';
+    }
+    return parsed.toLocaleString('ko-KR');
+  };
+
   return (
     <ItemWrapper onClick={onClick}>
       <IconBox />
@@ -11,7 +19,7 @@ const SearchItem = ({ category, storeName, minPrice, onClick }) => {
       </StoreNameBox>
       <PriceBox>
         <span>최소</span>
-        <MinPrice>{minPrice.toLocaleString()}원</MinPrice>
+        <MinPrice>{formatPrice(minPrice)}원</MinPrice>
       </PriceBox>
     </ItemWrapper>
   );
