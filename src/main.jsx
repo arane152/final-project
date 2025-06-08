@@ -1,9 +1,7 @@
-// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
-// import App from './App.jsx'
-import styled from 'styled-components'
+
 
 import PostViewPage from '../pages/PostViewPage.jsx'
 import AlarmPage from '../pages/AlarmPage.jsx'
