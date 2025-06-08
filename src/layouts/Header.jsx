@@ -116,16 +116,16 @@ function Header(props){
 
   return (
   <><StyledHeader>
-    <img src="/StatusBar.svg" alt="스테이터스바목업이미지"></img>
+    <img src={`${import.meta.env.BASE_URL}StatusBar.svg`} alt="스테이터스바목업이미지"></img>
     <StyledContent>{/* type props가 main인지 판단, 맞다면 main출력 -> 아니라면 search 인지 판단, 맞다면 search 출력 -> 아니라면 기본값 출력  */}
-    {type == "main" ?<img src="/Logo.svg" alt="서비스로고"></img> : <img style={{ cursor: 'pointer' }} src="/BackArrowIcon.svg" alt="뒤로가기아이콘" onClick={() => {if (typeof navigatePage === "function") {navigatePage()} else if (typeof navigatePage === "string") {navigate(navigatePage)}}}></img>}
+    {type == "main" ?<img src={`${import.meta.env.BASE_URL}Logo.svg`} alt="서비스로고"></img> : <img style={{ cursor: 'pointer' }} src={`${import.meta.env.BASE_URL}BackArrowIcon.svg`} alt="뒤로가기아이콘" onClick={() => {if (typeof navigatePage === "function") {navigatePage()} else if (typeof navigatePage === "string") {navigate(navigatePage)}}}></img>}
     
     {type == "main" ? 
       //메인페이지헤더
       (<div>
         <MainTitle>{content || "함께먹기"}</MainTitle>
-        <MainLocation><img src="/LocationIcon.svg" alt="위치핀아이콘"></img>{location || "1기숙사"}</MainLocation>
-        <AlarmButton onClick={()=>navigate(`/alarm`)}><img src="/AlarmIcon.svg"></img></AlarmButton>
+        <MainLocation><img src={`${import.meta.env.BASE_URL}LocationIcon.svg`} alt="위치핀아이콘"></img>{location || "1기숙사"}</MainLocation>
+        <AlarmButton onClick={()=>navigate(`/alarm`)}><img src={`${import.meta.env.BASE_URL}AlarmIcon.svg`} alt="알람아이콘"></img></AlarmButton>
       </div>) 
       
       //서치페이지헤더
@@ -136,7 +136,7 @@ function Header(props){
               value={searchValue}
               onChange={onSearchChange}>
               </textarea>
-            <img src="/SearchIcon.svg"
+            <img src={`${import.meta.env.BASE_URL}SearchIcon.svg`}
             alt="검색아이콘"
             onClick={onSearchSubmit}
             style={{cursor:"pointer"}}></img>
