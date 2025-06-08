@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // firebase db
-import { db } from '/src/firebase.js'
+import { db } from '../src/firebase.js'
 import firebase from 'firebase/compat/app';
 
 import Modal from "../src/layouts/BottomModal";

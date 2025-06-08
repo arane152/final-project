@@ -4,7 +4,7 @@ import OderMenuArea from "../src/modules/OrderMenuArea";
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-import { db } from '/src/firebase.js'
+import { db } from '../src/firebase.js'
 
 
 function PostWritePage(props) {

@@ -4,7 +4,6 @@ import AlarmNowPostContainer from "../src/modules/AlarmNowPostContainer";
 import AlarmItem from "../src/modules/AlarmItem";
 import UlBox from "../src/modules/AlarmUlBox"
 import { useState, useEffect } from "react";
-import {db} from '/src/firebase.js'
 import { useUser } from '../context/UserContext'
 import { usePost } from '../context/PostContext'
 import { useNavigate } from "react-router-dom";
