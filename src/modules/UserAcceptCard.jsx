@@ -3,21 +3,20 @@ import MenuOutputitem from "../components/MenuOutputitem";
 import SubBtn from "../components/SubBtn";
 import styled from 'styled-components'
 
-const formatPrice = (price) => {
-  const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
-  if (typeof parsed !== 'number' || isNaN(parsed)) {
-    return '0';
-  }
-  return parsed.toLocaleString('ko-KR');
-};
-
 const UserAcceptCard = ({ name, date, menus, onAccept }) => {
+  const formatPrice = (price) => {
+    const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
+    if (typeof parsed !== 'number' || isNaN(parsed)) {
+      return '0';
+    }
+    return parsed.toLocaleString('ko-KR');
+  };
   
   // Firebase Timestamp 또는 일반 문자열을 Date 객체로 변환
   const dateObj = date?.toDate?.() ?? new Date(date);
 
-// 넘길 timestamp 값
-const timestamp = dateObj instanceof Date && !isNaN(dateObj)
+  // 넘길 timestamp 값
+  const timestamp = dateObj instanceof Date && !isNaN(dateObj)
   ? dateObj.getTime()  // 숫자로 변환
   : null;
 
