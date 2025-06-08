@@ -1,9 +1,6 @@
-// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
-// import App from './App.jsx'
-import styled from 'styled-components'
 
 import PostViewPage from '../pages/PostViewPage.jsx'
 import AlarmPage from '../pages/AlarmPage.jsx'
@@ -17,7 +14,7 @@ import AllProvider from '../context/AllProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
     <AllProvider>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route index element={<MainPage/>}></Route>
         <Route path='alarm' element={<AlarmPage/>}></Route>
@@ -26,6 +23,6 @@ createRoot(document.getElementById('root')).render(
         <Route path='post/:id/participation' element={<ParticipationPage/>}></Route>
         <Route path='store' element={<StoreSearchPage/>}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
     </AllProvider>
 )
