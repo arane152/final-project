@@ -106,7 +106,7 @@ function PostWritePage(props) {
             storeId: parseInt(storeId),
 
         }).then(() => {
-            navigate('/')
+            window.location.replace('/');
             // 로컬 스토리지 초기화
             localStorage.removeItem('title');
             localStorage.removeItem('content');
