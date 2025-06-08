@@ -17,14 +17,14 @@ function PostWritePage(props) {
             // 로컬 스토리지에서 저장된 값들을 제거합니다.
             localStorage.removeItem("title");
             localStorage.removeItem("content");
-            // localStorage.removeItem("receiptLocation");
+            localStorage.removeItem("receiptLocation");
             localStorage.removeItem("deposite");
             localStorage.removeItem("image");
 
             // 상태값도 초기화
             setTitle('');
             setContent('');
-            // setReceiptLocation('');
+            setReceiptLocation('');
             setDeposite('자유');
             setImage(null);
         }
@@ -53,7 +53,7 @@ function PostWritePage(props) {
 
     const [title, setTitle] = useState(localStorage.getItem('title') || '');
     const [content, setContent] = useState(localStorage.getItem('content') || '');
-    // const [receiptLocation, setReceiptLocation] = useState(localStorage.getItem('receiptLocation') || '');
+    const [receiptLocation, setReceiptLocation] = useState(localStorage.getItem('receiptLocation') || '');
     const [image, setImage] = useState(localStorage.getItem('image') || null);
     const [deposite, setDeposite] = useState(localStorage.getItem('deposite') || '자유')
 
@@ -81,7 +81,7 @@ function PostWritePage(props) {
     const writePost = () => {
         let timestamp = new Date().getTime().toString()
 
-        if (!title || !content || !menuList) {
+        if (!title || !content || !menuList || !image) {
             alert('필수 정보를 모두 입력해주세요.');
             return;
         }
@@ -90,7 +90,7 @@ function PostWritePage(props) {
             postId: timestamp,
             title: title,
             content: content,
-            // receiptLocation: location,
+            receiptLocation: location,
             image: image,
             deposite: deposite,
             // 작성자 정보를 write {array}로 저장
@@ -110,7 +110,7 @@ function PostWritePage(props) {
             // 로컬 스토리지 초기화
             localStorage.removeItem('title');
             localStorage.removeItem('content');
-            // localStorage.removeItem('receiptLocation');
+            localStorage.removeItem('receiptLocation');
             localStorage.removeItem('image');
             localStorage.removeItem('deposite');
         })
@@ -142,7 +142,7 @@ function PostWritePage(props) {
                 title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); /* 로컬 스토리지에 제목 저장 */ }}
                 content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); /* 로컬 스토리지에 내용 저장 */ }}
                 image={image} onImageChange={(e) => handleImage(e)}
-                // receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
+                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
                 deposite={deposite} onDepositeChange={handleDepositeChange}>
             </InfoArea>
 
