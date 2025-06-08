@@ -44,7 +44,7 @@ const ClosedImage = styled.div`
     background-color: #0000006e;
     width: 393px;
     height: 247px;
-    background-image: url(/RecruitmentClosed.svg);
+    background-image: url(/final-project/RecruitmentClosed.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100px 100px;
@@ -57,7 +57,7 @@ function PostImage(props) {
     // props.postImage는 포스트의 이미지 URL을 받아옵니다.
     const {postImage} = props;
     if (props.postRecruitment == "closed") {
-        returㄴㄴn (
+        return (
             <Wrapper>
                 <ClosedWrapper>
                     <img src={postImage || "/final-project/PostImgBasic.svg"} alt="..."></img>
