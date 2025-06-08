@@ -86,7 +86,7 @@ function AlarmItem(props){
     <StyledAlarmItem>
       {/* 다른사용자와 관련있는지에 따라 이미지 구분 */}
       <AlarmImg
-        src={not.type === "partyrequest" ? "ProfileIcon.svg" : "Logo.svg"}
+        src={not.type === "partyrequest" ? "/final-project/ProfileIcon.svg" : "/final-project/Logo.svg"}
         onClick={onClick}
       />
       <AlarmText onClick={onClick}>
@@ -104,7 +104,7 @@ function AlarmItem(props){
       {not.type === "partyrequest" ? (
         <SubBtn type={not.btntype} text={not.btntype ? "신청수락" : "수락완료"}/>
       ) : (
-        <PostImg src="/AlarmBasicImg.svg" onClick={onClick} />
+        <PostImg src="/final-project/AlarmBasicImg.svg" onClick={onClick} />
       )}
     </StyledAlarmItem>
     )

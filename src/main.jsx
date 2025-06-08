@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
+
 
 import PostViewPage from '../pages/PostViewPage.jsx'
 import AlarmPage from '../pages/AlarmPage.jsx'
@@ -14,7 +15,7 @@ import AllProvider from '../context/AllProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
     <AllProvider>
-    <HashRouter>
+    <BrowserRouter basename="/final-project">
       <Routes>
         <Route index element={<MainPage/>}></Route>
         <Route path='alarm' element={<AlarmPage/>}></Route>
@@ -23,6 +24,6 @@ createRoot(document.getElementById('root')).render(
         <Route path='post/:id/participation' element={<ParticipationPage/>}></Route>
         <Route path='store' element={<StoreSearchPage/>}></Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
     </AllProvider>
 )

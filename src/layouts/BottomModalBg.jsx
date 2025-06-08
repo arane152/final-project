@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Modal from "./BottomModal";
 
 const Wrapper = styled.div`
     position: absolute;

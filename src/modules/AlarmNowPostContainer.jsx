@@ -3,6 +3,7 @@ import StoreName from "./StoreName"
 import StatusBar from "../components/StatusBar"
 import SubBtn from "../components/SubBtn"
 import { useNavigate } from "react-router-dom";
+
 const StyledContainer = styled.div`
 padding: 20px;
 display: flex;

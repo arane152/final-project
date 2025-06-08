@@ -9,7 +9,6 @@ import MainBtn from "../components/MainBtn";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ToggleBtn from "../components/ToggleBtn";
 // #202020
 const StyledWrapper = styled.div`
     width: 393px;

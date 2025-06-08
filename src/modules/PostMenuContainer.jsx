@@ -1,12 +1,8 @@
 import styled from "styled-components";
 
 import TotalAmount from "../components/TotalAmount";
-import SubBtn from "../components/SubBtn";
 import MenuDefault from "../components/MenuDefault";
 import MenuAdd from "../components/MenuAdd";
-
-import { db } from '/src/firebase.js';
-import { useState, useEffect } from "react";
 
 
 const PostMenuWrapper = styled.div`

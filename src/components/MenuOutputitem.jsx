@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const ItemContainer = styled.div`
@@ -46,7 +45,7 @@ const MenuDelete = styled.div`
   display: flex;
   width: 16px;
   height: 16px;
-  background-image: url('./assets/MenuDelete.svg');
+  background-image: url(/final-project/MenuDelete.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

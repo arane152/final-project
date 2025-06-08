@@ -37,21 +37,21 @@ const GnbHomeIcon = styled.div`
     display: flex;
     width: 36px;
     height: 36px;
-    background-image: url(${import.meta.env.BASE_URL}HomeIcon.svg);
+    background-image: url("/final-project/HomeIcon.svg");
 `
 
 const GnbProfileIcon = styled.div`
     display: flex;
     width: 36px;
     height: 36px;
-    background-image: url(${import.meta.env.BASE_URL}ProfileIcon.svg);
+    background-image: url("/final-project/ProfileIcon.svg");
 `
 
 const GnbAddIcon = styled.div`
     display: flex;
     width: 46px;
     height: 46px;
-    background-image: url(${import.meta.env.BASE_URL}AddPostIcon.svg);
+    background-image: url("/final-project/AddPostIcon.svg");
     cursor: pointer;
 `
 
@@ -124,9 +124,9 @@ function Gnb(props) {
         return (
             <GnbWrapper>
                 <GnbLayout>
-                    <GnbHomeIcon aria-label="홈 아이콘"></GnbHomeIcon>
-                    <GnbAddIcon onClick={()=>navigate(`/write`)} aria-label="글쓰기 아이콘"></GnbAddIcon>
-                    <GnbProfileIcon onClick={()=>{!onUserList ? setOnUserList(true) : setOnUserList(false)}} aria-label="프로필 아이콘">
+                    <GnbHomeIcon></GnbHomeIcon>
+                    <GnbAddIcon onClick={()=>navigate(`/write`)}></GnbAddIcon>
+                    <GnbProfileIcon onClick={()=>{!onUserList ? setOnUserList(true) : setOnUserList(false)}}>
                     </GnbProfileIcon>
                     {onUserList && <StyledUserList> <p>now : {nowUserName}</p>{UserList} </StyledUserList>}
                 </GnbLayout>

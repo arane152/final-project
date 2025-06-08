@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 const StyledBox =styled.div`
 height: 576px;
 overflow-y: scroll; 

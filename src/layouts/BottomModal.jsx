@@ -3,8 +3,6 @@ import styled from "styled-components";
 import Gnb from "./Gnb";
 import MainBtn from "../components/MainBtn";
 
-import ModalBg from "./BottomModalBg";
-
 const Wrapper = styled.div`
     position: absolute;
     bottom: 0;
