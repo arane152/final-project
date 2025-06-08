@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Device from "../src/layouts/Device";
 import InfoArea from "../src/modules/InfoArea";
 import OderMenuArea from "../src/modules/OrderMenuArea";
@@ -6,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import { db } from '/src/firebase.js'
-
 
 
 function PostWritePage(props) {
@@ -19,14 +17,14 @@ function PostWritePage(props) {
             // 로컬 스토리지에서 저장된 값들을 제거합니다.
             localStorage.removeItem("title");
             localStorage.removeItem("content");
-            localStorage.removeItem("receiptLocation");
+            // localStorage.removeItem("receiptLocation");
             localStorage.removeItem("deposite");
             localStorage.removeItem("image");
 
             // 상태값도 초기화
             setTitle('');
             setContent('');
-            setReceiptLocation('');
+            // setReceiptLocation('');
             setDeposite('자유');
             setImage(null);
         }
@@ -55,7 +53,7 @@ function PostWritePage(props) {
 
     const [title, setTitle] = useState(localStorage.getItem('title') || '');
     const [content, setContent] = useState(localStorage.getItem('content') || '');
-    const [receiptLocation, setReceiptLocation] = useState(localStorage.getItem('receiptLocation') || '');
+    // const [receiptLocation, setReceiptLocation] = useState(localStorage.getItem('receiptLocation') || '');
     const [image, setImage] = useState(localStorage.getItem('image') || null);
     const [deposite, setDeposite] = useState(localStorage.getItem('deposite') || '자유')
 
@@ -92,7 +90,7 @@ function PostWritePage(props) {
             postId: timestamp,
             title: title,
             content: content,
-            receiptLocation: location,
+            // receiptLocation: location,
             image: image,
             deposite: deposite,
             // 작성자 정보를 write {array}로 저장
