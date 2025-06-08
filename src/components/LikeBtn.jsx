@@ -16,7 +16,7 @@ const LikeIcon = styled.div`
     display: flex;
     width: 18px;
     height: 18px;
-    background-image: url(./LikeIconStroke.svg);
+    background-image: url(../LikeIconStroke.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -54,24 +54,6 @@ function LikeBtn(props) {
             <LikeNumberText>{likeCount}</LikeNumberText>
         </LikeWrapper>
     )
-
-    // if (type == "default") {
-    //     return (
-    //         <LikeWrapper >
-    //             <LikeIcon></LikeIcon>
-    //             <LikeNumber>{likeNumber}</LikeNumber>
-    //         </LikeWrapper>
-    //     )
-    // }
-    // else if (type == "like") {
-    //     return (
-    //         <LikeWrapper>
-    //             <LikeIconChecked></LikeIconChecked>
-    //             <LikeNumber>{likeNumber}</LikeNumber>
-    //         </LikeWrapper>
-    //     )
-    // }
-
 }
 
 export default LikeBtn

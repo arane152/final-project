@@ -60,7 +60,7 @@ function PostImage(props) {
         return (
             <Wrapper>
                 <ClosedWrapper>
-                    <img src={postImage || "./PostImgBasic.svg"} alt="..."></img>
+                    <img src={postImage || "../PostImgBasic.svg"} alt="..."></img>
                     <ClosedImage/>
                 </ClosedWrapper>
             </Wrapper>
@@ -68,7 +68,7 @@ function PostImage(props) {
     }
     else {
         return (
-            <Wrapper><img src={postImage || "./PostImgBasic.svg"} alt="..."></img></Wrapper>
+            <Wrapper><img src={postImage || "../PostImgBasic.svg"} alt="..."></img></Wrapper>
         )
     }
 }

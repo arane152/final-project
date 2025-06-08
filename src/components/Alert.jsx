@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { useState } from 'react'
 
 //absolute 쓰지 말라고 했는데 Alert 기능에는 일단 넣었음
 //확인 후 반려 혹은 승인바람, 승인할 경우에는 상위요소에 relative 줘야 정상작동
