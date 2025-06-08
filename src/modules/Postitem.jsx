@@ -3,13 +3,13 @@ import StoreName from "./StoreName";
 import LikeBtn from "../components/LikeBtn";
 import Profile from "../components/Profile";
 import StateBadge from "../components/StateBadge";
-import Percent from "../components/percent";
+import Percent from "../components/Percent";
 import PostImage from "../components/PostImage"
 
 const ItemHead = styled.div`
 padding: 0 20px;
 display: flex;
-justify-content: space-between;
+justify-content: space-between; 
 color: #202020;`
 
 const PostItemBox= styled.div`

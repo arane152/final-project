@@ -45,10 +45,20 @@ function InfoBox(props){
 
   
 
-  return <StyledInfoBox>
+  return ( 
+  <StyledInfoBox>
     <p>{title || "제목입력"}</p>
-    {content ? <StyledTextOutput>{badge && <StateBadge>{badge ? "필수" : "자유"}</StateBadge>}{content}</StyledTextOutput> : 
-    <>{children}</>}</StyledInfoBox>
+    {content 
+    ? <StyledTextOutput>
+        {badge && 
+          <StateBadge>
+            {badge ? "필수" : "자유"}
+          </StateBadge>}
+          {content}
+      </StyledTextOutput> 
+    : <>{children}</>}
+  </StyledInfoBox>
+    )
 }
 
 export default InfoBox

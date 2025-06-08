@@ -83,11 +83,11 @@ function MainPage(props){
   const PostList = data.map(
     (item)=>{
       return ( 
-        <PostItem 
-          onClick={()=>navigate(`/post/${item.postId}`)} 
+        <PostItem  
           key={item.postId} 
-          post={item} 
-          image={item.image}>
+          post={item}
+          onClick={()=>navigate(`/post/${item.postId}`)} 
+        >
         </PostItem>
       )
     }
@@ -103,7 +103,7 @@ function MainPage(props){
                 <CategoryBtn 
                     text={'전체'}
                     type={nowCategory === '전체' ? 'toggle' : ''}>
-                </CategoryBtn>
+                </CategoryBtn> 
             </StyledBtn>
             {/* 나머지버튼 */}
             {CategoryList}
