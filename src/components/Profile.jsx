@@ -72,7 +72,7 @@ const Profile = (props) => {
     <ProfileContainer>
       <Left>
         <Avatar 
-          src={matchedUser?.profile || src || "/UserBasic.svg"} 
+          src={matchedUser?.profile || src || "./UserBasic.svg"} 
           fontSize={fontSize || "14px"}
         />
         <NameBlock>
