@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import StateBadge from "./StateBadge"
+
 const StyledInfoBox=styled.div`
 display: flex;
 flex-direction: row;

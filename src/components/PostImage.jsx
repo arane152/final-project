@@ -57,10 +57,10 @@ function PostImage(props) {
     // props.postImage는 포스트의 이미지 URL을 받아옵니다.
     const {postImage} = props;
     if (props.postRecruitment == "closed") {
-        return (
+        returㄴㄴn (
             <Wrapper>
                 <ClosedWrapper>
-                    <img src={postImage || "/PostImgBasic.svg"} alt="..."></img>
+                    <img src={postImage || "/final-project/PostImgBasic.svg"} alt="..."></img>
                     <ClosedImage/>
                 </ClosedWrapper>
             </Wrapper>
@@ -68,7 +68,7 @@ function PostImage(props) {
     }
     else {
         return (
-            <Wrapper><img src={postImage || "/PostImgBasic.svg"} alt="..."></img></Wrapper>
+            <Wrapper><img src={postImage || "/final-project/PostImgBasic.svg"} alt="..."></img></Wrapper>
         )
     }
 }
