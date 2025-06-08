@@ -1,12 +1,25 @@
-# React + Vite
+함께먹기 서비스는 2025년 상반기 한국공학대학교 미디어디자인공학부 김한종 교수님의 웹어플리케이션구현응용 수업에서 진행된 팀 프로젝트입니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+본 프로젝트는 React 기반으로 구성된 컴포넌트 구조를 직접 설계하고 구현해보며, UI/UX 디자이너로서의 논리적 설계 능력과 프론트엔드 구현 이해도를 높이는 데 목적이 있습니다. 컴포넌트의 설계 방향성과 제작 의도를 파악하는 과정을 통해, 디자이너의 실질적인 개발 역량 향상을 도모하였습니다.
 
-Currently, two official plugins are available:
+본 프로젝트의 저작권은 웹어플리케이션구현응용 1조 팀원 전원에게 있으며, 무단 복제 및 무단 사용을 금합니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2025-1 웹어플리케이션구현응용 1조
+미디어디자인공학부 2020194006 김예준
+미디어디자인공학부 2020194017 심태섭
+미디어디자인공학부 2021194013 박예인
+미디어디자인공학부 2021194014 박지수
 
-## Expanding the ESLint configuration
+## 사용된 리소스
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> 이 프로젝트에 사용된 일부 아이콘은 Iconify(Figma Plugin)를 통해 제공되며, 해당 아이콘은 각 아이콘 세트(Material Icons, Twemoji 등)의 오픈소스 라이선스를 따릅니다.
+> 각 아이콘의 개별 라이선스는 [Iconify Documentation](https://iconify.design/icon-sets/)를 통해 확인할 수 있습니다.
+
+> 🔥 불꽃 아이콘의 출처는 팀원 확인 후 별도 명시 예정입니다.
+
+### 폰트
+
+- 본 프로젝트는 [**Pretendard Variable**](https://github.com/orioncactus/pretendard) 폰트를 사용하였습니다.
+- 라이선스: [SIL Open Font License 1.1](https://github.com/orioncactus/pretendard/blob/main/LICENSE)
+
+본 폰트는 상업적 용도를 포함하여 자유롭게 사용이 가능하며, 수정 및 재배포도 허용됩니다. 단, 해당 라이선스를 함께 포함해야 합니다.
