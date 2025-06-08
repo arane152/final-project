@@ -29,7 +29,7 @@ function AlarmPage(props) {
     if (!nowuser) return; //nowuser 랜더링중 오류방지
 
     const filteredUserPost = 
-    postData.filter((item) => item.userId == nowuser.userId);
+    postData.filter((item) => item.postId == "postId(1)");
     setNowPost(filteredUserPost);
   }, [postData]);
 

@@ -102,7 +102,7 @@ function AlarmItem(props){
       </AlarmText>
       {/* 신청버튼 혹은 이미지 구분 */}
       {not.type === "partyrequest" ? (
-        <SubBtn type={not.btntype} text={not.btntype ? "수락완료" : "수락완료"}/>
+        <SubBtn type={not.btntype} text={not.btntype ? "신청수락" : "수락완료"}/>
       ) : (
         <PostImg src="/AlarmBasicImg.svg" onClick={onClick} />
       )}
