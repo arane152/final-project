@@ -15,7 +15,7 @@ import AllProvider from '../context/AllProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
     <AllProvider>
-    <BrowserRouter basename="/final-project">
+    <BrowserRouter basename={import.meta.env.BASE_URL || "/final-project"}>
       <Routes>
         <Route index element={<MainPage/>}></Route>
         <Route path='alarm' element={<AlarmPage/>}></Route>
