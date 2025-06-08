@@ -26,7 +26,7 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
   }, 0);
 
   // 수락된 참여자 메뉴 총합 계산
-  const participantTotal = Object.values(post.menuList)
+  const participantTotal = Object.values(post.menuList ?? {})
     .filter((p) => p.accept)
     .reduce((sum, participant) => {
       return sum + participant.menus.reduce((menuSum, menu) => {

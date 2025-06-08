@@ -88,4 +88,6 @@ const NoApplicantMessage = styled.div`
   color: #999999;
   text-align: center;
   padding: 16px 0;
+  width: 361px;
+  height: 310px;
 `;
