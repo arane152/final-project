@@ -81,7 +81,7 @@ function PostWritePage(props) {
     const writePost = () => {
         let timestamp = new Date().getTime().toString()
 
-        if (!title || !content || !menuList || !image) {
+        if (!title || !content || !menuList) {
             alert('필수 정보를 모두 입력해주세요.');
             return;
         }
