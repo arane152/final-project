@@ -19,7 +19,7 @@ const BtnWrapper = styled.div`
     height: 12px;
     justify-content: center;
     align-items: center;
-    background-image: url(${(props) => props.$btnType === 'minus' ? './QuantityMinus.svg' : './QuantityPlus.svg'});
+    background-image: url(${(props) => props.$btnType === 'minus' ? '/QuantityMinus.svg' : '/QuantityPlus.svg'});
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

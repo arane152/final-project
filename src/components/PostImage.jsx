@@ -44,7 +44,7 @@ const ClosedImage = styled.div`
     background-color: #0000006e;
     width: 393px;
     height: 247px;
-    background-image: url(./RecruitmentClosed.svg);
+    background-image: url(/RecruitmentClosed.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100px 100px;
@@ -60,7 +60,7 @@ function PostImage(props) {
         return (
             <Wrapper>
                 <ClosedWrapper>
-                    <img src={postImage || "../PostImgBasic.svg"} alt="..."></img>
+                    <img src={postImage || "/PostImgBasic.svg"} alt="..."></img>
                     <ClosedImage/>
                 </ClosedWrapper>
             </Wrapper>
@@ -68,7 +68,7 @@ function PostImage(props) {
     }
     else {
         return (
-            <Wrapper><img src={postImage || "../PostImgBasic.svg"} alt="..."></img></Wrapper>
+            <Wrapper><img src={postImage || "/PostImgBasic.svg"} alt="..."></img></Wrapper>
         )
     }
 }
