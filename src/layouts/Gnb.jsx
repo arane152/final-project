@@ -37,21 +37,21 @@ const GnbHomeIcon = styled.div`
     display: flex;
     width: 36px;
     height: 36px;
-    background-image: url(/HomeIcon.svg);
+    background-image: url("/HomeIcon.svg");
 `
 
 const GnbProfileIcon = styled.div`
     display: flex;
     width: 36px;
     height: 36px;
-    background-image: url(/ProfileIcon.svg);
+    background-image: url("/ProfileIcon.svg");
 `
 
 const GnbAddIcon = styled.div`
     display: flex;
     width: 46px;
     height: 46px;
-    background-image: url(/AddPostIcon.svg);
+    background-image: url("/AddPostIcon.svg");
     cursor: pointer;
 `
 
