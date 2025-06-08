@@ -3,6 +3,7 @@ import StoreName from "./StoreName"
 import StatusBar from "../components/StatusBar"
 import SubBtn from "../components/SubBtn"
 import { useNavigate } from "react-router-dom";
+
 const StyledContainer = styled.div`
 padding: 20px;
 display: flex;
@@ -14,7 +15,7 @@ background-color: #f8f8f8;
 padding: 0;
 margin: 0;
 font-weight: 600;
-coloe: #202020;}
+color: #202020;}
 `
 const AlarmNowPostCard = styled.div`
 background-color: #ffffff;

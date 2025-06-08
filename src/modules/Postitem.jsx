@@ -118,7 +118,7 @@ function PostItem(props){
       <p onClick={onClick}>{post.content}</p>
 
       <ImgUlBox onClick={onClick}> 
-        <ImgUl>{<PostImage postRecruitment={post.endPost && "closed"} postImage={post.image || "./PostImgBasic.svg"}></PostImage>}</ImgUl>
+        <ImgUl>{<PostImage postRecruitment={post.endPost && "closed"} postImage={post.image || "/PostImgBasic.svg"}></PostImage>}</ImgUl>
       </ImgUlBox>
       
       {!post.endPost && <StyledBadge>

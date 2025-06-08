@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 import InfoBox from "../components/InfoBox";
 import TextInput from "../components/TextInput";

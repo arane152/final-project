@@ -42,7 +42,7 @@ font-weight: 400;
 
 const PostImg =  styled.img`
 width: 70px;
-hieght: 70px;
+height: 70px;
 `
 
 const AlarmImg = styled.img`
@@ -86,7 +86,7 @@ function AlarmItem(props){
     <StyledAlarmItem>
       {/* 다른사용자와 관련있는지에 따라 이미지 구분 */}
       <AlarmImg
-        src={not.type === "partyrequest" ? "ProfileIcon.svg" : "Logo.svg"}
+        src={not.type === "partyrequest" ? "/ProfileIcon.svg" : "/Logo.svg"}
         onClick={onClick}
       />
       <AlarmText onClick={onClick}>
