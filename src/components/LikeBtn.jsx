@@ -16,7 +16,7 @@ const LikeIcon = styled.div`
     display: flex;
     width: 18px;
     height: 18px;
-    background-image: url(/LikeIconStroke.svg);
+    background-image: url('./assets/LikeIconStroke.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -24,7 +24,7 @@ const LikeIcon = styled.div`
 `
 
 const LikeIconChecked = styled(LikeIcon)`
-    background-image: url(/LikeIconFill.svg);
+    background-image: url('./assets/LikeIconFill.svg');
 `
 
 const LikeNumberText = styled.p`

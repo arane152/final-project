@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Percent from './percent'
+import Percent from './Percent'
 import { useStore } from '../../context/StoreContext'
 const Wrapper = styled.div`
     display: flex;
@@ -56,7 +56,7 @@ const StatusBarBackground = styled.div`
     height: 32px;
     /* justify-content: center; */
     align-items: center;
-    background-image: url(/StatusBarBackground.svg);
+    background-image: url('./assets/StatusBarBackground.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -74,7 +74,7 @@ const StatusBarImg = styled.div`
     left: 4px;
     width: 24px;
     height: 24px;
-    background-image: url(/StatusBarLogo.svg);
+    background-image: url('./assets/StatusBarLogo.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -94,7 +94,7 @@ const StatusBarMark = styled.div`
     display: flex;
     width: 248px;
     height: 8px;
-    background-image: url(/StatusBarMark.svg);
+    background-image: url('./assets/StatusBarMark.svg');
     background-position: right;
     background-repeat: no-repeat;
     background-size: cover;
@@ -182,9 +182,9 @@ function StatusBar(props) {
             <WrapperAlarm>
                 <Progressflex>
                     {/* 노란원이미지 */}
-                    <BackProgressimg src="/ProgressBackground_1.svg"></BackProgressimg>
+                    <BackProgressimg src="./assets/ProgressBackground_1.svg"></BackProgressimg>
                     {/* 주황원이미지, 음수마진으로 겹치기 */}
-                    <FrontProgressimg src="/StatusBarLogo.svg"></FrontProgressimg>
+                    <FrontProgressimg src="./assets/StatusBarLogo.svg"></FrontProgressimg>
 
                     {/* 게이지바div , 음수마진으로 원과 살짝 겹치기 */}
                     <ProgressBarflex>

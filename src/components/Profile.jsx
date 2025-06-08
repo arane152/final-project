@@ -1,4 +1,4 @@
-  import styled from "styled-components";
+import styled from "styled-components";
 import StateBadge from "./StateBadge";
 import { useUser } from "../../context/UserContext";
 const ProfileContainer = styled.div`
@@ -16,8 +16,8 @@ const Left = styled.div`
 `;
 
 const Avatar = styled.img`
-  width: ${props=>props.fontSize == "12px" ? "20px" : "24px"};
-  height: ${props=>props.fontSize == "12px" ? "20px" : "24px"};
+  width: ${props => props.fontSize == "12px" ? "20px" : "24px"};
+  height: ${props => props.fontSize == "12px" ? "20px" : "24px"};
   background: #eeeeee;
   border-radius: 50%;
 `;
@@ -30,13 +30,13 @@ const NameBlock = styled.div`
 `;
 
 const Name = styled.div`
-  font-size: ${props=>props.fontSize};
+  font-size: ${props => props.fontSize};
   font-weight: 500;
   color: #202020;
 `;
 
 const Location = styled.div`
-  font-size: ${props=>props.fontSize};
+  font-size: ${props => props.fontSize};
   font-weight: 300;
   color: #202020;
 `;
@@ -57,8 +57,8 @@ const DateText = styled.div`
 const Profile = (props) => {
 
   const { userListData } = useUser();
-  const { name,  src, userId, location, date, badge, fontSize, } = props;
-  const matchedUser = userListData.find((user) => user.userId == userId); 
+  const { name, src, userId, location, date, badge, fontSize, } = props;
+  const matchedUser = userListData.find((user) => user.userId == userId);
 
   //postId가 timestamp인걸 이용하여 작성시간 계산
   const posttime = new Date(parseInt(date));
@@ -71,15 +71,15 @@ const Profile = (props) => {
   return (
     <ProfileContainer>
       <Left>
-        <Avatar 
-          src={matchedUser?.profile || src || "/UserBasic.svg"} 
+        <Avatar
+          src={matchedUser?.profile || src || "./assets/UserBasic.svg"}
           fontSize={fontSize || "14px"}
         />
         <NameBlock>
           <Name fontSize={fontSize || "14px"}>
             {matchedUser?.name || name}
           </Name>
-          {matchedUser?.location && 
+          {matchedUser?.location &&
             <Location fontSize={fontSize || "14px"}>
               {matchedUser?.location || location}
             </Location>

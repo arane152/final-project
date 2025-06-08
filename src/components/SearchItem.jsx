@@ -39,7 +39,7 @@ const ItemWrapper = styled.div`
 const IconBox = styled.div`
   width: 24px;
   height: 24px;
-  background-image: url("/SearchIcon.svg"); /* ✅ public 기준 절대 경로 */
+  background-image: url("./assets/SearchIcon.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
