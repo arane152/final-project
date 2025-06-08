@@ -14,7 +14,7 @@ background-color: #f8f8f8;
 padding: 0;
 margin: 0;
 font-weight: 600;
-coloe: #202020;}
+color: #202020;}
 `
 const AlarmNowPostCard = styled.div`
 background-color: #ffffff;

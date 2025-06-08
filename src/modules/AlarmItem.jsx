@@ -42,7 +42,7 @@ font-weight: 400;
 
 const PostImg =  styled.img`
 width: 70px;
-hieght: 70px;
+height: 70px;
 `
 
 const AlarmImg = styled.img`
