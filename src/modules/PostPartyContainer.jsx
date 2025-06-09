@@ -7,6 +7,103 @@ import MenuOutputItem from "../components/MenuOutputitem";
 import StatusBar from "../components/StatusBar";
 import StoreName from "./StoreName";
 
+const Wrapper = styled.div`
+  width: 393px;
+  padding: 12px 0 20px 20px;
+  background: #EEEEEE;
+`;
+
+const Container = styled.div`
+  width: 353px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #eeeeee;
+`;
+
+const HeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 8px;
+`;
+
+const RecruiterBlock = styled.div`
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const ParticipantCard = styled.div`
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;  
+`;
+
+const TopRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 32px;
+  gap: 8px;
+  & > *:last-child {
+    flex-shrink: 0;
+  }
+`;
+
+const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  color: #aaaaaa;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+`;
+
+const TotalBox = styled.div`
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const TotalRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TotalLabel = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  color: #202020;
+`;
+
+const TotalAmount = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  color: #ff6232;
+`;
+
+const ProgressRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+
 const PostPartyContainer = ({ post, setPost, postId }) => {
   const [users, setUsers] = useState([]);
   const [storeName, setStoreName] = useState("");
@@ -167,137 +264,3 @@ const PostPartyContainer = ({ post, setPost, postId }) => {
 };
 
 export default PostPartyContainer;
-
-
-
-
-
-
-const Wrapper = styled.div`
-  width: 393px;
-  padding: 12px 0 20px 20px;
-  background: #EEEEEE;
-`;
-
-const Container = styled.div`
-  width: 353px;
-  background: white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  background: #eeeeee;
-`;
-
-const HeaderRow = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  gap: 8px;
-`;
-
-const RecruiterBlock = styled.div`
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const ParticipantCard = styled.div`
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;  
-`;
-
-const TopRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 32px;
-  gap: 8px;
-  & > *:last-child {
-    flex-shrink: 0;
-  }
-`;
-
-const DeleteButton = styled.button`
-  background: none;
-  border: none;
-  color: #aaaaaa;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-`;
-
-const MenuItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: #666;
-`;
-
-const MenuName = styled.div`
-`;
-
-const MenuPrice = styled.div`
-`;
-
-const TotalBox = styled.div`
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const TotalRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TotalLabel = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-  color: #202020;
-`;
-
-const TotalAmount = styled.div`
-  font-size: 16px;
-  font-weight: 700;
-  color: #ff6232;
-`;
-
-const ProgressRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const ProgressBar = styled.div`
-  flex: 1;
-  height: 12px;
-  background: #fff5d5;
-  border: 1px solid #ffb9b9;
-  border-radius: 100px;
-`;
-
-const ProgressFill = styled.div`
-  height: 100%;
-  background: #ff6232;
-  border-radius: 100px;
-`;
-
-const Percent = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  color: #ff6232;
-`;

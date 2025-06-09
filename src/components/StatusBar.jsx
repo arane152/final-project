@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useStore } from '../../context/StoreContext'
+
 const Wrapper = styled.div`
     display: flex;
     width: 353px;

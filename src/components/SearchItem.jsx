@@ -1,32 +1,6 @@
 import styled from "styled-components";
 import StateBadge from "./StateBadge";
 
-const SearchItem = ({ category, storeName, minPrice, onClick }) => {
-  const formatPrice = (price) => {
-    const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
-    if (typeof parsed !== 'number' || isNaN(parsed)) {
-      return '0';
-    }
-    return parsed.toLocaleString('ko-KR');
-  };
-
-  return (
-    <ItemWrapper onClick={onClick}>
-      <IconBox />
-      <StoreNameBox>
-        <StateBadge>{category}</StateBadge>
-        <StoreName>{storeName}</StoreName>
-      </StoreNameBox>
-      <PriceBox>
-        <span>최소</span>
-        <MinPrice>{formatPrice(minPrice)}원</MinPrice>
-      </PriceBox>
-    </ItemWrapper>
-  );
-};
-
-export default SearchItem;
-
 const ItemWrapper = styled.div`
   width: 335px;
   padding: 8px 0;
@@ -70,3 +44,29 @@ const MinPrice = styled.div`
   font-weight: 700;
   color: #FF6232;
 `;
+
+const SearchItem = ({ category, storeName, minPrice, onClick }) => {
+  const formatPrice = (price) => {
+    const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
+    if (typeof parsed !== 'number' || isNaN(parsed)) {
+      return '0';
+    }
+    return parsed.toLocaleString('ko-KR');
+  };
+
+  return (
+    <ItemWrapper onClick={onClick}>
+      <IconBox />
+      <StoreNameBox>
+        <StateBadge>{category}</StateBadge>
+        <StoreName>{storeName}</StoreName>
+      </StoreNameBox>
+      <PriceBox>
+        <span>최소</span>
+        <MinPrice>{formatPrice(minPrice)}원</MinPrice>
+      </PriceBox>
+    </ItemWrapper>
+  );
+};
+
+export default SearchItem;

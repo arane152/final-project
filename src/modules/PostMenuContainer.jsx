@@ -27,33 +27,6 @@ const PostMenuTitle = styled.div`
     color: #202020;
 `
 
-const PostMenuAdd = styled.div`
-    display: flex;
-    width: 353px;
-    height: 184px;
-    flex-direction: column;
-    gap: 12px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #FFFFFF;
-    justify-content: space-between;
-    align-items: center;
-`
-
-const PostMenuAddTitleWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 313px;
-    height: 32px;
-    justify-content: space-between;
-    align-items: center;
-`
-
-const PostMenuAddTitle = styled.p`
-    font-size: 16px;
-    font-weight: 600;
-    color: #202020;
-`
 
 function PostMenuConatiner(props) {
 

@@ -3,6 +3,37 @@ import MenuOutputitem from "../components/MenuOutputitem";
 import SubBtn from "../components/SubBtn";
 import styled from 'styled-components'
 
+const CardContainer = styled.div`
+  width: 329px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Pretendard', sans-serif;
+`;
+
+const MenuList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const BottomRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+`;
+
+const TotalPrice = styled.div`
+  font-size: 14px;
+  color: #666;
+`;
+
+
 const UserAcceptCard = ({ name, date, menus, onAccept }) => {
   const formatPrice = (price) => {
     const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
@@ -50,45 +81,3 @@ const UserAcceptCard = ({ name, date, menus, onAccept }) => {
 
 
 export default UserAcceptCard;
-
-
-const CardContainer = styled.div`
-  width: 329px;
-  padding: 12px;
-  background: white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-family: 'Pretendard', sans-serif;
-`;
-
-const MenuList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const MenuRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: #666;
-`;
-
-const MenuName = styled.div``;
-
-const PricePerItem = styled.div``;
-
-const BottomRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #eee;
-  padding-top: 8px;
-`;
-
-const TotalPrice = styled.div`
-  font-size: 14px;
-  color: #666;
-`;
