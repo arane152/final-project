@@ -5561,7 +5561,7 @@ color: #666666;
     gap: 20px;
     padding: 16px 0px;
     margin-bottom: 100px;
-`;function Yp(n){return w.jsxs(Pz,{children:[w.jsxs(Dz,{children:[w.jsx(Nz,{}),w.jsx(Oz,{children:n.modalText}),w.jsx(kz,{})]}),w.jsx(Vz,{background:n.background||"gray",children:n.children}),w.jsx(CD,{type:"btn",children:w.jsx(hT,{type:n.btnType,mainText:n.mainText,modalOnClick:n.OnClick})})]})}const Mz=j.div`
+`;function Yp(n){return w.jsxs(Pz,{children:[w.jsxs(Dz,{children:[w.jsx(Nz,{}),w.jsx(Oz,{children:n.modalText}),w.jsx(kz,{})]}),w.jsx(Vz,{background:n.background||"gray",children:n.children}),w.jsx(CD,{type:"btn",children:w.jsx(hT,{type:n.btnType,mainText:n.mainText,modalOnClick:n.modalOnClick})})]})}const Mz=j.div`
     position: absolute;
     top: 0;
     left: 0;
