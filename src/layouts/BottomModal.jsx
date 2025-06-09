@@ -70,11 +70,12 @@ const ModalContent = styled.div`
 `
 
 function Modal(props) {
-    // props.background : <ModalContent>의 background-color (gray : "" / white : "white")
-    // props.btnType : 메인 버튼 타입
-    // props.mainText : 메인 버튼 텍스트
-    // props.modalText : 모달 상단 텍스트
-    // props.openModal : 모달 오픈
+    // props.modalText : 모달 상단에 표시될 텍스트
+    // props.background : 모달 내용의 배경색 (기본값: gray)
+    // props.btnType : 버튼 타입 (기본값: "main")
+    // props.mainText : 버튼에 표시될 텍스트
+    // props.modalOnClick : 버튼 클릭 시 실행될 함수
+    // props.children : 모달 내용에 표시될 컴포넌트들
     return (
         <Wrapper>
             <ModalTopWrapper>

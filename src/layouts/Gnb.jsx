@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useUser } from '../../context/UserContext'
@@ -120,6 +121,10 @@ function Gnb(props) {
 
     // props.type : gnb 타입 (gnb : "gnb" / 버튼 : "btn")
     // props.children : gnb 타입중 btn 타입일때, 안에 들어가는 버튼
+    // props.onClick : 버튼 클릭 시 실행될 함수 (btn 타입일때만 사용)
+    // props.type : none 일시, 아무것도 출력하지 않음
+    // props.type : gnb 일시, GnbWrapper, GnbLayout, GnbHomeIcon, GnbAddIcon, GnbProfileIcon 컴포넌트 출력
+    // props.type : btn 일시, GnbWrapper, GnbBtn 컴포넌트 출력
     if (props.type == "gnb") {
         return (
             <GnbWrapper>

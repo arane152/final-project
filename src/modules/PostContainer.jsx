@@ -74,12 +74,20 @@ const PostContent = styled.p`
 function PostConatiner (props) {
     // props.postTitle : 포스트 제목
     // props.postContent : 포스트 내용
+    // props.storeId : 가게 아이디
+    // props.name : 작성자 이름
+    // props.date : 작성 날짜
+    // props.receiptLocation : 수령 장소
+    // props.accountNumber : 계좌 번호
+    // props.deposite : 선입금 여부
+    // props.post : 포스트 정보 (예: 참여자 목록 등)
+    // props.totalSum : 총액
     return (
         <PostWrapper>
             <PostTop>
                 <PostTopStoreInfo>
                     <StoreName storeId={props.storeId}></StoreName>
-                    <LikeBtn type="default"q></LikeBtn>
+                    <LikeBtn type="default"></LikeBtn>
                 </PostTopStoreInfo>
                 <PostTitle>{props.postTitle}</PostTitle>
                 <Profile name={props.name} date={props.date}/>

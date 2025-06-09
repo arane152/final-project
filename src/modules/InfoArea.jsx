@@ -88,6 +88,16 @@ function InfoArea(props) {
         onDepositeChange(selectedToggle)
     }
 
+    // onDepositeChange: 선입금 필수 여부를 변경하는 함수
+    // onImageChange: 메뉴 사진을 변경하는 함수
+    // onTitleChange: 제목을 변경하는 함수
+    // onContentChange: 내용 입력란의 내용을 변경하는 함수
+    // title: 제목 입력란의 현재 값
+    // content: 내용 입력란의 현재 값
+    // deposite: 선입금 필수 여부의 현재 값
+    // location: 수령장소 입력란의 현재 값
+    // image: 메뉴 사진의 현재 값
+    // accountNumber: 계좌번호 입력란의 현재 값
     return(
     <StyledWrapper>
         <Container>

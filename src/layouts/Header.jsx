@@ -115,6 +115,14 @@ function Header(props){
   } = props;
   const navigate = useNavigate();
 
+  // type: "main", "search", "default" 중 하나
+  // content: 페이지 이름, type이 "default"일 때 사용
+  // navigatePage: 뒤로가기 버튼 클릭 시 이동할 페이지 경로, type이 "main"일 때 사용
+  // location: 현재 위치, type이 "main"일 때 사용
+  // searchValue: 검색어 입력값, type이 "search"일 때 사용
+  // onSearchChange: 검색어 입력값 변경 시 호출되는 함수, type이 "search"일 때 사용
+  // onSearchSubmit: 검색어 제출 시 호출되는 함수, type이 "search"일 때 사용
+  // navigatePage가 함수일 경우 해당 함수를 실행, 문자열일 경우 해당 경로로 이동
   return (
   <><StyledHeader>
     <img src="/final-project/StatusBar.svg" alt="스테이터스바목업이미지"></img>
