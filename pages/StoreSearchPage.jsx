@@ -1,10 +1,4 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { db } from "../src/firebase";
-import { useNavigate } from "react-router-dom";
-
-import { useCategory } from "../context/CategoryContext";
-import { useStore } from '../context/StoreContext';
 
 import Device from "../src/layouts/Device";
 import BottomModal from "../src/layouts/BottomModal";
@@ -13,6 +7,15 @@ import SearchItem from "../src/components/SearchItem";
 import InfoBox from "../src/components/InfoBox";
 import TextInput from "../src/components/TextInput";
 import CategoryBtn from "../src/components/CategoryBtn";
+
+import { db } from "../src/firebase";
+
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import { useCategory } from "../context/CategoryContext";
+import { useStore } from '../context/StoreContext';
+
 
 const Message = styled.li`
   color: #999999;
@@ -75,15 +78,6 @@ function StoreSearchPage() {
 
   //가게, 카테고리 컬렉션 받아오기기
   useEffect(() => {
-    // db.collection("store").get().then((storeSnap) => {
-    //   const stores = storeSnap.docs.map((doc) => doc.data());
-    //   setStoreList(stores);
-    // });
-
-    // db.collection("category").get().then((categorySnap) => {
-    //   const categories = categorySnap.docs.map((doc) => doc.data());
-    //   setCategoryList(categories);
-    // });
     setStoreList(storeData);
     setCategoryList(categoryData);
   }, []);

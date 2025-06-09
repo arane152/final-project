@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import StateBadge from "./StateBadge";
 
 const ItemWrapper = styled.div`

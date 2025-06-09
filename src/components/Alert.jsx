@@ -65,9 +65,6 @@ const Alert = function(props){
   // <Alert alertOn={alertOn} setAlertOn={setAlertOn} /> 구문 작성 해야 동작가능 
   // + 원하는 버튼에 setAlertOn(true)을 onClick 등으로 배정해줄것것
   //setAlertOn(true): Alert 출력 setAlertOff(false): Alert 종료 
-
-
-
   return(<>
     {alertOn && <StyledDisplay onClick={() => setAlertOn(false)}>
     <StyledBox onClick={(e) => e.stopPropagation()}>

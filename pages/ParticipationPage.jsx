@@ -1,8 +1,10 @@
 import Device from "../src/layouts/Device";
 import PostPartyContainer from "../src/modules/PostPartyContainer";
 import PostRequestContainer from "../src/modules/PostRequestContainer";
+
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 import { db } from "../src/firebase";
 
 function ParticipationPage() {

@@ -1,6 +1,7 @@
 import Device from "../src/layouts/Device";
 import InfoArea from "../src/modules/InfoArea";
 import OderMenuArea from "../src/modules/OrderMenuArea";
+
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -9,7 +10,6 @@ import { db } from '../src/firebase.js'
 
 function PostWritePage(props) {
     const navigate = useNavigate();
-    // 현재 postWritePage에서 storeSearchPage로 넘어갔을때, write page에 적어두었던 모든 정보들이 사라지는 문제가 있습니다. 추후 해결할 예정입니다.
 
     // 만약 세션 스토리지에서 "fromSearch"가 "true"가 아니라면, 로컬 스토리지의 값을 초기화합니다.
     useEffect(() => {

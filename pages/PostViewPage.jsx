@@ -3,20 +3,17 @@ import PostImage from "../src/components/PostImage";
 import PostContainer from "../src/modules/PostContainer";
 import PostMenuContainer from "../src/modules/PostMenuContainer";
 import MenuAdd from "../src/components/MenuAdd";
+import Modal from "../src/layouts/BottomModal";
+import ModalBg from "../src/layouts/BottomModalBg";
+import MenuDefault from "../src/components/MenuDefault";
+import TotalAmount from "../src/components/TotalAmount";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // firebase db
 import { db } from '../src/firebase.js'
 import firebase from 'firebase/compat/app';
-
-import Modal from "../src/layouts/BottomModal";
-import ModalBg from "../src/layouts/BottomModalBg";
-
-import MenuDefault from "../src/components/MenuDefault";
-import TotalAmount from "../src/components/TotalAmount";
-
 
 function PostViewPage(props) {
     //포스트함수

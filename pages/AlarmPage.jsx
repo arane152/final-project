@@ -1,12 +1,15 @@
 import styled from "styled-components";
+
 import Device from "../src/layouts/Device";
 import AlarmNowPostContainer from "../src/modules/AlarmNowPostContainer";
 import AlarmItem from "../src/modules/AlarmItem";
 import UlBox from "../src/modules/AlarmUlBox"
+
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useUser } from '../context/UserContext'
 import { usePost } from '../context/PostContext'
-import { useNavigate } from "react-router-dom";
 
 const StyledBox=styled.div`
   height: 100%;
@@ -36,16 +39,6 @@ function AlarmPage(props) {
   //알림목록불러오기
   const [notData, setNotData] = useState([])
   useEffect(() => {
-    // if (!nowuser) return; //nowuser 랜더링중 오류방지
-    // let tempData = [];
-    // //firebase 컬렉션 notification의 userId가 nowuser와 동일한 문서만 받아오기
-    // db.collection('notification')
-    //   .where('userId', '==', nowuser.userId)
-    //   .get()
-    //   .then(function (qs) {
-    //     qs.forEach(function (doc) {tempData.push(doc.data());});
-    //     setNotData(tempData);
-    //   });
     setNotData([
       { notId: 1, type: "partyendCaptain", postId: "postId(1)", userId: 1, time: "방금" },
       { notId: 2, type: "totalend", postId: "postId(1)", userId: 1, time: "6분전"},

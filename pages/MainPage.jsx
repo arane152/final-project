@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import CategoryBtn from "../src/components/CategoryBtn";
 import PostItem from "../src/modules/Postitem";
 import Device from "../src/layouts/Device";
@@ -11,6 +12,7 @@ import { useState, useEffect } from "react";
 import { useCategory } from "../context/CategoryContext";
 import { useStore } from '../context/StoreContext';
 import { usePost } from '../context/PostContext';
+
 const ContentBox=styled.div`
 overflow-x: hidden;
 `

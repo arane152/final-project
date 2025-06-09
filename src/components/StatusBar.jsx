@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { useStore } from '../../context/StoreContext'
 
 const Wrapper = styled.div`
@@ -54,7 +55,6 @@ const StatusBarBackground = styled.div`
     position: relative;
     width: 285px;
     height: 32px;
-    /* justify-content: center; */
     align-items: center;
     background-image: url(/final-project/StatusBarBackground.svg);
     background-repeat: no-repeat;

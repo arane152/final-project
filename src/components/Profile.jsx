@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import StateBadge from "./StateBadge";
+
 import { useUser } from "../../context/UserContext";
 
 const ProfileContainer = styled.div`

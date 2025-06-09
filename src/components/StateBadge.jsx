@@ -43,8 +43,6 @@ function StateBadge(props){
     <>{(type=="Captain") ?  
     <StateCaptainWrpper><img src="/final-project/FireState.svg" alt="로고불꽃뱃지용이미지"></img>모집자</StateCaptainWrpper> : 
     <StateCategoryWrapper>{props.children}</StateCategoryWrapper>}</>
-    //StateCategoryWrapper 요소는 img 베이스라인 차이때문에 하단으로 밀려서 배치되는 현상이 있는데 
-    //상위컴포넌트에서 배치 잡으니까 큰 상관 없을 것 같아서 일단 올립니다
     }</>
 }
 

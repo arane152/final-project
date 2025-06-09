@@ -80,7 +80,6 @@ function InfoArea(props) {
     const {
         title, onTitleChange,
         content, onContentChange,
-        receiptLocation, onReceiptLocationChange,
         deposite, onDepositeChange, location,
         image, onImageChange, accountNumber
         } = props
@@ -103,7 +102,6 @@ function InfoArea(props) {
                 <TextInput 
                     value={location}
                     readOnly> 
-                    {/*onChange={onReceiptLocationChange}*/}
                 </TextInput>
             </InfoBox>
             <InfoBox title="내용">

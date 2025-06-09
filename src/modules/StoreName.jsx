@@ -1,5 +1,7 @@
 import styled from 'styled-components'
+
 import StateBadge from '../components/StateBadge'
+
 import { useStore } from '../../context/StoreContext'
 import { useCategory } from '../../context/CategoryContext'
 

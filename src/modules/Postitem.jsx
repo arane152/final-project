@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import StoreName from "./StoreName";
 import LikeBtn from "../components/LikeBtn";
 import Profile from "../components/Profile";

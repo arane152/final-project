@@ -1,7 +1,8 @@
+import styled from 'styled-components'
+
 import Profile from "../components/Profile";
 import MenuOutputitem from "../components/MenuOutputitem";
 import SubBtn from "../components/SubBtn";
-import styled from 'styled-components'
 
 const CardContainer = styled.div`
   width: 329px;

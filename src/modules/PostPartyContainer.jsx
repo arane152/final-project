@@ -1,11 +1,14 @@
 import styled from 'styled-components'
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+
 import Profile from "../components/Profile";
 import SubBtn from "../components/SubBtn";
 import MenuOutputItem from "../components/MenuOutputitem";
 import StatusBar from "../components/StatusBar";
 import StoreName from "./StoreName";
+
+import { useEffect, useState } from "react";
+
+import { db } from "../firebase";
 
 const Wrapper = styled.div`
   width: 393px;
