@@ -32,7 +32,9 @@ const QuantityText = styled.p`
 `
 
 function QuantityBtn (props) {
-    // props.quantity : 수량
+    // quantity : 수량
+    // onPlusClick : 수량 증가 버튼 클릭 핸들러
+    // onMinusClick : 수량 감소 버튼 클릭 핸들러
     const { quantity, onPlusClick, onMinusClick } = props;
 
     return (

@@ -142,7 +142,7 @@ function PostWritePage(props) {
                 title={title} onTitleChange={(e) => { setTitle(e.target.value); localStorage.setItem('title', e.target.value); /* 로컬 스토리지에 제목 저장 */ }}
                 content={content} onContentChange={(e) => { setContent(e.target.value); localStorage.setItem('content', e.target.value); /* 로컬 스토리지에 내용 저장 */ }}
                 image={image} onImageChange={(e) => handleImage(e)}
-                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 영수증 위치 저장 */ }}
+                receiptLocation={receiptLocation} onReceiptLocationChange={(e) => { setReceiptLocation(e.target.value); localStorage.setItem('receiptLocation', e.target.value); /* 로컬 스토리지에 계좌 번호 저장 */ }}
                 deposite={deposite} onDepositeChange={handleDepositeChange}>
             </InfoArea>
 

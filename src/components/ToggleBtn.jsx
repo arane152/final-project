@@ -22,6 +22,9 @@ function ToggleBtn(props) {
     const width = props.width || '112'
     const { text, onClick, isSelected} = props;
 
+    // isSelected : 버튼이 선택되었는지 여부
+    // onClick : 버튼 클릭 시 실행될 함수
+    // text : 버튼에 표시될 텍스트
     return (
         <BtnWrapperDefault width={width} $isSelected={isSelected} onClick={onClick}>
             <BtnText $isSelected={isSelected}>{text}</BtnText>

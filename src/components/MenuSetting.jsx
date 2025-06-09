@@ -28,6 +28,8 @@ function MenuSetting(props) {
     const {storeName, minPrice} = props
     const [toggle, setToggle] = useState('허용')
 
+    // 토글 버튼 클릭 핸들러
+    // 선택된 토글 상태를 업데이트하는 함수
     const handleToggleClick = (selectedToggle) => {
         setToggle(selectedToggle)
     }

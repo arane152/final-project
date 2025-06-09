@@ -30,6 +30,7 @@ function AlarmPage(props) {
   useEffect(() => {
     if (!nowuser) return; //nowuser 랜더링중 오류방지
 
+    //현재 사용자의 postId가 "postId(1)"인 Post만 필터링
     const filteredUserPost = 
     postData.filter((item) => item.postId == "postId(1)");
     setNowPost(filteredUserPost);

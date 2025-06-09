@@ -53,11 +53,17 @@ const MenuDelete = styled.div`
 `
 
 const MenuOutPutItem = ({ name, price, count = 1, type, width = '329' }) => {
-  // type : 표시 타입 (기본 : "default" / 메뉴 bold : "bold" / side 텍스트 : "side" / 삭제 : "delete")
+  // type : 컴포넌트 타입 (default, bold, side, delete)
   // name : 메뉴 이름
   // count : 단일 메뉴 갯수
   // price : 메뉴 가격
-  
+  // width : 컴포넌트 너비 (기본값: 329px)
+
+  // type에 따라 다른 컴포넌트 반환
+  // default : 메뉴 이름과 가격, 개수 표시
+  // bold : 메뉴 이름만 굵게 표시
+  // side : 메뉴 이름과 가격, 개수 표시 (사이드바용)
+  // delete : 메뉴 이름과 가격, 개수 표시 (삭제 아이콘 포함)
   if (type === "default") {
     return (
       <ItemContainer width={width}>

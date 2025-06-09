@@ -47,6 +47,11 @@ const MinPrice = styled.div`
 `;
 
 const SearchItem = ({ category, storeName, minPrice, onClick }) => {
+  // category : 가게 카테고리
+  // storeName : 가게 이름
+  // minPrice : 가게의 최소 가격
+  // onClick : 아이템 클릭 시 실행될 함수
+  
   const formatPrice = (price) => {
     const parsed = typeof price === 'string' ? parseInt(price, 10) : price;
     if (typeof parsed !== 'number' || isNaN(parsed)) {

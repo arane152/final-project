@@ -37,7 +37,12 @@ const TotalAcountWrpper = styled(StateCaptainWrpper)`
 
 function StateBadge(props){
     const {type} = props
-    //type : TotalAcount = 금액달성률 % 뱃지 | Captain : 게시글 작성자 뱃지 | 기본값 : 카테고리표시뱃지지
+
+    // type에 따라 다른 스타일의 뱃지를 렌더링합니다.
+    // TotalAcount : 금액달성률 % 뱃지
+    // Captain : 게시글 작성자 뱃지
+    // 기본값 : 카테고리 표시 뱃지
+    // props.children : 뱃지 안에 들어갈 내용
     return <>{(type=="TotalAcount") ? 
     <TotalAcountWrpper><img src="/final-project/FireState.svg" alt="로고불꽃뱃지용이미지"></img>{props.children}</TotalAcountWrpper> : 
     <>{(type=="Captain") ?  

@@ -70,13 +70,18 @@ const BtnTextGhost = styled(BtnText)`
 function MainBtn(props) {
     const navigate = useNavigate();
     const {mainText, subOnClick, subText, type, modalOnClick, menuOnClick} = props;
-    // props.type : 버튼 타입  (default : "default" / disable : "disable" / dubble : "dubble")
-    // props.mainText : 메인 버튼 내용
-    // props.subText : 서브 버튼 내용
+    // type : disable | dubble | default | ghost
+    // mainText : 메인 버튼 내용
+    // subText : 서브 버튼 내용
+    // subOnClick : 서브 버튼 클릭시 이동할 경로
+    // modalOnClick : 모달 오픈용 함수
+    // menuOnClick : 메뉴 클릭시 이동할 경로
 
-    // 만약 메인 버튼에 onClick 이벤트를 넣고 싶으면 onClick={()=>navigate(`${props.mainOnClick}`)} 를 복사해서 넣을것
-    // 현재 어떤 기능이 들어갈지 몰라 빼놓았음
-    // 모달 오픈 용도로 "default" 안에 modalOnclick 추가가
+    // type에 따라 버튼 스타일 및 기능이 다름
+    // disable : 비활성화된 버튼
+    // dubble : 두 개의 버튼이 있는 경우 (메인 버튼 + 서브 버튼)
+    // default : 기본 버튼
+    // ghost : 테두리만 있는 버튼
   if (type === "disable") {
     return (
       <Wrapper>

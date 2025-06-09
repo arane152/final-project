@@ -34,9 +34,10 @@ const BtnTextStroke = styled(BtnText)`
 `
 
 function SubBtn(props) {
-    // props.type : 버튼 타입 (default : "" / stroke : "storke" / stroke-plus : "stroke-plus" / next : "next" / grey)
-    // props.text : 버튼 내용
-    // props.onClick : 버튼 클릭 이벤트
+    // type : 버튼 타입 (default, stroke, stroke-plus, next, grey)
+    // text : 버튼에 표시될 텍스트
+    // onClick : 버튼 클릭 시 실행될 함수
+    // props.type에 따라 버튼 스타일을 다르게 적용
 
     if (props.type == "stroke") {
         return (

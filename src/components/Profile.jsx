@@ -71,6 +71,7 @@ const Profile = (props) => {
   const min = String(posttime.getMinutes()).padStart(2, '0');
   const formatted = `${mm}월${dd}일 ${hh}:${min}`;
 
+  // 만약 matchedUser가 없다면, 기본값으로 props에서 받은 name, src, location 사용
   return (
     <ProfileContainer>
       <Left>

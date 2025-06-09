@@ -5,7 +5,6 @@ const Wrapper = styled.div`
     width: 393px;
     height: 247px;
     background-color: #909090;
-    /* background-image: url(props); // 포스트 이미지 데이터 추가 필요 */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -52,9 +51,12 @@ const ClosedImage = styled.div`
 `
 
 function PostImage(props) {
-    // props.postRecruiment의 기본값은 "open"으로 설정되어 있다고 가정합니다.
-    // 만약 "closed"로 설정되어 있다면, 닫힌 상태의 이미지를 보여줍니다.
-    // props.postImage는 포스트의 이미지 URL을 받아옵니다.
+    // props.postImage: 게시글 이미지 URL
+    // props.postRecruitment: 게시글 모집 상태 ("closed" or "open")
+    // 기본 이미지: "/final-project/PostImgBasic.svg"
+    // 만약 props.postRecruitment가 "closed"라면, ClosedImage를 보여줌
+    // 만약 props.postImage가 없으면 기본 이미지 사용
+    
     const {postImage} = props;
     if (props.postRecruitment == "closed") {
         return (

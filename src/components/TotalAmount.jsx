@@ -54,6 +54,13 @@ function TotalAmount(props) {
     const colorHex = (color == "orange")? '#FF6232' : '#202020'   // title 컬러 변경(총액/메뉴총액)
     const type = props.type || "default";                         // 기본 / 스트로크 / none
 
+    // type에 따라 다른 스타일 적용
+    // default : 배경색, 스트로크 있음
+    // stroke : 배경색 없음, 스트로크 있음
+    // none : 배경색, 스트로크 없음
+    // color : title 컬러 변경 (기본: #202020, 오렌지: #FF6232)
+    // totalAmount : 총액
+    // title : 총액/메뉴총액
     if(type == "default"){     //기본
         return (
             <DefaultTotalAmount>

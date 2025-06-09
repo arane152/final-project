@@ -33,9 +33,6 @@ const TotalPrice = styled(CurrentQuantity)`
     font-weight: 600;
 `
 
-
-
-
 function MenuDefault(props) {
     const { 
         //버튼조작함수 props
@@ -62,6 +59,10 @@ function MenuDefault(props) {
     const totalAmount = count * price; 
     
 
+    // type에 따라 다른 컴포넌트 반환
+    // default : QuantityBtn포함 컴포넌트
+    // info: 현재수량 , 총 0원 포함 컴포넌트
+    // simple : 현재수량만 포함 컴포넌트
     if(type == "default"){
         return(
             <Container>

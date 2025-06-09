@@ -36,6 +36,7 @@ function MainPage(props){
   //카테고리배열을 map형식으로 정리
   const CategoryList = categoryData.map(
     (item)=>{
+      //각 카테고리의 id와 name을 이용해 버튼 생성
       return ( 
         <StyledBtn 
           key={item.id} 
@@ -57,8 +58,7 @@ function MainPage(props){
     if(nowCategory != '전체'){
       //각 문서의 카테고리 name을 얻기 위한 필터링 시작
       const filteredPost = postData.filter((item) => { 
-        //1. Post컬렉션의 각 문서에서 storeId를 추출, 
-        //store컬렉션의 문서id와 대치
+        //1. Post컬렉션의 각 문서에서 storeId를 추출, store컬렉션의 문서id와 대치
         const store = 
           storeData.find((store) => store.id === item.storeId);
         //store 랜더링 중 오류방지

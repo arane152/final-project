@@ -51,6 +51,7 @@ function LikeBtn(props) {
 
     return (
         <LikeWrapper onClick={handleClick}>
+            {/* type이 default일 때 LikeIcon, like일 때 LikeIconChecked */}
             {type === "default" ? <LikeIcon /> : <LikeIconChecked />}
             <LikeNumberText>{likeCount}</LikeNumberText>
         </LikeWrapper>

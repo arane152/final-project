@@ -12,6 +12,7 @@ function ParticipationPage() {
   const [users, setUsers] = useState([]);
   const { id: postId } = useParams();
 
+
   useEffect(() => {
     db.collection("post").doc(postId).get().then((doc) => {
       const postData = doc.data();
@@ -19,6 +20,7 @@ function ParticipationPage() {
     });
   }, [postId]);
 
+  // 사용자 목록을 불러오는 useEffect
   useEffect(() => {
     db.collection("user").get().then((snapshot) => {
       const userList = snapshot.docs.map((doc) => doc.data());
@@ -26,6 +28,7 @@ function ParticipationPage() {
     });
   }, []);
 
+  // post나 users가 없을 경우 null 반환
   if (!post || users.length === 0) return null;
 
   return (
