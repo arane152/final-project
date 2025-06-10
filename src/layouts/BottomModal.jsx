@@ -25,7 +25,7 @@ const Wrapper = styled.div`
     margin: 0;
     z-index: 7;
 
-    animation: ${moveUp} 0.3s ease-in-out forwards;
+    animation: ${moveUp} 0.3s ease-in-out;
 `
 
 const ModalTopWrapper = styled.div`

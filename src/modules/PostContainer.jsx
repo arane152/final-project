@@ -36,12 +36,14 @@ const PostTopStoreInfo = styled.div`
 `
 
 const PostTitle = styled.p`
-    height: 44px;
+    height: auto;
     font-size: 24px;
     font-weight: 700;
     color: #202020;
     margin-top: 8px;
     margin-bottom: 0;
+    line-height: 120%;
+    margin: 5px 0px 10px 0px;
 `
 
 const PostTopLine = styled.div`

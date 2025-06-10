@@ -17,7 +17,7 @@ const PostProvider = ({ children }) => {
     //상위Post문서 8개만 불러오기(firebase 사용량조절목적)
     db.collection('post')
       .orderBy('postId', 'desc')
-      .limit(8)
+      .limit(16)
       .get()
       .then(function (qs) {
         qs.forEach(function (doc) {

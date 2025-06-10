@@ -18,6 +18,13 @@ const DeviceWrapper = styled.div`
     align-items: center;
     overflow-y: auto;
     background-color: #ffffff;
+
+    // 스크롤바 숨기기
+    scrollbar-width: none;
+    -ms-overflow-style: none; // IE 10+
+    &::-webkit-scrollbar {
+        display: none; // Chrome, Safari, Opera
+    }
 `
 
 const ContentWrapper = styled.div`
