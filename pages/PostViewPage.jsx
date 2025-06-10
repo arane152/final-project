@@ -340,6 +340,27 @@ function PostViewPage(props) {
         ));
     }
 
+        // 참여자가 이미 참여한 경우, 본인이 선택했던 메뉴만 보여주기 위한 로직
+    let myMenuListDefaultModal = null;
+    if (userId && post.menuList && post.menuList[userId]) {
+        const myMenus = post.menuList[userId].menus || [];
+        myMenuListDefaultModal = myMenus.map((menu, idx) => (
+            <MenuDefault
+                type="default"
+                key={`my-menu-${idx}`}
+                name={menu.name}
+                price={menu.menuPrice}
+                count={menu.menuQuantity}
+                userCount={menu.menuQuantity}
+                // 참여자는 이미 신청한 메뉴는 수정 불가이므로 버튼 비활성화
+                onPlusClick={null}
+                onMinusClick={null}
+                disabled={true}
+            />
+        ));
+    }
+
+
     // 페이지 렌더링
     // props.userType : 유저 타입 (글쓴이 : "writer" / 참여자 : "")
     if (userType == "writer") {
@@ -350,7 +371,7 @@ function PostViewPage(props) {
                 gnbType="btn"
                 btnType={postRecruitmentWriter}
                 btnMainText="모집종료"
-                btnSubText="신청현황"
+                btnSubText="참여현황"
                 backPage="/"
                 subPage="participation"
                 modalOnClick={() => setModalOpen(true)}
@@ -431,7 +452,7 @@ function PostViewPage(props) {
                             totalSum={totalSum || 0}
                         />
                     )}
-                    <PostMenuContainer userType={props.userType} totalAmount={selectedTotal}>
+                    <PostMenuContainer userType={props.userType} totalAmount={selectedTotal} title="신청현황">
                         {menuListDefault}
                         {/* 메뉴 추가 버튼 및 메뉴 추가 컴포넌트 */}
                         <MenuAdd
@@ -475,13 +496,13 @@ function PostViewPage(props) {
                     btnType={postRecuitment}
                     btnMainText="메뉴 변경하기"
                     backPage="/"
-                    modalOnClick={handleApplyClick}
+                    modalOnClick={() => setModalOpen(true)}
                 >
                     {modalOpen && (
                         <>
-                            <Modal background="" modalText="메뉴신청" btnType="default" mainText="참여신청" modalOnClick={handleApplyPost} modalTopOnClick={() => setModalOpen(false)}>
-                                {selectedMenuList}
-                                <TotalAmount title="총액" totalAmount={selectedTotal}></TotalAmount>
+                            <Modal background="" modalText="메뉴신청" btnType="default" mainText="메뉴 변경" modalOnClick={handleApplyPost} modalTopOnClick={() => setModalOpen(false)}>
+                                {myMenuListDefaultModal}
+                                <TotalAmount title="총액" totalAmount={myTotalAmount}></TotalAmount>
                             </Modal>
                             <ModalBg bgOnClick={() => setModalOpen(false)}/>
                         </>
@@ -501,7 +522,7 @@ function PostViewPage(props) {
                             totalSum={totalSum || 0}
                         />
                     )}
-                    <PostMenuContainer userType={props.userType} totalAmount={myTotalAmount}>
+                    <PostMenuContainer userType={props.userType} totalAmount={myTotalAmount} title="나의 신청현황">
                         {myMenuListDefault}
                     </PostMenuContainer>
                 </Device>

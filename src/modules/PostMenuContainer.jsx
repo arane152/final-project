@@ -34,7 +34,7 @@ function PostMenuConatiner(props) {
     if (props.userType == "writer") {
         return (
             <PostMenuWrapper>
-                <PostMenuTitle>메뉴현황</PostMenuTitle>
+                <PostMenuTitle>{props.title || "참여현황"}</PostMenuTitle>
                     {props.children}
                 <TotalAmount title="총액" totalAmount={props.totalAmount}></TotalAmount>
             </PostMenuWrapper>
@@ -43,7 +43,7 @@ function PostMenuConatiner(props) {
     else {
         return (
             <PostMenuWrapper>
-                <PostMenuTitle>메뉴현황</PostMenuTitle>
+                <PostMenuTitle>{props.title || "참여현황"}</PostMenuTitle>
                 <MenuDefault></MenuDefault>
                 <MenuDefault></MenuDefault>
                 <MenuAdd></MenuAdd>
