@@ -23,13 +23,13 @@ const StoreProvider = ({ children }) => {
       {
         id: 1, 
         name: "청년다방", 
-        categoryId: 5, 
+        categoryId: 7, 
         minPrice: "12000"
       },{
         id: 2, 
         name: "홍콩반점", 
-        categoryId: 2, 
-        minPrice: "300000"
+        categoryId: 1, 
+        minPrice: "11900"
       },{
         id: 3, 
         name: "스시로", 
