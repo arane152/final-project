@@ -34,7 +34,7 @@ const CategoryProvider = ({ children }) => {
         {id: 11, name: '일식'},
         {id: 12, name: '회/해물'},
         {id: 13, name: '양식'},
-        {id: 14, name: '커피/차'},
+        {id: 14, name: '디저트'},
         {id: 999, name: '기타'},
       ]);
   }, []);
