@@ -11,7 +11,7 @@ align-items: start;
 gap: 10px;
 `
 const AlarmText = styled.div`
-width: 236px;
+width: 234px;
 font-size: 13px;
 color: #202020;
 margin: 0;
@@ -57,7 +57,7 @@ function AlarmItem(props){
   //데이터
   const { not, onClick} = props;
   const { postData } = usePost();
-  const post = postData.find((posts) => posts.Postid == not.PostId); 
+  const post = postData.find((posts) => posts.postId == not.postId); 
 
   // type구분
   // 마감시간임박 : timeend  

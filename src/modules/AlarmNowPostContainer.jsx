@@ -85,7 +85,7 @@ function AlarmNowPostContainer(props){
           <p>{post.content}</p>
         </PostContents>
         <CardBottom>
-          <StatusBar type="alarm" post={post} totalSum={"40000"}></StatusBar>
+          <StatusBar type="alarm" post={post} totalSum={"20000"}></StatusBar>
           <StyledBTN><SubBtn text="바로가기 ->" ></SubBtn></StyledBTN>
         </CardBottom>
       </AlarmNowPostCard>
