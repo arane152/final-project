@@ -78,7 +78,7 @@ function Modal(props) {
     // props.children : 모달 내용에 표시될 컴포넌트들
     return (
         <Wrapper>
-            <ModalTopWrapper>
+            <ModalTopWrapper onClick={props.modalTopOnClick}>
                 <ModalTopVector></ModalTopVector>
                 <ModalTopText>{props.modalText}</ModalTopText>
                 <ModalTopStroke></ModalTopStroke>

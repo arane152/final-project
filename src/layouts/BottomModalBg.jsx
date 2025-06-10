@@ -14,7 +14,7 @@ function ModalBg(props) {
     // props.children: 모달 내부에 들어갈 컴포넌트들
     // 모달 배경을 어둡게 처리하는 컴포넌트
     return (
-        <Wrapper>{props.children}</Wrapper>
+        <Wrapper onClick={props.bgOnClick}>{props.children}</Wrapper>
     )
 }
 

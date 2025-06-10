@@ -363,11 +363,12 @@ function PostViewPage(props) {
                             btnType="default"
                             mainText="모집종료하고 알림보내기"
                             modalOnClick={handleEndPost}
+                            modalTopOnClick={() => setModalOpen(false)}
                         >
                             {menuList}
                             <TotalAmount title="총액" totalAmount={totalSum} />
                         </Modal>
-                        <ModalBg />
+                        <ModalBg bgOnClick={() => setModalOpen(false)}/>
                     </>
                 )}
                 <PostImage postImage={post.image} postRecruitment={recruitment} />
@@ -408,11 +409,11 @@ function PostViewPage(props) {
                 >
                     {modalOpen && (
                         <>
-                            <Modal background="" modalText="메뉴신청" btnType="default" mainText="참여신청" modalOnClick={handleApplyPost}>
+                            <Modal background="" modalText="메뉴신청" btnType="default" mainText="참여신청" modalOnClick={handleApplyPost} modalTopOnClick={() => setModalOpen(false)}>
                                 {selectedMenuList}
                                 <TotalAmount title="총액" totalAmount={selectedTotal}></TotalAmount>
                             </Modal>
-                            <ModalBg />
+                            <ModalBg bgOnClick={() => setModalOpen(false)}/>
                         </>
                     )}
                     <PostImage postImage={post.image} postRecruitment={recruitment}></PostImage>
@@ -478,11 +479,11 @@ function PostViewPage(props) {
                 >
                     {modalOpen && (
                         <>
-                            <Modal background="" modalText="메뉴신청" btnType="default" mainText="참여신청" modalOnClick={handleApplyPost}>
+                            <Modal background="" modalText="메뉴신청" btnType="default" mainText="참여신청" modalOnClick={handleApplyPost} modalTopOnClick={() => setModalOpen(false)}>
                                 {selectedMenuList}
                                 <TotalAmount title="총액" totalAmount={selectedTotal}></TotalAmount>
                             </Modal>
-                            <ModalBg />
+                            <ModalBg bgOnClick={() => setModalOpen(false)}/>
                         </>
                     )}
                     <PostImage postImage={post.image} postRecruitment={recruitment}></PostImage>
