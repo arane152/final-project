@@ -1,7 +1,17 @@
 import styled from "styled-components";
+import { keyframes } from "styled-components";
 
 import Gnb from "./Gnb";
 import MainBtn from "../components/MainBtn";
+
+const moveUp = keyframes`
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+`;
 
 const Wrapper = styled.div`
     position: absolute;
@@ -14,6 +24,8 @@ const Wrapper = styled.div`
     background-color: #FFFFFF;
     margin: 0;
     z-index: 7;
+
+    animation: ${moveUp} 0.3s ease-in-out forwards;
 `
 
 const ModalTopWrapper = styled.div`
