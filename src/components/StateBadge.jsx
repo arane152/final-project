@@ -14,7 +14,7 @@ const StateCategoryWrapper = styled.div`
     align-items: center;
     padding: 0px 8px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     color: #FFFFFF;
     flex-direction: row;
     gap : 2px;
