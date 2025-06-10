@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+import { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
 const Wrapper = styled.div`
     position: absolute;
     top: 0;
@@ -8,6 +19,8 @@ const Wrapper = styled.div`
     width: 393px;
     height: 852px;
     background-color: rgba(0, 0, 0, 0.6);
+
+    animation: ${fadeIn} 0.3s ease-in-out forwards;
 `
 
 function ModalBg(props) {
