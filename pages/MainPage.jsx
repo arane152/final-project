@@ -96,7 +96,7 @@ function MainPage(props){
   )
 
   return (
-    <Device headerType="main" gnbType="gnb">
+    <Device headerType="main" gnbType="gnb" content="모닥불">
       <ContentBox>
         <CategoryBox>
             {/* 전체버튼 */}

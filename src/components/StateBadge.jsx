@@ -9,10 +9,10 @@ const StateCategoryWrapper = styled.div`
     height: 22px;
     max-height: 22px;
     background-color: #FF6232;
-    border-radius: 16px;
+    border-radius: 18px;
     justify-content: center;
     align-items: center;
-    padding: 0px 8px;
+    padding: 1px 8px;
     font-size: 12px;
     font-weight: 500;
     color: #FFFFFF;
