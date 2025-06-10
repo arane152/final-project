@@ -13,7 +13,7 @@ scrollbar-width: none;
 const PostUl =styled.div`
 display: flex;
 flex-direction: column;
-padding: 12px 0;
+padding: 12px 0 0 0;
 gap: 20px;
 
 `
