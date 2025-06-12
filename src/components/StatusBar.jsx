@@ -25,6 +25,17 @@ const StatusText = styled.p`
     text-align: right;
 `
 
+const StatusTextSimple = styled(StatusText)`
+    width: 32px;
+    height: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FF6232;
+    justify-content: center;
+    text-align: right;
+    margin-right: 4px;
+`
+
 const StatusBarWrapper = styled.div`
     display: flex;
     width: 285px;
@@ -208,7 +219,7 @@ function StatusBar(props) {
                         <StatusBarImg></StatusBarImg>
                     </StatusBarBackgroundSimple>
                 </StatusBarWrapper>
-                <StatusText>{percentPrice}%</StatusText>
+                <StatusTextSimple>{percentPrice}%</StatusTextSimple>
             </WrapperSimple>
         )
     }
