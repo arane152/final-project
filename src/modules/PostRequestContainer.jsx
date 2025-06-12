@@ -33,7 +33,7 @@ const NoApplicantMessage = styled.div`
 
 const PostRequestContainer = ({ post, users, postId, setPost }) => {
   const participants = Object.entries(post.menuList || {})
-    .filter(([, p]) => p.accept === false)
+    .filter(([, participant]) => participant.accept === false)
     .map(([key, data]) => {
       const user = users.find((u) => u.userId === data.userId);
 
